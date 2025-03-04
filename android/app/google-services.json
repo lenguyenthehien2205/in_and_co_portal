@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "428740990002",
+    "project_id": "in-and-co-portal",
+    "storage_bucket": "in-and-co-portal.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428740990002:android:48ec294c7824b5f9ccd82b",
+        "android_client_info": {
+          "package_name": "com.example.in_and_co_portal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj2BxDzgxC12WuuRFgrpsGtMEvB8Ke4Vg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
