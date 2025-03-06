@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 import 'package:in_and_co_portal/theme/app_theme.dart';
-import 'package:in_and_co_portal/widgets/auth_background.dart';
+import 'package:in_and_co_portal/layouts/auth_layout.dart';
 import 'package:in_and_co_portal/widgets/custom_button.dart';
 import 'package:in_and_co_portal/widgets/custom_textfield.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -39,7 +39,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>{
           backgroundColor: Colors.green,
         ),
       );
-
       // Quay lại màn hình đăng nhập
       // Future.delayed(const Duration(seconds: 2), () {
       //   if (mounted) context.pop();
@@ -97,7 +96,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>{
               ),
             ),
             const SizedBox(height: 85),
-
             CustomButton(
               text: AppText(text: 'Gửi yêu cầu', style: AppTheme.title), 
               onPressed: (){

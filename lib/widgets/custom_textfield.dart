@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_and_co_portal/core/utils/validator.dart';
 
 class CustomTextfield extends StatefulWidget{
   final String hintText;
@@ -60,19 +61,9 @@ class _CustomTextfieldState extends State<CustomTextfield>{
             },
           ) : null,
         ),
-        validator: (value) {
-          if(widget.isPassword){
-            if (value == null || value.trim().isEmpty || value.length < 6) {
-              return 'Mật khẩu phải có ít nhất 6 ký tự';
-            }
-            return null;
-          }else{
-            if (value == null || value.trim().isEmpty || !value.contains('@')) {
-              return 'Vui lòng nhập email hợp lệ';
-            }
-            return null;
-          }
-        },
+        validator: widget.isPassword
+            ? Validator.validatePassword
+            : Validator.validateEmail,
       )
     );
   }

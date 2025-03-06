@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 import 'package:in_and_co_portal/theme/app_theme.dart';
-import 'package:in_and_co_portal/widgets/auth_background.dart';
+import 'package:in_and_co_portal/layouts/auth_layout.dart';
 import 'package:in_and_co_portal/widgets/custom_button.dart';
 import 'package:in_and_co_portal/widgets/custom_textfield.dart';
 
@@ -29,6 +29,55 @@ class _LoginScreenState extends State<LoginScreen>{
   var _email = '';  
   var _password = '';
   final _formKey = GlobalKey<FormState>();
+
+  // Future<void> _signInWithGoogle() async {
+  //   try {
+  //     // 🔹 1. Hiển thị hộp thoại chọn tài khoản Google
+  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //     if (googleUser == null) return; // Người dùng hủy đăng nhập
+
+  //     // 🔹 2. Lấy thông tin xác thực từ Google
+  //     final GoogleSignInAuthentication googleAuth =
+  //         await googleUser.authentication;
+
+  //     final OAuthCredential googleCredential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth.accessToken,
+  //       idToken: googleAuth.idToken,
+  //     );
+
+  //     try {
+  //       // 🔹 3. Đăng nhập với Google (nếu chưa có tài khoản, Firebase sẽ tạo mới)
+  //       final UserCredential userCredential =
+  //           await FirebaseAuth.instance.signInWithCredential(googleCredential);
+
+  //       print("🟢 Đăng nhập thành công: ${userCredential.user?.displayName}");
+
+  //       if (mounted) {
+  //         context.go('/home'); // Điều hướng đến trang chủ
+  //       }
+  //     } on FirebaseAuthException catch (error) {
+  //       // 🔴 4. Xử lý lỗi "email đã tồn tại"
+  //       if (error.code == 'account-exists-with-different-credential') {
+  //         print("⚠️ Email này đã có tài khoản!");
+
+  //         final email = googleUser.email;
+  //         List<String> signInMethods =
+  //             await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+
+  //         // 🔹 5. Nếu tài khoản này có đăng ký bằng Email/Password
+  //         if (signInMethods.contains('password')) {
+  //           // 👉 Thay vì yêu cầu mật khẩu, ta đăng nhập bằng email trước rồi tự động liên kết Google
+  //           await _linkGoogleToExistingAccount(email, googleCredential);
+  //         }
+  //       } else {
+  //         print("🔴 Lỗi đăng nhập Google: ${error.message}");
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print("🔴 Lỗi đăng nhập Google: $e");
+  //   }
+  // }
+
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -117,6 +166,7 @@ class _LoginScreenState extends State<LoginScreen>{
                 _submitForm();
               }
             ),
+            
             const SizedBox(height: 44),
           ],
         )

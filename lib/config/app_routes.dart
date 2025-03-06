@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/screens/explore_screen.dart';
 import 'package:in_and_co_portal/screens/favorite_screen.dart';
-import 'package:in_and_co_portal/screens/forgot_password_screen.dart';
-import 'package:in_and_co_portal/screens/home_screen.dart';
-import 'package:in_and_co_portal/screens/login_screen.dart';
-import 'package:in_and_co_portal/screens/layouts/main_layout.dart';
+import 'package:in_and_co_portal/features/auth/screens/forgot_password_screen.dart';
+import 'package:in_and_co_portal/features/home/screens/home_screen.dart';
+import 'package:in_and_co_portal/features/auth/screens/login_screen.dart';
+import 'package:in_and_co_portal/layouts/main_layout.dart';
+import 'package:in_and_co_portal/screens/not_found_screen.dart';
 import 'package:in_and_co_portal/screens/profile_screen.dart';
 import 'package:in_and_co_portal/screens/search_screen.dart';
 import 'package:in_and_co_portal/screens/splash.dart';
-import 'package:in_and_co_portal/screens/welcome_screen.dart';
+import 'package:in_and_co_portal/screens/upload_screen.dart';
+import 'package:in_and_co_portal/features/auth/screens/welcome_screen.dart';
 
 class AuthNotifier extends ChangeNotifier {
   AuthNotifier() {
@@ -68,6 +70,7 @@ final GoRouter router = GoRouter(
     GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
     GoRoute(path: '/splash', builder: (context, state) => SplashScreen()),
     GoRoute(path: '/forgot-password', builder: (context, state) => ForgotPasswordScreen()),
+    GoRoute(path: '/upload', builder: (context, state) => UploadScreen()),
 
     // Dùng ShellRoute để giữ lại MainLayout tránh load lại bottom bar
     ShellRoute(
@@ -82,5 +85,11 @@ final GoRouter router = GoRouter(
         GoRoute(path: '/profile', pageBuilder: (context, state) => customPageTransition(ProfileScreen(), state)),
       ],
     ),
-  ]
+  ],
+  errorPageBuilder: (context, state) {
+    return MaterialPage(
+      key: state.pageKey,
+      child: NotFoundScreen()
+    );
+  },
 );

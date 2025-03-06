@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_and_co_portal/routes/app_routes.dart';
+import 'package:in_and_co_portal/config/app_routes.dart';
 import 'package:in_and_co_portal/widgets/bottom_bar.dart';
 
 class MainLayout extends StatelessWidget {
@@ -26,7 +26,6 @@ class MainLayout extends StatelessWidget {
           ),
         ],
       ),
-      
     );
   }
 }

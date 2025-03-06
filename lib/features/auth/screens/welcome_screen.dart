@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 import 'package:in_and_co_portal/theme/app_theme.dart';
-import 'package:in_and_co_portal/widgets/auth_background.dart';
+import 'package:in_and_co_portal/layouts/auth_layout.dart';
 import 'package:in_and_co_portal/widgets/custom_button.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 

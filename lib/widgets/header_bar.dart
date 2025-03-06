@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class HeaderBar extends StatelessWidget{
@@ -6,12 +7,24 @@ class HeaderBar extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(left: 5, right: 5, top: 40, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
-          Text('In & Co', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-          // Icon(Icons.menu),
+        children: [
+          Image.asset('assets/images/MTAC.png', width: 100),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.notifications_none),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(Icons.email_outlined),
+                onPressed: () {},
+              ),
+            ],
+          )
         ],
       ),
     );
