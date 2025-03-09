@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
-import 'package:in_and_co_portal/theme/app_theme.dart';
 import 'package:in_and_co_portal/layouts/auth_layout.dart';
-import 'package:in_and_co_portal/widgets/custom_button.dart';
+import 'package:in_and_co_portal/widgets/auth_button.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
 class WelcomeScreen extends StatelessWidget{
@@ -22,7 +21,7 @@ class WelcomeScreen extends StatelessWidget{
             SizedBox(
               child: AppText(
                 text: 'Khám phá tin tức và kết nối với đồng nghiệp ngay hôm nay!',
-                style: AppTheme.title,
+                style: AppText.title,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -31,13 +30,13 @@ class WelcomeScreen extends StatelessWidget{
               child: Center(
                 child: AppText(
                   text: 'Khám phá tin tức công ty, cập nhật các thông báo quan trọng và chia sẻ câu chuyện của bạn ngay hôm nay',
-                  style: AppTheme.subtitle,
+                  style: AppText.subtitle,
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
             const SizedBox(height: 85),
-            CustomButton(
+            AuthButton(
               text: AppText(
                 text: 'Bắt đầu',
               ),

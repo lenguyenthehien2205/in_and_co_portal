@@ -47,6 +47,8 @@ dependencies:
   flutter_dotenv: ^5.2.1
   file_picker: ^9.0.2
   cloud_firestore: ^5.6.5
+  flutter_screenutil: ^5.9.3
+  flutter_staggered_grid_view: ^0.7.0
 
 dev_dependencies:
   flutter_test:
@@ -78,7 +80,20 @@ flutter:
     - assets/images/shape.png
     - assets/images/forgot_password.svg
     - assets/images/MTAC.png
+    - assets/images/MTAC_avatar.jpeg
     - assets/images/chuong_trinh_thu_gom.png
+    - assets/images/thu_hoi_pin_cu.png
+    - assets/images/food.png
+    - assets/images/travel.png
+    - assets/images/flower.png
+    - assets/images/drink.png
+    - assets/images/moitruongachau.png
+    - assets/images/taiche.jpg
+    - assets/images/entertainment.jpg
+    - assets/images/sport.png
+    - assets/images/answer.png
+    - assets/images/music.png  
+    - assets/images/shape_profile.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

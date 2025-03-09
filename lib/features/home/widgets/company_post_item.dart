@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:in_and_co_portal/core/models/post.dart';
 import 'package:in_and_co_portal/theme/app_colors.dart';
-import 'package:in_and_co_portal/theme/app_theme.dart';
+import 'package:in_and_co_portal/theme/app_text.dart';
 
 class CompanyPostItem extends StatelessWidget{
   final Post post;
@@ -46,7 +46,7 @@ class CompanyPostItem extends StatelessWidget{
           ),
           Text(
             post.title,
-            style: AppTheme.subtitle,
+            style: AppText.subtitle,
             maxLines: 2, // Giới hạn số dòng để tránh quá dài
             overflow: TextOverflow.ellipsis,
           ),

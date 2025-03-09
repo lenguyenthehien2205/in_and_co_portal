@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HeaderBar extends StatelessWidget{
   const HeaderBar({super.key});
@@ -7,7 +6,16 @@ class HeaderBar extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 5, right: 5, top: 40, bottom: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey[300]!,
+            width: 1,
+          ),
+        ),
+      ),
+      padding: const EdgeInsets.only(left: 5, right: 5, top: 45, bottom: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

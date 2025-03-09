@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_and_co_portal/screens/explore_screen.dart';
+import 'package:in_and_co_portal/features/trending/screens/trending_screen.dart';
 import 'package:in_and_co_portal/screens/favorite_screen.dart';
 import 'package:in_and_co_portal/features/auth/screens/forgot_password_screen.dart';
 import 'package:in_and_co_portal/features/home/screens/home_screen.dart';
 import 'package:in_and_co_portal/features/auth/screens/login_screen.dart';
 import 'package:in_and_co_portal/layouts/main_layout.dart';
 import 'package:in_and_co_portal/screens/not_found_screen.dart';
-import 'package:in_and_co_portal/screens/profile_screen.dart';
+import 'package:in_and_co_portal/features/profile/screens/profile_screen.dart';
 import 'package:in_and_co_portal/screens/search_screen.dart';
 import 'package:in_and_co_portal/screens/splash.dart';
 import 'package:in_and_co_portal/screens/upload_screen.dart';
@@ -25,12 +25,16 @@ class AuthNotifier extends ChangeNotifier {
 final AuthNotifier authNotifier = AuthNotifier();
 
 // Danh sách các route có BottomBar
-final List<String> bottomBarRoutes = [
+final List<String> mainRoutes = [
   '/home',
   '/profile',
-  '/explore',
+  '/trending',
   '/favorite',
   '/search',
+];
+
+final List<String> headerRoutes = [
+  '/home',
 ];
 
 Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
@@ -38,14 +42,20 @@ Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
     key: state.pageKey,
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(1.0, 0.0);
-      const end = Offset.zero;
-      var tween = Tween(begin: begin, end: end)
-          .chain(CurveTween(curve: Curves.easeInOut));
-      return SlideTransition(position: animation.drive(tween), child: child);
+      var fadeTween = Tween<double>(begin: 0.5, end: 1.0);
+      var scaleTween = Tween<double>(begin: 0.95, end: 1.0);
+      
+      return FadeTransition(
+        opacity: animation.drive(fadeTween),
+        child: ScaleTransition(
+          scale: animation.drive(scaleTween),
+          child: child,
+        ),
+      );
     },
   );
 }
+
 final GoRouter router = GoRouter(
   initialLocation: '/',
   refreshListenable: authNotifier,
@@ -80,7 +90,7 @@ final GoRouter router = GoRouter(
       routes: [
         GoRoute(path: '/home', pageBuilder: (context, state) => customPageTransition(HomeScreen(), state)),
         GoRoute(path: '/search', pageBuilder: (context, state) => customPageTransition(SearchScreen(), state)),
-        GoRoute(path: '/explore', pageBuilder: (context, state) => customPageTransition(ExploreScreen(), state)),
+        GoRoute(path: '/trending', pageBuilder: (context, state) => customPageTransition(TrendingScreen(), state)),
         GoRoute(path: '/favorite', pageBuilder: (context, state) => customPageTransition(FavoriteScreen(), state)),
         GoRoute(path: '/profile', pageBuilder: (context, state) => customPageTransition(ProfileScreen(), state)),
       ],

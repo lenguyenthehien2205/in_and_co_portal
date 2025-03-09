@@ -10,13 +10,15 @@ class PostService {
   }
 
   // Lấy tất cả bài viết có postType = "Công ty"
-  Stream<List<Post>> getCompanyPosts() {
+  Stream<List<Post>> getCompanyPosts({int limit = 3, List<String> excludeIds = const []}) {
     return _firestore
         .collection('posts')
         .where('post_type', isEqualTo: 'Công ty')
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Post.fromFirestore(doc))
+        .map((snapshot) => snapshot.docs 
+            .map((doc) => Post.fromFirestore(doc)) 
+            .where((post) => !excludeIds.contains(post.id)) // Lọc bài đã tải
+            .take(limit) 
             .toList());
   }
 }

@@ -62,7 +62,7 @@ class BottomBar extends StatelessWidget {
           _buildNavItem(
             context,
             icon: Icons.explore_outlined,
-            route: '/explore',
+            route: '/trending',
             currentPath: currentPath,
           ),
           _buildNavItem(

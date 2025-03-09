@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:in_and_co_portal/core/utils/validator.dart';
 
-class CustomTextfield extends StatefulWidget{
+class AuthTextfield extends StatefulWidget{
   final String hintText;
   final bool isPassword;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
   final TextEditingController controller;
 
-  const CustomTextfield({
+  const AuthTextfield({
     super.key,
     required this.hintText,
     this.isPassword = false,
@@ -18,10 +18,10 @@ class CustomTextfield extends StatefulWidget{
   });
 
   @override
-  _CustomTextfieldState createState() => _CustomTextfieldState();
+  _AuthTextfieldState createState() => _AuthTextfieldState();
 }
 
-class _CustomTextfieldState extends State<CustomTextfield>{
+class _AuthTextfieldState extends State<AuthTextfield>{
   bool _isObscure = true;
 
   final TextEditingController _passwordController = TextEditingController();

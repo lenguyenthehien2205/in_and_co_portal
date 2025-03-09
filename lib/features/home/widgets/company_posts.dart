@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:in_and_co_portal/core/models/post.dart';
-import 'package:in_and_co_portal/core/services/post_service.dart';
-import 'package:in_and_co_portal/theme/app_text.dart';
-import 'package:in_and_co_portal/theme/app_theme.dart';
+import 'package:get/get.dart';
+import 'package:in_and_co_portal/features/home/controllers/company_post_controller.dart';
+import 'package:in_and_co_portal/widgets/header_title.dart';
 import 'package:in_and_co_portal/features/home/widgets/company_post_item.dart';
 
 class CompanyPosts extends StatefulWidget {
@@ -13,66 +12,44 @@ class CompanyPosts extends StatefulWidget {
   State<CompanyPosts> createState() => _CompanyPostsState();
 }
 
-
 class _CompanyPostsState extends State<CompanyPosts>{
-  final List<String> items = [
-    '1', '2', '3', '4'
-  ];
-  final PostService _postService = PostService();
-
+  final CompanyPostController controller = Get.put(CompanyPostController());
   @override
   Widget build(context){
     return SizedBox(
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(
-              text: 'Công ty',
-              style: AppTheme.title,
-            ),
-            SizedBox(height: 8),
-            StreamBuilder<List<Post>>(
-              stream: _postService.getCompanyPosts(), 
-              builder: (context, snapshot){
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text("Không có bài viết nào"));
-                }
-                List<Post> posts = snapshot.data!;
-                return SizedBox(
-                  height: 200, // Điều chỉnh chiều cao của danh sách
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: posts.map((post) => Padding(
-                        padding: const EdgeInsets.only(right: 10), // Khoảng cách giữa các item
-                        child: CompanyPostItem(post: post),
-                      )).toList(),
-                    ),
-                  ),
-                );
+      width: double.infinity, 
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(padding: EdgeInsets.only(top: 25)),
+          HeaderTitle(content: 'Bản tin công ty'), 
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Obx(() {
+              if (controller.posts.isEmpty) {
+                return Center(child: CircularProgressIndicator());
               }
-            )
-            // SizedBox(
-            //   height: 200, // Đặt chiều cao phù hợp cho danh sách ngang
-            //   child: SingleChildScrollView(
-            //     scrollDirection: Axis.horizontal,
-            //     // child: Row(
-            //     //   children: List.generate(items.length, (index) => Padding(
-            //     //     padding: EdgeInsets.only(right: index == items.length - 1 ? 0 : 10), // Khoảng cách giữa các item
-            //     //     child: CompanyPostItem(),
-            //     //   )),
-            //     // ),
-            //   ),
-            // ),
-          ],
-        ),
-      )
+              return SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  controller: controller.scrollController, // Gán ScrollController
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.posts.length + (controller.isLoadingMore.value ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index == controller.posts.length) {
+                      return Center(child: CircularProgressIndicator()); // Hiển thị loading khi tải thêm
+                    }
+                    return Padding(
+                      padding: EdgeInsets.only(right: index == controller.posts.length - 1 ? 0 : 15),
+                      child: CompanyPostItem(post: controller.posts[index]),
+                    );
+                  },
+                ),
+              );
+            }),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
-import 'package:in_and_co_portal/theme/app_theme.dart';
 import 'package:in_and_co_portal/layouts/auth_layout.dart';
-import 'package:in_and_co_portal/widgets/custom_button.dart';
-import 'package:in_and_co_portal/widgets/custom_textfield.dart';
+import 'package:in_and_co_portal/widgets/auth_button.dart';
+import 'package:in_and_co_portal/widgets/auth_textfield.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -116,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen>{
           children: [
             AppText(
               text: 'Chào mừng bạn!',
-              style: AppTheme.title
+              style: AppText.title
             ),
             const SizedBox(height: 50),
             Image.asset('assets/images/login_logo.png'),
@@ -125,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen>{
               key: _formKey,
               child: Column(
                 children: [
-                  CustomTextfield(
+                  AuthTextfield(
                     hintText: 'Nhập email', 
                     controller: _emailController,
                     onChanged: (value){
@@ -134,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen>{
                     onSubmitted: (_) => _submitForm(),
                   ),
                   const SizedBox(height: 16),
-                  CustomTextfield(
+                  AuthTextfield(
                     hintText: 'Nhập mật khẩu', 
                     isPassword: true, 
                     controller: _passwordController,
@@ -152,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen>{
                       },
                       child: AppText(
                         text: 'Quên mật khẩu?',
-                        style: AppTheme.subtitle,
+                        style: AppText.subtitle,
                       ),
                     ),
                   ),
@@ -160,8 +159,8 @@ class _LoginScreenState extends State<LoginScreen>{
               ),
             ),
             const SizedBox(height: 85),
-            CustomButton(
-              text: AppText(text: 'Đăng nhập', style: AppTheme.title), 
+            AuthButton(
+              text: AppText(text: 'Đăng nhập', style: AppText.title), 
               onPressed: (){
                 _submitForm();
               }
