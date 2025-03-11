@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:in_and_co_portal/theme/app_colors.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class ProfileButton extends StatelessWidget{
   final String text;
   final IconData icon;
+  final VoidCallback onPressed;
 
   const ProfileButton({
     super.key,
     required this.text,
-    required this.icon
+    required this.icon,
+    required this.onPressed
   });
 
   @override
@@ -18,9 +21,7 @@ class ProfileButton extends StatelessWidget{
     return SizedBox(
       height: 60,
       child: TextButton(
-        onPressed: () {
-          
-        },
+        onPressed: onPressed,
         style: TextButton.styleFrom(
           backgroundColor: AppColors.primary.withAlpha(40),
           shape: RoundedRectangleBorder(
@@ -34,12 +35,8 @@ class ProfileButton extends StatelessWidget{
             children: [
               Icon(icon, color: AppColors.primary, size: 30), // Icon trái
               AppText(
-                text: text, 
-                style: TextStyle(
-                  color: Colors.black, 
-                  fontSize: 16, 
-                  fontWeight: FontWeight.w500
-                ),
+                text: text.tr, 
+                style: AppText.normal(context)
               ), // Nội dung nút
               Icon(Icons.arrow_forward_ios, color: AppColors.primary), // Icon phải
             ],

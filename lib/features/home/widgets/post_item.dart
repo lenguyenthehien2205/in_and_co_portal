@@ -86,12 +86,12 @@ class _PostItemState extends State<PostItem>{
                       children: [
                         Row(
                           children: [
-                            AppText(text: 'Môi trường Á Châu', style: AppText.semiBoldTitle),
+                            AppText(text: 'Môi trường Á Châu', style: AppText.normal(context)),
                             SizedBox(width: 5),
                             Icon(Icons.verified, color: Colors.blue, size: 16),
                           ],
                         ),
-                        AppText(text: '1 giờ trước', style: AppText.subtitle),
+                        AppText(text: 'home_post_time'.tr, style: AppText.subtitle(context)),
                       ],
                     ),
                     SizedBox(height: 20)
@@ -152,7 +152,7 @@ class _PostItemState extends State<PostItem>{
                           ),
                         ),
                         Text('200', 
-                          style: AppText.subtitle,
+                          style: AppText.subtitle(context),
                         ), 
                         SizedBox(width: 10),
                         InkWell(
@@ -163,7 +163,7 @@ class _PostItemState extends State<PostItem>{
                             child: Icon(Icons.mode_comment_outlined, size: 20),
                           ),
                         ),
-                        AppText(text: '32', style: AppText.subtitle),
+                        AppText(text: '32', style: AppText.subtitle(context)),
                       ],
                     ),
                     IconButton(
@@ -180,10 +180,7 @@ class _PostItemState extends State<PostItem>{
                   children: [
                     Text(
                       'Chương trình thu gom pin cũ',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500
-                      ),
+                      style: AppText.normal(context)
                     ),
                     Text('#MTAC #MôiTrườngÁChâu', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600)),
                   ],

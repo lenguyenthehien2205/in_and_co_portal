@@ -7,13 +7,13 @@ class HeaderBar extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey[300]!,
-            width: 1,
-          ),
-        ),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        // border: Border(
+        //   bottom: BorderSide(
+        //     color: Colors.grey[300]!,
+        //     width: 1,
+        //   ),
+        // ),
       ),
       padding: const EdgeInsets.only(left: 5, right: 5, top: 45, bottom: 0),
       child: Row(

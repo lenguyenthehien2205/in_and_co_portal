@@ -46,7 +46,7 @@ class CompanyPostItem extends StatelessWidget{
           ),
           Text(
             post.title,
-            style: AppText.subtitle,
+            style: AppText.subtitle(context),
             maxLines: 2, // Giới hạn số dòng để tránh quá dài
             overflow: TextOverflow.ellipsis,
           ),

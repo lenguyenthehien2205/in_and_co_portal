@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 import 'package:in_and_co_portal/layouts/auth_layout.dart';
-import 'package:in_and_co_portal/widgets/auth_button.dart';
-import 'package:in_and_co_portal/widgets/auth_textfield.dart';
+import 'package:in_and_co_portal/features/auth/widgets/auth_button.dart';
+import 'package:in_and_co_portal/features/auth/widgets/auth_textfield.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -104,7 +105,6 @@ class _LoginScreenState extends State<LoginScreen>{
     }
   }
 
-
   @override
   Widget build(context){
     return AuthBackground(
@@ -114,8 +114,8 @@ class _LoginScreenState extends State<LoginScreen>{
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             AppText(
-              text: 'Chào mừng bạn!',
-              style: AppText.title
+              text: 'login_title'.tr,
+              style: AppText.title(context)
             ),
             const SizedBox(height: 50),
             Image.asset('assets/images/login_logo.png'),
@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen>{
               child: Column(
                 children: [
                   AuthTextfield(
-                    hintText: 'Nhập email', 
+                    hintText: 'login_type_email'.tr, 
                     controller: _emailController,
                     onChanged: (value){
                       _email = value;
@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen>{
                   ),
                   const SizedBox(height: 16),
                   AuthTextfield(
-                    hintText: 'Nhập mật khẩu', 
+                    hintText: 'login_type_password'.tr, 
                     isPassword: true, 
                     controller: _passwordController,
                     onChanged: (value){
@@ -150,8 +150,8 @@ class _LoginScreenState extends State<LoginScreen>{
                         context.push('/forgot-password');
                       },
                       child: AppText(
-                        text: 'Quên mật khẩu?',
-                        style: AppText.subtitle,
+                        text: 'login_forgot_password'.tr,
+                        style: AppText.subtitle(context),
                       ),
                     ),
                   ),
@@ -160,12 +160,11 @@ class _LoginScreenState extends State<LoginScreen>{
             ),
             const SizedBox(height: 85),
             AuthButton(
-              text: AppText(text: 'Đăng nhập', style: AppText.title), 
+              text: AppText(text: 'login_button'.tr, style: AppText.title(context)), 
               onPressed: (){
                 _submitForm();
               }
             ),
-            
             const SizedBox(height: 44),
           ],
         )

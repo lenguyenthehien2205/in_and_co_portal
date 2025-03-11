@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 import 'package:in_and_co_portal/features/trending/widgets/hashtag_box.dart';
 import 'package:in_and_co_portal/widgets/header_title.dart';
 
@@ -55,7 +56,7 @@ class TrendingScreen extends StatelessWidget{
         slivers: [
           SliverPadding(padding: const EdgeInsets.only(top: 10)),
           SliverToBoxAdapter(
-            child: HeaderTitle(content: 'Chủ đề được quan tâm'),
+            child: HeaderTitle(content: 'trending_subtitle'.tr),
           ),
           SliverPadding(
             padding: const EdgeInsets.only(right: 20, left: 20, top: 0, bottom: 100),

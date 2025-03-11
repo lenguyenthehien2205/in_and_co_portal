@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:in_and_co_portal/controllers/theme_controller.dart';
 import 'package:in_and_co_portal/core/utils/validator.dart';
+import 'package:get/get.dart';
 
 class AuthTextfield extends StatefulWidget{
   final String hintText;
@@ -25,6 +27,7 @@ class _AuthTextfieldState extends State<AuthTextfield>{
   bool _isObscure = true;
 
   final TextEditingController _passwordController = TextEditingController();
+  final ThemeController themeController = Get.find();
 
   @override
   void dispose() {
@@ -51,7 +54,13 @@ class _AuthTextfieldState extends State<AuthTextfield>{
             borderSide: BorderSide.none
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 35),
-          errorStyle: const TextStyle(fontSize: 12, height: 0.7),
+          errorStyle: TextStyle(
+            fontSize: 13, 
+            height: 0.7, 
+            color: themeController.isDarkMode.value
+             ? Colors.orangeAccent 
+             : Colors.red
+            ),
           suffixIcon: widget.isPassword ? IconButton(
             icon: Icon(_isObscure ? Icons.visibility_off : Icons.visibility, color: Colors.grey),
             onPressed: (){

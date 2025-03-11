@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/config/app_routes.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
@@ -12,15 +13,15 @@ class MainLayout extends StatelessWidget {
   String getTitle(String? path) {
     switch (path) {
       case '/home':
-        return 'Trang chủ';
+        return 'home_title'.tr;
       case '/profile':
-        return 'Hồ sơ';
+        return 'profile_title'.tr;
       case '/trending':
-        return 'Thịnh hành';
+        return 'trending_title'.tr;
       case '/favorite':
-        return 'Yêu thích';
+        return 'favorite_title'.tr;
       case '/search':
-        return 'Tìm kiếm';
+        return 'search_title'.tr;
       default:
         return '';
     }
@@ -31,16 +32,16 @@ class MainLayout extends StatelessWidget {
     final String? currentPath = GoRouterState.of(context).fullPath;
     final bool shouldShowMainRoute = mainRoutes.contains(currentPath);
     final bool shouldHeader = headerRoutes.contains(currentPath);
-    final bool isProfile = currentPath == '/profile';
+    final bool shouldBackBtn = appBarBackButtonRoutes.contains(currentPath);
 
     return Scaffold(
-      appBar: shouldHeader || isProfile ? null : PreferredSize(
+      appBar: shouldHeader || shouldBackBtn ? null : PreferredSize(
         preferredSize: const Size.fromHeight(34), // Chiều cao mới (mặc định là 56)
         child: AppBar(
-          title: Text(getTitle(currentPath), style: AppText.headerTitle),
+          title: Text(getTitle(currentPath), style: AppText.headerTitle(context)),
           centerTitle: true,
           elevation: 0, 
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           scrolledUnderElevation: 0,
         ),
       ),

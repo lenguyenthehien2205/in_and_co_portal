@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:in_and_co_portal/theme/app_colors.dart';
 
 class AuthBackground extends StatelessWidget {
   final Widget child;   
@@ -14,7 +13,7 @@ class AuthBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true, // Thêm dòng này để khi bàn phím hiện lên thì không bị che phần input
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.surfaceBright,
       body: SingleChildScrollView( 
         reverse: true,
         child: SizedBox(

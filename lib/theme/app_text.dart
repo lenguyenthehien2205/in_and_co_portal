@@ -21,22 +21,25 @@ class AppText extends StatelessWidget{
       textAlign: textAlign,
     );
   }
-  static TextStyle headerTitle = TextStyle(
+  static TextStyle headerTitle(BuildContext context) => TextStyle(
     fontSize: 23, 
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: Theme.of(context).colorScheme.onSurface,
   );
-  static TextStyle title = TextStyle(
-    fontSize: 20,
+  static TextStyle title(BuildContext context) => TextStyle(
+    fontSize: 18,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: Theme.of(context).colorScheme.onSurface,
   );
-  static TextStyle subtitle = TextStyle(
+  static TextStyle normal(BuildContext context) => TextStyle(
+    fontSize: 16,
+    color: Theme.of(context).colorScheme.onSurface,
+  );
+  static TextStyle subtitle(BuildContext context) => TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.w500,
-    color: AppColors.grey,
+    fontWeight: FontWeight.w700,
+    color: Theme.of(context).colorScheme.secondary,
   );
-
   static TextStyle buttonTitle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,

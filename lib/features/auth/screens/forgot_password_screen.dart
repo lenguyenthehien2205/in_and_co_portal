@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 import 'package:in_and_co_portal/layouts/auth_layout.dart';
-import 'package:in_and_co_portal/widgets/auth_button.dart';
-import 'package:in_and_co_portal/widgets/auth_textfield.dart';
+import 'package:in_and_co_portal/features/auth/widgets/auth_button.dart';
+import 'package:in_and_co_portal/features/auth/widgets/auth_textfield.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 
 class ForgotPasswordScreen extends StatefulWidget{
@@ -31,10 +32,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>{
 
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: _emailController.text.trim());
-
+    
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Email đặt lại mật khẩu đã được gửi! 📩'),
+        SnackBar(
+          content: Text('forgot_password_success'.tr, style: AppText.normal(context)),
           backgroundColor: Colors.green,
         ),
       );
@@ -61,8 +62,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>{
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             AppText(
-              text: 'Lấy lại mật khẩu',
-              style: AppText.title
+              text: 'forgot_password_title'.tr,
+              style: AppText.title(context)
             ),
             const SizedBox(height: 50),
             SvgPicture.asset(
@@ -76,7 +77,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>{
               child: Column(
                 children: [
                   AuthTextfield(
-                    hintText: 'Nhập email', 
+                    hintText: 'forgot_password_type_email'.tr, 
                     controller: _emailController,
                     onSubmitted: (_) => _resetPassword(),
                   ),
@@ -90,13 +91,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>{
                   context.pop();
                 },
                 child: AppText(
-                  text: 'Quay lại đăng nhập',
+                  text: 'forgot_password_return'.tr,
+                  style: AppText.subtitle(context),
                 ),
               ),
             ),
             const SizedBox(height: 85),
             AuthButton(
-              text: AppText(text: 'Gửi yêu cầu', style: AppText.title), 
+              text: AppText(text: 'forgot_password_button'.tr, style: AppText.title(context)), 
               onPressed: (){
                 _resetPassword();
               }

@@ -22,7 +22,7 @@ class _CompanyPostsState extends State<CompanyPosts>{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(padding: EdgeInsets.only(top: 25)),
-          HeaderTitle(content: 'Bản tin công ty'), 
+          HeaderTitle(content: 'home_company_newsfeed'.tr), 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Obx(() {

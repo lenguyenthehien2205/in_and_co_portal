@@ -1,6 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/features/profile/screens/commission_screen.dart';
+import 'package:in_and_co_portal/features/profile/screens/personal_info_screen.dart';
+import 'package:in_and_co_portal/features/profile/screens/options_screen.dart';
 import 'package:in_and_co_portal/features/trending/screens/trending_screen.dart';
 import 'package:in_and_co_portal/screens/favorite_screen.dart';
 import 'package:in_and_co_portal/features/auth/screens/forgot_password_screen.dart';
@@ -33,8 +37,17 @@ final List<String> mainRoutes = [
   '/search',
 ];
 
+// Danh sách các route có HeaderBar
 final List<String> headerRoutes = [
   '/home',
+];
+
+// Danh sách các route không có AppBar
+final List<String> appBarBackButtonRoutes  = [
+  '/profile',
+  '/profile/personal-info',
+  '/profile/options',
+  '/profile/commission',
 ];
 
 Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
@@ -57,6 +70,7 @@ Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
 }
 
 final GoRouter router = GoRouter(
+  observers: [GetObserver()], // 🔥 Thêm GetObserver để theo dõi navigation của GetX
   initialLocation: '/',
   refreshListenable: authNotifier,
   redirect: (context, state) {
@@ -88,11 +102,28 @@ final GoRouter router = GoRouter(
         return MainLayout(child: child);
       },
       routes: [
-        GoRoute(path: '/home', pageBuilder: (context, state) => customPageTransition(HomeScreen(), state)),
-        GoRoute(path: '/search', pageBuilder: (context, state) => customPageTransition(SearchScreen(), state)),
-        GoRoute(path: '/trending', pageBuilder: (context, state) => customPageTransition(TrendingScreen(), state)),
-        GoRoute(path: '/favorite', pageBuilder: (context, state) => customPageTransition(FavoriteScreen(), state)),
-        GoRoute(path: '/profile', pageBuilder: (context, state) => customPageTransition(ProfileScreen(), state)),
+        GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
+        GoRoute(path: '/search', builder: (context, state) => SearchScreen()),
+        GoRoute(path: '/trending', builder: (context, state) => TrendingScreen()),
+        GoRoute(path: '/favorite', builder: (context, state) => FavoriteScreen()),
+        GoRoute(
+          path: '/profile',
+          builder: (context, state) => ProfileScreen(),
+          routes: [
+            GoRoute(
+              path: 'personal-info', // Không cần '/' trước
+              builder: (context, state) => PersonalInfoScreen(),
+            ),
+            GoRoute(
+              path: 'options', // Không cần '/' trước
+              builder: (context, state) => OptionsScreen(),
+            ),
+            GoRoute(
+              path: 'commission', // Không cần '/' trước
+              builder: (context, state) => CommissionScreen(),
+            ),
+          ],
+        ),
       ],
     ),
   ],

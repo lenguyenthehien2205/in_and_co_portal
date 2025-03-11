@@ -1,11 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/controllers/language_controller.dart';
 import 'package:in_and_co_portal/core/services/db_service.dart';
+import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 import 'package:in_and_co_portal/features/profile/widgets/profile_button.dart';
-import 'package:in_and_co_portal/theme/app_colors.dart';
+import 'package:in_and_co_portal/theme/app_text.dart';
 
 class ProfileScreen extends StatefulWidget{
   const ProfileScreen({super.key});
@@ -18,6 +20,9 @@ class _ProfileScreenState extends State<ProfileScreen>{
   String userId = FirebaseAuth.instance.currentUser!.uid;
   User? user = FirebaseAuth.instance.currentUser;
   FilePickerResult? _filePickerResult;
+  DbService dbService = DbService();
+  final ProfileController profileController = Get.put(ProfileController());
+  final languageController = Get.find<LanguageController>();
 
   void _openFilePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -35,21 +40,23 @@ class _ProfileScreenState extends State<ProfileScreen>{
   }
 
   List<Map<String, dynamic>> buttons = [
-    {'text': 'Thông tin cá nhân', 'icon': Icons.person},
-    {'text': 'Bài viết của bạn', 'icon': Icons.my_library_books},
-    {'text': 'Lộ trình công tác', 'icon': Icons.route},
-    {'text': 'Phúc lợi', 'icon': Icons.shield_outlined},
-    {'text': 'Hoa hồng', 'icon': Icons.percent},
+    {'text': 'profile_personal_information', 'icon': Icons.person, 'url': 'personal-info'},
+    {'text': 'profile_your_posts', 'icon': Icons.my_library_books, 'url': 'personal-info'},
+    {'text': 'profile_career_path', 'icon': Icons.route, 'url': 'personal-info'},
+    {'text': 'profile_benefit', 'icon': Icons.shield_outlined, 'url': 'personal-info'},
+    {'text': 'profile_commission', 'icon': Icons.percent, 'url': 'commission'},
   ];
 
 @override
 Widget build(BuildContext context) {
+  print(Theme.of(context).textTheme.titleLarge!.fontWeight);
   return Scaffold(
+    key: ValueKey(languageController.selectedLanguage.value),
     body: CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
           child: Stack(
-            clipBehavior: Clip.none,
+            clipBehavior: Clip.none, 
             children: [
               Column(
                 children: [
@@ -72,10 +79,39 @@ Widget build(BuildContext context) {
                     color: Colors.white, // Màu viền
                     shape: BoxShape.circle,
                   ),
-                  child: CircleAvatar(
-                    radius: 75, // Kích thước ảnh
-                    backgroundImage: AssetImage('assets/images/music.png'),
-                  ),
+                  child: Obx(() {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: profileController.imageUrl.value.isNotEmpty
+                          ? Image.network(
+                              profileController.imageUrl.value,
+                              width: 150,
+                              height: 150,
+                              fit: BoxFit.cover,
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white
+                                    ),
+                                    width: 150,
+                                    height: 150,
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Center(child: Text("Lỗi khi tải ảnh")),
+                            )
+                          : Image.asset(
+                              'assets/images/default_avatar.png',
+                              width: 150,
+                              height: 150,
+                              fit: BoxFit.cover,
+                            ),
+                      );
+                    }),
                 ),
               ),
               Positioned(
@@ -83,7 +119,7 @@ Widget build(BuildContext context) {
                 right: 10, // Trừ đi (radius + border)
                 child: IconButton(
                   onPressed: () {
-
+                    context.push('/profile/options');
                   },
                   icon: Icon(Icons.menu),
                   iconSize: 30,
@@ -99,23 +135,19 @@ Widget build(BuildContext context) {
               SizedBox(height: 20),
               Text(
                 'Lê Nguyễn Thế Hiển',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppText.headerTitle(context)
               ),
               Text(
-                'Thực tập sinh IT', 
+                'profile_role'.tr, 
                 style: TextStyle(
                   fontSize: 16,
-                  color: AppColors.grey,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
               SizedBox(height: 20),
             ],
           ),
         ),
-        
         SliverList(
           delegate: SliverChildListDelegate(
             buttons.map((btn) => Padding(
@@ -123,6 +155,10 @@ Widget build(BuildContext context) {
               child: ProfileButton(
                 text: btn['text'], 
                 icon: btn['icon'],
+                onPressed: () {
+                  print('Button ${btn['text']} pressed');
+                  context.push('/profile/${btn['url']}');
+                },
               ),
             )).toList(),
           ),
@@ -132,6 +168,10 @@ Widget build(BuildContext context) {
   );
 }
 }
+//  CircleAvatar(
+//                     radius: 75, // Kích thước ảnh
+//                     backgroundImage: AssetImage('assets/images/music.png'),
+//                   ),
 
             // Text('Welcome to Profile Screen!'),
             // ElevatedButton(

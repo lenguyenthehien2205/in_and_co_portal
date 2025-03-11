@@ -14,7 +14,7 @@ class Posts extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HeaderTitle(content: 'Bài viết mới'),
+        HeaderTitle(content: 'home_lastest_newsfeed'.tr),
         Obx(() {
           if (postController.posts.isEmpty) {
             return const Center(child: CircularProgressIndicator());

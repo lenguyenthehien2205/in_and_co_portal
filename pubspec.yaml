@@ -49,6 +49,9 @@ dependencies:
   cloud_firestore: ^5.6.5
   flutter_screenutil: ^5.9.3
   flutter_staggered_grid_view: ^0.7.0
+  url_launcher: ^6.3.1
+  shared_preferences: ^2.5.2
+  fl_chart: ^0.70.2
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +97,14 @@ flutter:
     - assets/images/answer.png
     - assets/images/music.png  
     - assets/images/shape_profile.png
+    - assets/images/default_avatar.png
+    - assets/images/facebook.png
+    - assets/images/instagram.png
+    - assets/images/vietnam.png
+    - assets/images/united-kingdom.png
+    - assets/images/commission.png
+    - assets/images/compare.png
+    - assets/images/annual-report.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

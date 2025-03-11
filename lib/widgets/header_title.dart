@@ -14,7 +14,7 @@ class HeaderTitle extends StatelessWidget{
       padding: const EdgeInsets.only(right: 20, left: 20, bottom: 8),
       child: AppText(
         text: content,
-        style: AppText.title,
+        style: AppText.title(context),
       ),
     );
   }
