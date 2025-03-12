@@ -40,7 +40,7 @@ const Map<String, String> en = {
   // Profile Screen
   'profile_role': 'IT Intern',
   'profile_personal_information': 'Personal Information',
-  "profile_your_page": "Your Page",
+  "profile_your_page": "Personal Page",
   'profile_career_path': 'Career Path',
   'profile_benefit': 'Benefits',
   'profile_commission': 'Commission', 
@@ -94,4 +94,11 @@ const Map<String, String> en = {
   'commission_october': 'October',
   'commission_november': 'November',
   'commission_december': 'December',
+
+  // Page Screen
+  'page_title': 'Personal Page',
+  'page_new_story': 'Add Story',
+  'page_post': 'Posts',
+  'page_follower': 'Followers',
+  'page_following': 'Following',
 };

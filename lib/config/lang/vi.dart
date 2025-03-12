@@ -94,4 +94,11 @@ const Map<String, String> vi = {
   'commission_october': 'Tháng 10',
   'commission_november': 'Tháng 11',
   'commission_december': 'Tháng 12',
+
+  // Page Screen
+  'page_title': 'Trang cá nhân',
+  'page_new_story': 'Thêm tin',
+  'page_post': 'Bài viết',
+  'page_follower': 'Người theo dõi',
+  'page_following': 'Đang theo dõi',
 };

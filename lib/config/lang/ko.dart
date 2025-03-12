@@ -94,4 +94,11 @@ const Map<String, String> ko = {
   'commission_october': '10월',
   'commission_november': '11월',
   'commission_december': '12월',
+
+  // Page Screen
+  'page_title': '개인 페이지',
+  'page_new_story': '스토리 추가',
+  'page_post': '게시물',
+  'page_follower': '팔로워',
+  'page_following': '팔로잉',
 };

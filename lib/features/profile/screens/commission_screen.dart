@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:in_and_co_portal/features/profile/widgets/commission/quarterly_bar_chart.dart';
 import 'package:in_and_co_portal/features/profile/widgets/commission/commission_card.dart';
 import 'package:in_and_co_portal/features/profile/widgets/commission/yearly_line_chart.dart';
+import 'package:in_and_co_portal/theme/app_colors.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class CommissionScreen extends StatelessWidget {
@@ -66,7 +67,10 @@ class CommissionScreen extends StatelessWidget {
                     TabBar(
                       labelColor: Theme.of(context).colorScheme.onSurface, // Màu khi chọn
                       unselectedLabelColor: Theme.of(context).colorScheme.onSurface, // Màu khi chưa chọn
-                      indicatorColor: Theme.of(context).primaryColor,
+                      indicator: BoxDecoration(
+                        color: AppColors.primary.withAlpha(35), // Màu nền khi chọn
+                      ),
+                      indicatorSize: TabBarIndicatorSize.tab,
                       labelStyle: AppText.title(context), // 🔹 Tăng size chữ tab được chọn
                       unselectedLabelStyle: AppText.normal(context), // 🔹 Tăng size chữ tab không được chọn
                       tabs: [
@@ -78,6 +82,7 @@ class CommissionScreen extends StatelessWidget {
                       height: 600, // Chiều cao cho biểu đồ
                       child: TabBarView(
                         children: [
+                          // QuarterlyBarChart(), // 🔹 Biểu đồ Cột
                           QuarterlyBarChart(), // 🔹 Biểu đồ Cột
                           YearlyLineChart(), // 🔹 Biểu đồ Đường
                         ],
