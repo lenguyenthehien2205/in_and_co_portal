@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
 
   List<Map<String, dynamic>> buttons = [
     {'text': 'profile_personal_information', 'icon': Icons.person, 'url': 'personal-info'},
-    {'text': 'profile_your_posts', 'icon': Icons.my_library_books, 'url': 'personal-info'},
+    {'text': 'profile_your_page', 'icon': Icons.my_library_books, 'url': 'page'},
     {'text': 'profile_career_path', 'icon': Icons.route, 'url': 'personal-info'},
     {'text': 'profile_benefit', 'icon': Icons.shield_outlined, 'url': 'personal-info'},
     {'text': 'profile_commission', 'icon': Icons.percent, 'url': 'commission'},
@@ -168,6 +168,17 @@ Widget build(BuildContext context) {
   );
 }
 }
+
+
+
+
+
+
+
+
+
+
+
 //  CircleAvatar(
 //                     radius: 75, // Kích thước ảnh
 //                     backgroundImage: AssetImage('assets/images/music.png'),

@@ -27,7 +27,7 @@ class PersonalInfoScreen extends StatelessWidget{
                   InfoRow(title: 'personal_info_full_name'.tr, content: 'Lê Nguyễn Thế Hiển'),
                   InfoRow(title: 'personal_info_date_of_birth'.tr, content: '22/05/2003'),
                   InfoRow(title: 'personal_info_employee_code'.tr, content: '3121560030'),
-                  InfoRow(title: 'personal_info_gender'.tr, content: 'Nam'),
+                  InfoRow(title: 'personal_info_gender'.tr, content: 'personal_info_male'.tr),
                   InfoRow(title: 'personal_info_ethnicity'.tr, content: 'Kinh'),
                   InfoRow(title: 'personal_info_hometown'.tr, content: 'An Lợi, An Hòa, Trảng Bàng, Tây Ninh'),
 

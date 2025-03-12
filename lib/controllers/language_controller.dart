@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:in_and_co_portal/lang/localization_service.dart';
+import 'package:in_and_co_portal/config/lang/localization_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageController extends GetxController {

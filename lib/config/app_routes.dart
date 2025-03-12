@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/features/profile/screens/commission_screen.dart';
+import 'package:in_and_co_portal/features/profile/screens/page_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/personal_info_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/options_screen.dart';
 import 'package:in_and_co_portal/features/trending/screens/trending_screen.dart';
@@ -48,6 +49,7 @@ final List<String> appBarBackButtonRoutes  = [
   '/profile/personal-info',
   '/profile/options',
   '/profile/commission',
+  '/profile/page',
 ];
 
 Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
@@ -121,6 +123,10 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: 'commission', // Không cần '/' trước
               builder: (context, state) => CommissionScreen(),
+            ),
+            GoRoute(
+              path: 'page', // Không cần '/' trước
+              builder: (context, state) => PageScreen(),
             ),
           ],
         ),

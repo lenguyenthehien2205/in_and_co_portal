@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:in_and_co_portal/controllers/language_controller.dart';
 import 'package:in_and_co_portal/controllers/theme_controller.dart';
-import 'package:in_and_co_portal/lang/localization_service.dart';
+import 'package:in_and_co_portal/config/lang/localization_service.dart';
 import 'config/app_routes.dart'; 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

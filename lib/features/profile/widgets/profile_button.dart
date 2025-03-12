@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:in_and_co_portal/controllers/theme_controller.dart';
 import 'package:in_and_co_portal/theme/app_colors.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
@@ -8,8 +9,9 @@ class ProfileButton extends StatelessWidget{
   final String text;
   final IconData icon;
   final VoidCallback onPressed;
+  final ThemeController themeController = Get.find();
 
-  const ProfileButton({
+  ProfileButton({
     super.key,
     required this.text,
     required this.icon,
@@ -23,7 +25,9 @@ class ProfileButton extends StatelessWidget{
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          backgroundColor: AppColors.primary.withAlpha(40),
+          backgroundColor: themeController.isDarkMode.value
+             ? AppColors.primary.withAlpha(90) 
+             : AppColors.primary.withAlpha(40),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),

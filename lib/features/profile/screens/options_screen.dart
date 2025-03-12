@@ -66,6 +66,21 @@ class OptionsScreen extends StatelessWidget{
                         )
                       ),
                     ),
+                    DropdownMenuItem(
+                      value: 'ko', 
+                      child: SizedBox(
+                        child: Row(
+                          children: [
+                            Image.asset('assets/images/south-korea.png', width: 30, height: 30),
+                            SizedBox(width: 10),
+                            Text(
+                              '한국어',  
+                              style: AppText.normal(context)
+                            )
+                          ],
+                        )
+                      ),
+                    ),
                   ],
                   onChanged: (String? newValue) {
                     languageController.changeLanguage(newValue!);
