@@ -46,14 +46,14 @@ class CommissionController extends GetxController {
     availableYears.assignAll(commissionsYearlyData.keys.toList()..sort());
     
     if (availableYears.isNotEmpty) {
-      fromYear.value = availableYears.first; // Lấy năm đầu tiên
-      toYear.value = availableYears.last;   // Lấy năm cuối cùng
+      fromYear.value = availableYears.first; 
+      toYear.value = availableYears.last;  
     }
 
     updateCurrentYearlyData();
   }
 
-  void updateFromYear(int year) { //23
+  void updateFromYear(int year) { 
     fromYear.value = year;
     updateCurrentYearlyData();
   }

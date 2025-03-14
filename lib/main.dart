@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:in_and_co_portal/controllers/language_controller.dart';
 import 'package:in_and_co_portal/controllers/theme_controller.dart';
 import 'package:in_and_co_portal/config/lang/localization_service.dart';
+import 'package:in_and_co_portal/controllers/translation_controller.dart';
 import 'config/app_routes.dart'; 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,16 +38,17 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
   final ThemeController themeController = Get.find();
   final LanguageController languageController = Get.find();
+  final TranslationController translationController = Get.put(TranslationController());
   @override
   Widget build(BuildContext context) {
-    return Obx(() => GetMaterialApp.router( // 🔥 Thay MaterialApp.router thành GetMaterialApp.router
-      routerDelegate: router.routerDelegate, // dùng 
-      routeInformationParser: router.routeInformationParser, // ⚡️ Thêm routeInformationParser
-      routeInformationProvider: router.routeInformationProvider, // ⚡️ Thêm routeInformationProvider
+    return Obx(() => GetMaterialApp.router( 
+      routerDelegate: router.routerDelegate, // dùng để điều hướng
+      routeInformationParser: router.routeInformationParser,  // dùng để mở trang từ url
+      routeInformationProvider: router.routeInformationProvider, // dùng để cập nhật url
       // routerConfig: router,
       translations: LocalizationService(),
       locale: Locale(languageController.selectedLanguage.value), // Ngôn ngữ mặc định
-      fallbackLocale: LocalizationService.locale, // Dự phòng nếu không tìm thấy ngôn ngữ
+      fallbackLocale: LocalizationService.locale,
       debugShowCheckedModeBanner: false,
       theme: themeController.themeData,
     ));

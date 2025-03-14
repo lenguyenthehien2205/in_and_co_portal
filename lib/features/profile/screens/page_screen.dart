@@ -16,7 +16,7 @@ class PageScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.menu), // Đổi thành icon hoặc widget khác nếu muốn
+            icon: Icon(Icons.menu), 
             onPressed: () {
               context.push('/profile/options');
             },
@@ -93,10 +93,10 @@ class PageScreen extends StatelessWidget {
                             print('Button pressed');
                           },
                           style: TextButton.styleFrom(
-                            side: BorderSide(color: Colors.grey), // Viền màu xám
-                            shape: CircleBorder(), // Làm button tròn
-                            minimumSize: Size(98, 98), // Đặt kích thước tối thiểu là 90x90
-                            backgroundColor: const Color.fromARGB(255, 237, 237, 237), // Màu nền trắng
+                            side: BorderSide(color: Colors.grey), 
+                            shape: CircleBorder(), 
+                            minimumSize: Size(98, 98), 
+                            backgroundColor: const Color.fromARGB(255, 237, 237, 237), 
                           ),
                           child: Text(
                             '+',
@@ -122,74 +122,73 @@ class PageScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
-              child: DefaultTabController(
-                length: 2, // Có 2 biểu đồ
-                child: Column(
-                  children: [
-                    TabBar(
-                      labelColor: Theme.of(context).colorScheme.onSurface, // Màu khi chọn
-                      unselectedLabelColor: Theme.of(context).colorScheme.onSurface, // Màu khi chưa chọn
-                      indicator: BoxDecoration(
-                        color: AppColors.primary.withAlpha(35), // Màu nền khi chọn
+            child: DefaultTabController(
+              length: 2, 
+              child: Column(
+                children: [
+                  TabBar(
+                    labelColor: Theme.of(context).colorScheme.onSurface, 
+                    unselectedLabelColor: Theme.of(context).colorScheme.onSurface,
+                    indicator: BoxDecoration(
+                      color: AppColors.primary.withAlpha(35), 
+                    ),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    labelStyle: AppText.title(context), 
+                    unselectedLabelStyle: AppText.normal(context), 
+                    tabs: [
+                      Tab(
+                        icon: Icon(Icons.grid_view),
                       ),
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelStyle: AppText.title(context), // 🔹 Tăng size chữ tab được chọn
-                      unselectedLabelStyle: AppText.normal(context), // 🔹 Tăng size chữ tab không được chọn
-                      tabs: [
-                        Tab(
-                          icon: Icon(Icons.grid_view),
+                      Tab(
+                        icon: Icon(Icons.bookmark_border_outlined)
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 600, 
+                    child: TabBarView(
+                      children: [
+                        GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 2,
+                            mainAxisSpacing: 2,
+                            childAspectRatio: 1,
+                          ),
+                          itemCount: 6,
+                          itemBuilder: (context, index) {
+                            return Image.asset(
+                              'assets/images/food.png',
+                              fit: BoxFit.cover,
+                            );
+                          },
                         ),
-                        Tab(
-                          icon: Icon(Icons.bookmark_border_outlined)
+                        GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 2,
+                            mainAxisSpacing: 2,
+                            childAspectRatio: 1,
+                          ),
+                          itemCount: 6,
+                          itemBuilder: (context, index) {
+                            return Image.asset(
+                              'assets/images/sport.png',
+                              fit: BoxFit.cover,
+                            );
+                          },
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 600, // Chiều cao cho biểu đồ
-                      child: TabBarView(
-                        children: [
-                          GridView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 2,
-                              mainAxisSpacing: 2,
-                              childAspectRatio: 1,
-                            ),
-                            itemCount: 6,
-                            itemBuilder: (context, index) {
-                              return Image.asset(
-                                'assets/images/food.png',
-                                fit: BoxFit.cover,
-                              );
-                            },
-                          ),
-                          GridView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 2,
-                              mainAxisSpacing: 2,
-                              childAspectRatio: 1,
-                            ),
-                            itemCount: 6,
-                            itemBuilder: (context, index) {
-                              return Image.asset(
-                                'assets/images/sport.png',
-                                fit: BoxFit.cover,
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            )
+            ),
+          )
         ],
       )
     );
   }
-
 }

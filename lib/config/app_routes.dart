@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/features/profile/screens/benefit_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/commission_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/page_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/personal_info_screen.dart';
@@ -27,7 +28,7 @@ class AuthNotifier extends ChangeNotifier {
   }
 }
 
-final AuthNotifier authNotifier = AuthNotifier();
+final AuthNotifier authNotifier = AuthNotifier(); // Tạo AuthNotifier để theo dõi trạng thái đăng nhập
 
 // Danh sách các route có BottomBar
 final List<String> mainRoutes = [
@@ -50,6 +51,7 @@ final List<String> appBarBackButtonRoutes  = [
   '/profile/options',
   '/profile/commission',
   '/profile/page',
+  '/profile/benefit',
 ];
 
 Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
@@ -72,7 +74,7 @@ Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
 }
 
 final GoRouter router = GoRouter(
-  observers: [GetObserver()], // 🔥 Thêm GetObserver để theo dõi navigation của GetX
+  // observers: [GetObserver()], // Thêm GetObserver để theo dõi navigation của GetX
   initialLocation: '/',
   refreshListenable: authNotifier,
   redirect: (context, state) {
@@ -113,20 +115,24 @@ final GoRouter router = GoRouter(
           builder: (context, state) => ProfileScreen(),
           routes: [
             GoRoute(
-              path: 'personal-info', // Không cần '/' trước
+              path: 'personal-info', 
               builder: (context, state) => PersonalInfoScreen(),
             ),
             GoRoute(
-              path: 'options', // Không cần '/' trước
+              path: 'options', 
               builder: (context, state) => OptionsScreen(),
             ),
             GoRoute(
-              path: 'commission', // Không cần '/' trước
+              path: 'commission',
               builder: (context, state) => CommissionScreen(),
             ),
             GoRoute(
-              path: 'page', // Không cần '/' trước
+              path: 'page',
               builder: (context, state) => PageScreen(),
+            ),
+            GoRoute(
+              path: 'benefit',
+              builder: (context, state) => BenefitScreen(),
             ),
           ],
         ),

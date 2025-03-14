@@ -9,16 +9,31 @@ import 'package:in_and_co_portal/theme/app_text.dart';
 class CommissionScreen extends StatelessWidget {
   CommissionScreen({super.key});
   final List<Map<String, dynamic>> commissions = [
-    {"title": "commission_this_month".tr, "amount": "15,500,000 VNĐ", "image": 'assets/images/commission.png'},
-    {"title": "commission_compare_last_month".tr, "amount": "+3,000,000 VNĐ", "image": 'assets/images/compare.png'},
-    {"title": "commission_this_year".tr, "amount": "140,000,000 VNĐ", "image": 'assets/images/annual-report.png'},
+    {
+      "title": "commission_this_month".tr,
+      "amount": "15,500,000 VNĐ",
+      "image": 'assets/images/commission.png',
+    },
+    {
+      "title": "commission_compare_last_month".tr,
+      "amount": "+3,000,000 VNĐ",
+      "image": 'assets/images/compare.png',
+    },
+    {
+      "title": "commission_this_year".tr,
+      "amount": "140,000,000 VNĐ",
+      "image": 'assets/images/annual-report.png',
+    },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('profile_commission'.tr, style: AppText.headerTitle(context)),
+        title: Text(
+          'profile_commission'.tr,
+          style: AppText.headerTitle(context),
+        ),
         centerTitle: true,
       ),
       body: CustomScrollView(
@@ -26,20 +41,23 @@ class CommissionScreen extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             sliver: SliverToBoxAdapter(
-              child: Text('commission_overview'.tr, style: AppText.title(context))
+              child: Text(
+                'commission_overview'.tr,
+                style: AppText.title(context),
+              ),
             ),
           ),
           SliverPadding(
             padding: EdgeInsets.all(20),
             sliver: SliverToBoxAdapter(
               child: SizedBox(
-                height: 200, 
+                height: 200,
                 child: ListView.builder(
-                  scrollDirection: Axis.horizontal, // 🔥 Cuộn ngang
+                  scrollDirection: Axis.horizontal,
                   itemCount: commissions.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8), // 🔥 Khoảng cách giữa các card
+                      padding: EdgeInsets.symmetric(horizontal: 8),
                       child: CommissionCard(
                         title: commissions[index]['title'],
                         amount: commissions[index]['amount'],
@@ -54,44 +72,44 @@ class CommissionScreen extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             sliver: SliverToBoxAdapter(
-              child: Text('commission_statistics'.tr, style: AppText.title(context))
+              child: Text(
+                'commission_statistics'.tr,
+                style: AppText.title(context),
+              ),
             ),
           ),
           SliverPadding(
             padding: EdgeInsets.symmetric(vertical: 20),
             sliver: SliverToBoxAdapter(
               child: DefaultTabController(
-                length: 2, // Có 2 biểu đồ
+                length: 2,
                 child: Column(
                   children: [
                     TabBar(
-                      labelColor: Theme.of(context).colorScheme.onSurface, // Màu khi chọn
-                      unselectedLabelColor: Theme.of(context).colorScheme.onSurface, // Màu khi chưa chọn
+                      labelColor: Theme.of(context).colorScheme.onSurface,
+                      unselectedLabelColor:
+                          Theme.of(context).colorScheme.onSurface,
                       indicator: BoxDecoration(
-                        color: AppColors.primary.withAlpha(35), // Màu nền khi chọn
+                        color: AppColors.primary.withAlpha(35),
                       ),
                       indicatorSize: TabBarIndicatorSize.tab,
-                      labelStyle: AppText.title(context), // 🔹 Tăng size chữ tab được chọn
-                      unselectedLabelStyle: AppText.normal(context), // 🔹 Tăng size chữ tab không được chọn
+                      labelStyle: AppText.title(context),
+                      unselectedLabelStyle: AppText.normal(context),
                       tabs: [
                         Tab(text: "commission_statistic_quarterly".tr),
                         Tab(text: "commission_statistic_yearly".tr),
                       ],
                     ),
                     SizedBox(
-                      height: 600, // Chiều cao cho biểu đồ
+                      height: 600,
                       child: TabBarView(
-                        children: [
-                          // QuarterlyBarChart(), // 🔹 Biểu đồ Cột
-                          QuarterlyBarChart(), // 🔹 Biểu đồ Cột
-                          YearlyLineChart(), // 🔹 Biểu đồ Đường
-                        ],
+                        children: [QuarterlyBarChart(), YearlyLineChart()],
                       ),
                     ),
                   ],
                 ),
               ),
-            )
+            ),
           ),
         ],
       ),

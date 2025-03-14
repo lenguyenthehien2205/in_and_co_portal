@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen>{
 
   @override
   void dispose() {
-    _passwordController.dispose(); // Giải phóng bộ nhớ khi không dùng nữa
+    _passwordController.dispose(); 
     _emailController.dispose();
     super.dispose();
   }
@@ -30,78 +30,26 @@ class _LoginScreenState extends State<LoginScreen>{
   var _password = '';
   final _formKey = GlobalKey<FormState>();
 
-  // Future<void> _signInWithGoogle() async {
-  //   try {
-  //     // 🔹 1. Hiển thị hộp thoại chọn tài khoản Google
-  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  //     if (googleUser == null) return; // Người dùng hủy đăng nhập
-
-  //     // 🔹 2. Lấy thông tin xác thực từ Google
-  //     final GoogleSignInAuthentication googleAuth =
-  //         await googleUser.authentication;
-
-  //     final OAuthCredential googleCredential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth.accessToken,
-  //       idToken: googleAuth.idToken,
-  //     );
-
-  //     try {
-  //       // 🔹 3. Đăng nhập với Google (nếu chưa có tài khoản, Firebase sẽ tạo mới)
-  //       final UserCredential userCredential =
-  //           await FirebaseAuth.instance.signInWithCredential(googleCredential);
-
-  //       print("🟢 Đăng nhập thành công: ${userCredential.user?.displayName}");
-
-  //       if (mounted) {
-  //         context.go('/home'); // Điều hướng đến trang chủ
-  //       }
-  //     } on FirebaseAuthException catch (error) {
-  //       // 🔴 4. Xử lý lỗi "email đã tồn tại"
-  //       if (error.code == 'account-exists-with-different-credential') {
-  //         print("⚠️ Email này đã có tài khoản!");
-
-  //         final email = googleUser.email;
-  //         List<String> signInMethods =
-  //             await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
-
-  //         // 🔹 5. Nếu tài khoản này có đăng ký bằng Email/Password
-  //         if (signInMethods.contains('password')) {
-  //           // 👉 Thay vì yêu cầu mật khẩu, ta đăng nhập bằng email trước rồi tự động liên kết Google
-  //           await _linkGoogleToExistingAccount(email, googleCredential);
-  //         }
-  //       } else {
-  //         print("🔴 Lỗi đăng nhập Google: ${error.message}");
-  //       }
-  //     }
-  //   } catch (e) {
-  //     print("🔴 Lỗi đăng nhập Google: $e");
-  //   }
-  // }
-
-
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
         final userCredentials = await _firebase.signInWithEmailAndPassword(email: _email, password: _password);
-        print(userCredentials.toString()+"🟢");
+        print(userCredentials.toString());
         if (mounted) {
-        context.go('/home'); // Điều hướng đến trang chủ
+        context.go('/home');
       }
       } on FirebaseAuthException catch (error) {
-        // if(error.code == 'email-already-in-use'){
-        //   print('Không tìm thấy người dùng! 🔴');
-        // } 
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(error.message ?? 'Đã xảy ra lỗi! 🔴'),
+            content: Text(error.message ?? 'Đã xảy ra lỗi!'),
             backgroundColor: Colors.red,
           ),
         );
       }
     } else {
-      print("Dữ liệu không hợp lệ! 🔴");
+      print("Dữ liệu không hợp lệ!");
     }
   }
 

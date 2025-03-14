@@ -32,12 +32,12 @@ class _CompanyPostsState extends State<CompanyPosts>{
               return SizedBox(
                 height: 200,
                 child: ListView.builder(
-                  controller: controller.scrollController, // Gán ScrollController
+                  controller: controller.scrollController, 
                   scrollDirection: Axis.horizontal,
                   itemCount: controller.posts.length + (controller.isLoadingMore.value ? 1 : 0),
                   itemBuilder: (context, index) {
                     if (index == controller.posts.length) {
-                      return Center(child: CircularProgressIndicator()); // Hiển thị loading khi tải thêm
+                      return Center(child: CircularProgressIndicator()); 
                     }
                     return Padding(
                       padding: EdgeInsets.only(right: index == controller.posts.length - 1 ? 0 : 15),

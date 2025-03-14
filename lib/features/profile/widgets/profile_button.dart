@@ -33,16 +33,16 @@ class ProfileButton extends StatelessWidget{
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10), // Khoảng cách giữa 2 đầu (trái phải
+          padding: const EdgeInsets.symmetric(horizontal: 10), 
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Cách đều 2 đầu
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, 
             children: [
-              Icon(icon, color: AppColors.primary, size: 30), // Icon trái
+              Icon(icon, color: AppColors.primary, size: 30), 
               AppText(
                 text: text.tr, 
                 style: AppText.normal(context)
-              ), // Nội dung nút
-              Icon(Icons.arrow_forward_ios, color: AppColors.primary), // Icon phải
+              ), 
+              Icon(Icons.arrow_forward_ios, color: AppColors.primary), 
             ],
           ),
         )

@@ -53,8 +53,6 @@ class YearlyLineChart extends StatelessWidget{
                   style: AppText.normal(context),
                 )),
                 SizedBox(width: 20),
-                
-                // Dropdown chọn năm "To"
                 Obx(() => DropdownButton<int>(
                   value: commissionController.toYear.value,
                   items: commissionController.availableYears
@@ -102,7 +100,7 @@ class YearlyLineChart extends StatelessWidget{
                       ),
                       axisNameSize: 40,
                     ),
-                    rightTitles: AxisTitles( // Thêm tiêu đề bên phải
+                    rightTitles: AxisTitles( 
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 30,

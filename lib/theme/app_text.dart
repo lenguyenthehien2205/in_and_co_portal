@@ -31,10 +31,15 @@ class AppText extends StatelessWidget{
     fontWeight: FontWeight.w700,
     color: Theme.of(context).colorScheme.onSurface,
   );
-    static TextStyle smallTitle(BuildContext context) => TextStyle(
+  static TextStyle smallTitle(BuildContext context) => TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w700,
     color: Theme.of(context).colorScheme.onSurface,
+  );
+  static TextStyle headerTable = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
   );
   static TextStyle normal(BuildContext context) => TextStyle(
     fontSize: 16,

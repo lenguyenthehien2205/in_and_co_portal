@@ -8,12 +8,6 @@ class HeaderBar extends StatelessWidget{
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
-        // border: Border(
-        //   bottom: BorderSide(
-        //     color: Colors.grey[300]!,
-        //     width: 1,
-        //   ),
-        // ),
       ),
       padding: const EdgeInsets.only(left: 5, right: 5, top: 45, bottom: 0),
       child: Row(
@@ -28,7 +22,7 @@ class HeaderBar extends StatelessWidget{
                 onPressed: () {},
               ),
               IconButton(
-                icon: const Icon(Icons.email_outlined),
+                icon: const Icon(Icons.add_box_outlined),
                 onPressed: () {},
               ),
             ],

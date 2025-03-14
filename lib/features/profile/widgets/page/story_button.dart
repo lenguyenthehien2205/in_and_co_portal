@@ -15,12 +15,12 @@ class StoryButton extends StatelessWidget{
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(2), // Tạo khoảng cách giữa viền và hình ảnh bên trong
+          padding: EdgeInsets.all(2), // Tạo khoảng cách giữa viền và ảnh bên trong
           decoration: BoxDecoration(
-            shape: BoxShape.circle, // Đảm bảo là hình tròn
+            shape: BoxShape.circle, 
             border: Border.all(
-              color: Colors.blue, // Màu viền (có thể đổi sang gradient)
-              width: 2, // Độ dày của viền
+              color: Colors.blue, 
+              width: 2,
             ),
           ),
           child: ClipRRect(
@@ -35,14 +35,14 @@ class StoryButton extends StatelessWidget{
         ),
         SizedBox(height: 5),
         SizedBox(
-          width: 90, // Giới hạn chiều rộng của text
+          width: 90, 
           child: Text(
-            text, // Đổi thành tên dài để kiểm tra
+            text, 
             style: AppText.normal(context),
-            overflow: TextOverflow.ellipsis, // Nếu dài quá, hiển thị "..."
-            maxLines: 1, // Chỉ hiển thị 1 dòng
-            textAlign: TextAlign.center, // Căn giữa text
-            softWrap: false, // Ngăn xuống dòng
+            overflow: TextOverflow.ellipsis, 
+            maxLines: 1, 
+            textAlign: TextAlign.center, 
+            softWrap: false,
           ),
         ),
       ],

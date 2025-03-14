@@ -57,3 +57,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return CompanyPosts();
+  }
+
+  @override
+  double get maxExtent => 60; // Chiều cao tối đa của header
+  @override
+  double get minExtent => 60; // Chiều cao tối thiểu khi cuộn
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
+}

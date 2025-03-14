@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/controllers/translation_controller.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 import 'package:in_and_co_portal/layouts/auth_layout.dart';
 import 'package:in_and_co_portal/features/auth/widgets/auth_button.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 
 class WelcomeScreen extends StatelessWidget{
   const WelcomeScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return AuthBackground(

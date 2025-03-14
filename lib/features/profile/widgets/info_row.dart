@@ -44,7 +44,7 @@ class InfoRow extends StatelessWidget{
             width: 210,
             child: Row(
               children: [
-                if (icons != null) // Nếu có icon, hiển thị ảnh từ assets  
+                if (icons != null)
                 ...icons!.map((iconData) => GestureDetector(
                   onTap: () => _launchURL(iconData['url']!),
                   child: Padding(
@@ -61,8 +61,8 @@ class InfoRow extends StatelessWidget{
                     content ?? '',
                     style: AppText.normal(context),
                     softWrap: true, 
-                    maxLines: null,  // Không giới hạn số dòng
-                    textAlign: TextAlign.justify, // Căn chữ đẹp hơn
+                    maxLines: null,  
+                    textAlign: TextAlign.justify, 
                   ),
                 ),
               ],

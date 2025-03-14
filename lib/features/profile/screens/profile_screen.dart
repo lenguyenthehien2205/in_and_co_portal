@@ -40,10 +40,10 @@ class _ProfileScreenState extends State<ProfileScreen>{
   }
 
   List<Map<String, dynamic>> buttons = [
-    {'text': 'profile_personal_information', 'icon': Icons.person, 'url': 'personal-info'},
     {'text': 'profile_your_page', 'icon': Icons.my_library_books, 'url': 'page'},
+    {'text': 'profile_personal_information', 'icon': Icons.person, 'url': 'personal-info'},
     {'text': 'profile_career_path', 'icon': Icons.route, 'url': 'personal-info'},
-    {'text': 'profile_benefit', 'icon': Icons.shield_outlined, 'url': 'personal-info'},
+    {'text': 'profile_benefit', 'icon': Icons.shield_outlined, 'url': 'benefit'},
     {'text': 'profile_commission', 'icon': Icons.percent, 'url': 'commission'},
   ];
 
@@ -67,16 +67,16 @@ Widget build(BuildContext context) {
                       fit: BoxFit.fitWidth,
                     ),
                   ),
-                  SizedBox(height: 80), // Tạo khoảng trống cho avatar
+                  SizedBox(height: 80), 
                 ],
               ),
               Positioned(
-                top: 120, // Điều chỉnh vị trí
-                left: MediaQuery.of(context).size.width / 2 - 77, // Trừ đi (radius + border)
+                top: 120, 
+                left: MediaQuery.of(context).size.width / 2 - 77, 
                 child: Container(
-                  padding: EdgeInsets.all(5), // Độ dày viền trắng
+                  padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    color: Colors.white, // Màu viền
+                    color: Colors.white, 
                     shape: BoxShape.circle,
                   ),
                   child: Obx(() {
@@ -115,8 +115,8 @@ Widget build(BuildContext context) {
                 ),
               ),
               Positioned(
-                top: 40, // Điều chỉnh vị trí
-                right: 10, // Trừ đi (radius + border)
+                top: 40, 
+                right: 10, 
                 child: IconButton(
                   onPressed: () {
                     context.push('/profile/options');
@@ -156,7 +156,6 @@ Widget build(BuildContext context) {
                 text: btn['text'], 
                 icon: btn['icon'],
                 onPressed: () {
-                  print('Button ${btn['text']} pressed');
                   context.push('/profile/${btn['url']}');
                 },
               ),
@@ -184,48 +183,48 @@ Widget build(BuildContext context) {
 //                     backgroundImage: AssetImage('assets/images/music.png'),
 //                   ),
 
-            // Text('Welcome to Profile Screen!'),
-            // ElevatedButton(
-            //   onPressed: () async{
-            //     await FirebaseAuth.instance.signOut();
-            //     context.go('/login');
-            //   }, 
-            //   child: const Text('Sign Out')
-            // ),
-            // const SizedBox(height: 100),
-            // StreamBuilder<DocumentSnapshot>(
-            //   stream: dbService.readLatestUploadedFile(),
-            //   builder: (context, snapshot) {
-            //     if (!snapshot.hasData || snapshot.data == null || !snapshot.data!.exists) {
-            //       return Center(child: Text("Chưa có ảnh nào được tải lên"));
-            //     }
+//             Text('Welcome to Profile Screen!'),
+//             ElevatedButton(
+//               onPressed: () async{
+//                 await FirebaseAuth.instance.signOut();
+//                 context.go('/login');
+//               }, 
+//               child: const Text('Sign Out')
+//             ),
+//             const SizedBox(height: 100),
+//             StreamBuilder<DocumentSnapshot>(
+//               stream: dbService.readLatestUploadedFile(),
+//               builder: (context, snapshot) {
+//                 if (!snapshot.hasData || snapshot.data == null || !snapshot.data!.exists) {
+//                   return Center(child: Text("Chưa có ảnh nào được tải lên"));
+//                 }
 
-            //     var data = snapshot.data!.data() as Map<String, dynamic>?;
+//                 var data = snapshot.data!.data() as Map<String, dynamic>?;
 
-            //     if (data == null || !data.containsKey("imageUrl")) {
-            //       return Center(child: Text("Không tìm thấy ảnh"));
-            //     }
+//                 if (data == null || !data.containsKey("imageUrl")) {
+//                   return Center(child: Text("Không tìm thấy ảnh"));
+//                 }
 
-            //     String imageUrl = data["imageUrl"];
-            //     return ClipRRect(
-            //       borderRadius: BorderRadius.circular(100),
-            //       child: Image.network(
-            //         imageUrl,
-            //         width: 200,
-            //         height: 200,
-            //         fit: BoxFit.cover, 
-            //         loadingBuilder: (context, child, loadingProgress) {
-            //           if (loadingProgress == null) return child;
-            //           return Center(child: CircularProgressIndicator());
-            //         },
-            //         errorBuilder: (context, error, stackTrace) => Center(child: Text("Lỗi khi tải ảnh")),
-            //       )
-            //     );
-            //   },
-            // ),
-            // const SizedBox(height: 20),
-            // IconButton(
-            //   onPressed: _openFilePicker, 
-            //   icon: const Icon(Icons.upload_file)
-            // ),
-            // const SizedBox(height: 20),
+//                 String imageUrl = data["imageUrl"];
+//                 return ClipRRect(
+//                   borderRadius: BorderRadius.circular(100),
+//                   child: Image.network(
+//                     imageUrl,
+//                     width: 200,
+//                     height: 200,
+//                     fit: BoxFit.cover, 
+//                     loadingBuilder: (context, child, loadingProgress) {
+//                       if (loadingProgress == null) return child;
+//                       return Center(child: CircularProgressIndicator());
+//                     },
+//                     errorBuilder: (context, error, stackTrace) => Center(child: Text("Lỗi khi tải ảnh")),
+//                   )
+//                 );
+//               },
+//             ),
+//             const SizedBox(height: 20),
+//             IconButton(
+//               onPressed: _openFilePicker, 
+//               icon: const Icon(Icons.upload_file)
+//             ),
+//             const SizedBox(height: 20),

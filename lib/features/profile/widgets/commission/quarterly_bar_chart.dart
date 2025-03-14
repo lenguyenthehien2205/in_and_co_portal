@@ -87,9 +87,9 @@ class QuarterlyBarChart extends StatelessWidget{
                   )),
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
-                      tooltipBorder: null, // Bỏ viền tooltip
-                      tooltipPadding: EdgeInsets.symmetric(horizontal: 2, vertical: 0), // Padding của tooltip
-                      tooltipMargin: 3, // Khoảng cách tooltip với cột
+                      tooltipBorder: null, 
+                      tooltipPadding: EdgeInsets.symmetric(horizontal: 2, vertical: 0), 
+                      tooltipMargin: 3,
                       getTooltipItem: (group, groupIndex, rod, rodIndex) {
                         return BarTooltipItem(
                           '${rod.toY.toInt()} triệu', 
@@ -105,7 +105,7 @@ class QuarterlyBarChart extends StatelessWidget{
                   titlesData: FlTitlesData(
                     leftTitles: AxisTitles(
                       axisNameWidget: Padding(
-                        padding: EdgeInsets.only(right: 0), // Tạo khoảng cách với trục
+                        padding: EdgeInsets.only(right: 0), 
                         child: Text(
                           'commission_bar_chart_title'.tr,
                           style: AppText.normal(context)
@@ -116,17 +116,17 @@ class QuarterlyBarChart extends StatelessWidget{
                         getTitlesWidget: (value, meta) => Text(
                           "${value.toInt()}",
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface, // Dùng màu từ theme
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                       ),
                     ),
-                    topTitles: AxisTitles( // Thêm tiêu đề phía trên
+                    topTitles: AxisTitles( 
                       sideTitles: SideTitles(
                         showTitles: false,
                       ),
                     ),
-                    rightTitles: AxisTitles( // Thêm tiêu đề bên phải
+                    rightTitles: AxisTitles( 
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 40,
