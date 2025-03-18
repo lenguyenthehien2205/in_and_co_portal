@@ -5,7 +5,7 @@ import 'package:in_and_co_portal/theme/app_colors.dart';
 class AppTheme {
   static ThemeData lightMode = ThemeData(
     brightness: Brightness.light,
-    textTheme: GoogleFonts.robotoTextTheme(),
+    textTheme: GoogleFonts.mulishTextTheme(),
     colorScheme: ColorScheme.light(
       surface: Colors.white,
       surfaceBright: AppColors.backgroundColor,
@@ -17,7 +17,7 @@ class AppTheme {
 
   static ThemeData darkMode = ThemeData(
     brightness: Brightness.dark,
-    textTheme: GoogleFonts.robotoTextTheme(),
+    textTheme: GoogleFonts.mulishTextTheme(),
     colorScheme: ColorScheme.dark(
       surface: Colors.grey[800]!,
       surfaceBright: Colors.grey[700]!,

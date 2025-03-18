@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/features/profile/screens/benefit_screen.dart';
+import 'package:in_and_co_portal/features/profile/screens/career_path_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/commission_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/page_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/personal_info_screen.dart';
@@ -15,7 +16,7 @@ import 'package:in_and_co_portal/features/auth/screens/login_screen.dart';
 import 'package:in_and_co_portal/layouts/main_layout.dart';
 import 'package:in_and_co_portal/screens/not_found_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/profile_screen.dart';
-import 'package:in_and_co_portal/screens/search_screen.dart';
+import 'package:in_and_co_portal/features/search/screens/search_screen.dart';
 import 'package:in_and_co_portal/screens/splash.dart';
 import 'package:in_and_co_portal/screens/upload_screen.dart';
 import 'package:in_and_co_portal/features/auth/screens/welcome_screen.dart';
@@ -52,6 +53,7 @@ final List<String> appBarBackButtonRoutes  = [
   '/profile/commission',
   '/profile/page',
   '/profile/benefit',
+  '/profile/career-path',
 ];
 
 Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
@@ -133,6 +135,10 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: 'benefit',
               builder: (context, state) => BenefitScreen(),
+            ),
+            GoRoute(
+              path: 'career-path',
+              builder: (context, state) => CareerPathScreen(),
             ),
           ],
         ),
