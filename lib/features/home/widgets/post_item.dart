@@ -31,28 +31,6 @@ class _PostItemState extends State<PostItem>{
     });
   }
 
-  List<Widget> posts = [
-    Image.asset(
-      "assets/images/thu_hoi_pin_cu.png",
-      fit: BoxFit.cover,
-    ),
-    Image.asset(
-      "assets/images/MTAC_avatar.jpeg",
-      fit: BoxFit.cover,
-    ),
-    Image.asset(
-      "assets/images/chuong_trinh_thu_gom.png",
-      fit: BoxFit.cover,
-    ),
-    Image.asset(
-      "assets/images/thu_hoi_pin_cu.png",
-      fit: BoxFit.cover,
-    ),
-    Image.asset(
-      "assets/images/chuong_trinh_thu_gom.png",
-      fit: BoxFit.cover,
-    ),
-  ];
   @override
   Widget build(context){
     return GetBuilder<TranslationController>(
@@ -77,8 +55,8 @@ class _PostItemState extends State<PostItem>{
                           shape: BoxShape.circle,
                         ),
                         child: ClipOval(
-                          child: Image.asset(
-                            "assets/images/MTAC_avatar.jpeg",
+                          child: Image.network(
+                            widget.post.authorAvatar, // Ảnh đại diện
                             width: 40, // Kích thước ảnh
                             height: 40,
                             fit: BoxFit.cover,
@@ -91,7 +69,7 @@ class _PostItemState extends State<PostItem>{
                         children: [
                           Row(
                             children: [
-                              AppText(text: 'Môi trường Á Châu', style: AppText.normal(context)),
+                              AppText(text: widget.post.authorName, style: AppText.normal(context)),
                               SizedBox(width: 5),
                               Icon(Icons.verified, color: Colors.blue, size: 16),
                             ],
@@ -117,7 +95,24 @@ class _PostItemState extends State<PostItem>{
                     height: 350,
                     child: PageView(
                       controller: pageController,
-                      children: posts,
+                      children: widget.post.images.map((image) => Image.network(
+                        image['url'] ?? '',
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(
+                            alignment: Alignment.center,
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          width: 130,
+                          height: 130,
+                          alignment: Alignment.center,
+                          color: Colors.grey[300],
+                          child: Icon(Icons.broken_image, color: Colors.grey[600]),
+                        ),
+                      )).toList()
                     )
                   ),
                   Positioned(
@@ -130,7 +125,7 @@ class _PostItemState extends State<PostItem>{
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        '${currentPage.value}/${posts.length}', // Hiển thị số trang
+                        '${currentPage.value}/${widget.post.images.length}', // Hiển thị số trang
                         style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                       ),
                     ),

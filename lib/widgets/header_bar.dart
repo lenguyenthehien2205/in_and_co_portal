@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HeaderBar extends StatelessWidget{
   const HeaderBar({super.key});
@@ -23,7 +24,9 @@ class HeaderBar extends StatelessWidget{
               ),
               IconButton(
                 icon: const Icon(Icons.add_box_outlined),
-                onPressed: () {},
+                onPressed: () {
+                  context.push('/add-post');
+                },
               ),
             ],
           )

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_and_co_portal/features/profile/controllers/add_task_controller.dart';
-import 'package:in_and_co_portal/features/profile/widgets/date_picker_custom.dart';
+import 'package:in_and_co_portal/features/overview/controllers/add_task_controller.dart';
+import 'package:in_and_co_portal/features/overview/widgets/date_picker_custom.dart';
 import 'package:in_and_co_portal/features/profile/widgets/text_field_custom.dart';
-import 'package:in_and_co_portal/features/profile/widgets/time_picker_custom.dart';
+import 'package:in_and_co_portal/features/overview/widgets/time_picker_custom.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class AddTaskScreen extends StatelessWidget {

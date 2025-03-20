@@ -26,7 +26,7 @@ const Map<String, String> vi = {
   'home_title': 'Trang chủ',
   'search_title': 'Tìm kiếm',
   'trending_title': 'Thịnh hành',
-  'favorite_title': 'Yêu thích',
+  'overview_title': 'Tổng quan công việc',
   'profile_title': 'Hồ sơ', 
 
     // Home Screen
@@ -41,14 +41,13 @@ const Map<String, String> vi = {
   'profile_role': 'Thực tập sinh IT',
   'profile_personal_information': 'Thông tin cá nhân',
   'profile_your_page': 'Trang cá nhân',
-  'profile_career_path': 'Lộ trình công tác',
-  'profile_benefit': 'Phúc lợi',
-  'profile_commission': 'Hoa hồng',
+  'profile_settings': 'Cài đặt',
+  'profile_logout': 'Đăng xuất',
 
   // Options Screen
-  'option_title': 'Tùy chọn',
-  'option_dark_mode': 'Chế độ nền tối',
-  'option_language': 'Ngôn ngữ',
+  'setting_title': 'Cài đặt',
+  'setting_dark_mode': 'Chế độ nền tối',
+  'setting_language': 'Ngôn ngữ',
 
   // Personal Info Screen
   'personal_info_general_info': 'Thông tin chung',
@@ -101,4 +100,12 @@ const Map<String, String> vi = {
   'page_post': 'Bài viết',
   'page_follower': 'Người theo dõi',
   'page_following': 'Đang theo dõi',
+
+  // Benefit Screen
+  'benefit_title': 'Phúc lợi',
+  'benefit_search': 'Tìm kiếm phúc lợi...',
+  'benefit_current': 'Phúc lợi hiện tại',
+  'benefit_history': 'Lịch sử nhận',
+  'benefit_active': 'Đuợc hưởng',
+  'benefit_unactive': 'Chưa áp dụng',
 };

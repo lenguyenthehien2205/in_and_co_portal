@@ -26,7 +26,7 @@ const Map<String, String> ko = {
   'home_title': '홈',
   'search_title': '검색',
   'trending_title': '인기',
-  'favorite_title': '즐겨찾기',
+  'overview_title': '개요',
   'profile_title': '프로필',
 
   // Home Screen
@@ -41,14 +41,13 @@ const Map<String, String> ko = {
   'profile_role': 'IT 인턴',
   'profile_personal_information': '개인 정보',
   "profile_your_page": "개인 페이지",
-  'profile_career_path': '경력 경로',
-  'profile_benefit': '복지 혜택',
-  'profile_commission': '커미션',
+  'profile_settings': '설정',
+  'profile_logout': '로그아웃',
 
   // Options Screen
-  'option_title': '설정',
-  'option_dark_mode': '다크 모드',
-  'option_language': '언어',
+  'setting_title': '설정',
+  'setting_dark_mode': '다크 모드',
+  'setting_language': '언어',
 
   // Personal Info Screen
   'personal_info_general_info': '일반 정보',
@@ -101,4 +100,12 @@ const Map<String, String> ko = {
   'page_post': '게시물',
   'page_follower': '팔로워',
   'page_following': '팔로잉',
+
+  // Benefit Screen
+  'benefit_title': '복리후생',
+  'benefit_search': '복리후생 검색...',
+  'benefit_current': '현재 복리후생',
+  'benefit_history': '복리후생 내역',
+  'benefit_active': '적용됨',
+  'benefit_unactive': '미적용',
 };

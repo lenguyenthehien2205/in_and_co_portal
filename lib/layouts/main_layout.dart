@@ -18,8 +18,8 @@ class MainLayout extends StatelessWidget {
         return 'profile_title'.tr;
       case '/trending':
         return 'trending_title'.tr;
-      case '/favorite':
-        return 'favorite_title'.tr;
+      case '/overview':
+        return 'overview_title'.tr;
       case '/search':
         return 'search_title'.tr;
       default:

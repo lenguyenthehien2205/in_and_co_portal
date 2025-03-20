@@ -19,7 +19,7 @@ class TimePickerCustom extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: AppText.semiBoldTitle),
+          Text(label, style: AppText.smallTitle(context)),
           SizedBox(height: 5),
           GestureDetector(
             onTap: onTap,
@@ -34,7 +34,7 @@ class TimePickerCustom extends StatelessWidget {
                 children: [
                   Text(
                     timeText ?? "Chọn giờ",
-                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   Icon(Icons.access_time, color: Colors.grey), // Icon đồng hồ
                 ],

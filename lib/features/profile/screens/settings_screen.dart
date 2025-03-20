@@ -4,15 +4,15 @@ import 'package:in_and_co_portal/controllers/language_controller.dart';
 import 'package:in_and_co_portal/controllers/theme_controller.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
-class OptionsScreen extends StatelessWidget{
-  OptionsScreen({super.key});
+class SettingsScreen extends StatelessWidget{
+  SettingsScreen({super.key});
   final ThemeController themeController = Get.find();
   final LanguageController languageController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppText(text: 'option_title'.tr, style: AppText.headerTitle(context)),
+        title: AppText(text: 'setting_title'.tr, style: AppText.headerTitle(context)),
         centerTitle: true,
       ),
       body: Padding(
@@ -22,7 +22,7 @@ class OptionsScreen extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppText(text: 'option_dark_mode'.tr, style: AppText.title(context)),
+                AppText(text: 'setting_dark_mode'.tr, style: AppText.title(context)),
                 Obx(() => Switch(
                   value: themeController.isDarkMode.value,
                   onChanged: (value) => themeController.toggleTheme(),
@@ -32,7 +32,7 @@ class OptionsScreen extends StatelessWidget{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppText(text: 'option_language'.tr, style: AppText.title(context)),
+                AppText(text: 'setting_language'.tr, style: AppText.title(context)),
                 Obx(() => DropdownButton(
                   value: languageController.selectedLanguage.value,
                   items: [

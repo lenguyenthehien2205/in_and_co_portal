@@ -18,7 +18,7 @@ class DatePickerCustom extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppText.semiBoldTitle),
+        Text(label, style: AppText.smallTitle(context)),
         SizedBox(height: 5),
         GestureDetector(
           onTap: onTap,

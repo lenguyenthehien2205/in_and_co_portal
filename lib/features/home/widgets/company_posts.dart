@@ -16,12 +16,15 @@ class _CompanyPostsState extends State<CompanyPosts>{
   final CompanyPostController controller = Get.put(CompanyPostController());
   @override
   Widget build(context){
-    return SizedBox(
+    return Container(
       width: double.infinity, 
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(padding: EdgeInsets.only(top: 25)),
+          Padding(padding: EdgeInsets.only(top: 20)),
           HeaderTitle(content: 'home_company_newsfeed'.tr), 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

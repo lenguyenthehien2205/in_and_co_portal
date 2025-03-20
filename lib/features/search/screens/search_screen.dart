@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:in_and_co_portal/theme/app_text.dart';
+import 'package:get/get.dart';
+import 'package:in_and_co_portal/features/search/controllers/search_data_controller.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({super.key});
+  SearchScreen({super.key});
+  final SearchDataController searchController = Get.put(SearchDataController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,51 +15,48 @@ class SearchScreen extends StatelessWidget {
             floating: true,
             pinned: true,
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 15),
-              child: Text('Tài khoản', style: AppText.semiBoldTitle),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return ListTile(
-                title: Text('Thế Hiển $index', style: AppText.semiBoldTitle),
-                leading: CircleAvatar(
-                  radius: 23,
-                  backgroundImage: AssetImage('assets/images/sontung.jpeg'),
+          Obx(() {
+            if (searchController.searchQuery.isEmpty) {
+              return SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 15),
+                  child: Text(
+                    'Gần đây',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
                 ),
-                onTap: () {
-                  
-                },
               );
-            }, childCount: 2),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 15, bottom: 10),
-              child: Text('Bài viết', style: AppText.semiBoldTitle),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: GridView.builder(
-              shrinkWrap: true, // Giúp GridView không chiếm toàn bộ chiều cao
-              physics: NeverScrollableScrollPhysics(), // Tắt cuộn riêng của GridView
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 2,
-                mainAxisSpacing: 2,
-                childAspectRatio: 1,
+            }
+            return SliverPadding(
+              padding: const EdgeInsets.only(top: 10),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  var user = searchController.searchResults[index];
+                  return ListTile(
+                    title: Text(
+                      user["fullname"] ?? "Không có tên",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                    leading: CircleAvatar(
+                      radius: 23,
+                      backgroundImage: NetworkImage(
+                        user["avatar"] ?? "https://via.placeholder.com/150",
+                      ),
+                    ),
+                    onTap: () {},
+                  );
+                }, childCount: searchController.searchResults.length),
               ),
-              itemCount: 15,
-              itemBuilder: (context, index) {
-                return Image.asset(
-                  'assets/images/food.png',
-                  fit: BoxFit.cover,
-                );
-              },
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );
@@ -66,10 +64,11 @@ class SearchScreen extends StatelessWidget {
 }
 
 class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final SearchDataController searchController = Get.put(SearchDataController());
   @override
-  double get minExtent => 55; 
+  double get minExtent => 55;
   @override
-  double get maxExtent => 55; 
+  double get maxExtent => 55;
 
   @override
   Widget build(
@@ -87,15 +86,21 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
             hintStyle: TextStyle(color: Colors.grey),
             prefixIcon: Icon(Icons.search, color: Colors.grey),
             filled: true,
-            fillColor: const Color.fromARGB(255, 232, 232, 232), 
+            fillColor: const Color.fromARGB(255, 232, 232, 232),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide.none,
             ),
             contentPadding: EdgeInsets.symmetric(horizontal: 20),
           ),
+          onChanged: (value) {
+            searchController.searchUsers(value);
+          },
+          onSubmitted: (value) {
+            searchController.searchAndNavigate(context, value);
+          },
         ),
-      )
+      ),
     );
   }
 

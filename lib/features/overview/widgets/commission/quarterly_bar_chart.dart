@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:in_and_co_portal/features/profile/controllers/commission_controller.dart';
+import 'package:in_and_co_portal/features/overview/controllers/commission_controller.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class QuarterlyBarChart extends StatelessWidget{

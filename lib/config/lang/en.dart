@@ -26,7 +26,7 @@ const Map<String, String> en = {
   'home_title': 'Home',
   'search_title': 'Search',
   'trending_title': 'Trending',
-  'favorite_title': 'Favorites',
+  'overview_title': 'Overviews',
   'profile_title': 'Profile',
 
     // Home Screen
@@ -41,14 +41,13 @@ const Map<String, String> en = {
   'profile_role': 'IT Intern',
   'profile_personal_information': 'Personal Information',
   "profile_your_page": "Personal Page",
-  'profile_career_path': 'Career Path',
-  'profile_benefit': 'Benefits',
-  'profile_commission': 'Commission', 
+  'profile_settings': 'Settings',
+  'profile_logout': 'Log out',
 
   // Options Screen
-  'option_title': 'Options',
-  'option_dark_mode': 'Dark Mode',
-  'option_language': 'Language',
+  'setting_title': 'Options',
+  'setting_dark_mode': 'Dark Mode',
+  'setting_language': 'Language',
 
   // Personal Info Screen
   'personal_info_general_info': 'General Information',
@@ -101,4 +100,12 @@ const Map<String, String> en = {
   'page_post': 'Posts',
   'page_follower': 'Followers',
   'page_following': 'Following',
+
+  // Benefit Screen
+  'benefit_title': 'Benefits',
+  'benefit_search': 'Search benefits...',
+  'benefit_current': 'Current Benefits',
+  'benefit_history': 'Benefit History',
+  'benefit_active': 'Active',
+  'benefit_unactive': 'Not Applied',
 };

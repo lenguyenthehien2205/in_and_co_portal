@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:in_and_co_portal/features/profile/controllers/benefit_controller.dart';
+import 'package:in_and_co_portal/core/models/benefit-history.dart';
+import 'package:in_and_co_portal/core/utils/string_utils.dart';
+import 'package:in_and_co_portal/features/overview/controllers/benefit_controller.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class BenefitHistoryList extends StatelessWidget{
-  final List<Map<String, dynamic>> data;
+  final List<BenefitHistory> data;
   BenefitHistoryList({
     super.key, 
     required this.data
@@ -23,13 +25,13 @@ class BenefitHistoryList extends StatelessWidget{
         Obx(() => SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              final benefit = benefitController.filteredBenefitHistory[index];
+              final benefitHistory = benefitController.filteredBenefitHistory[index];
 
               return ListTile(
-                leading: Image.asset(benefit["icon"] ?? "assets/default_icon.png", width: 50),
-                title: Text(benefit["name"] ?? "Không có tên", style: AppText.normal(context)),
-                subtitle: Text(benefit["description"] ?? "", style: AppText.small(context)),
-                trailing: Text(benefit["received_date"] ?? "", style: AppText.small(context)),
+                leading: Image.network(benefitHistory.icon, width: 50),
+                title: Text(benefitHistory.title, style: AppText.normal(context)),
+                subtitle: Text(benefitHistory.description, style: AppText.small(context)),
+                trailing: Text(formatTimestamp(benefitHistory.receivedDate), style: AppText.small(context)),
               );
             },
             childCount: benefitController.filteredBenefitHistory.length, 

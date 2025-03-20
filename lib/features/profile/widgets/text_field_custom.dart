@@ -17,21 +17,21 @@ class TextFieldCustom extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppText.semiBoldTitle),
+        Text(label, style: AppText.smallTitle(context)),
         SizedBox(height: 5),
         TextFormField(
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(color: Colors.grey),
-            enabledBorder: OutlineInputBorder( // Viền khi không focus
+            enabledBorder: OutlineInputBorder( 
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.grey, width: 1.5),
             ),
-            focusedBorder: OutlineInputBorder( // Viền khi focus
+            focusedBorder: OutlineInputBorder( 
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.blue, width: 1.5),
             ),
-            floatingLabelBehavior: FloatingLabelBehavior.always, // Giữ nguyên vị trí label
+            floatingLabelBehavior: FloatingLabelBehavior.always, 
           ),
           onChanged: onChanged,
         ),

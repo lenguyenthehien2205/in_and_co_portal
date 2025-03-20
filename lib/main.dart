@@ -6,6 +6,8 @@ import 'package:in_and_co_portal/controllers/language_controller.dart';
 import 'package:in_and_co_portal/controllers/theme_controller.dart';
 import 'package:in_and_co_portal/config/lang/localization_service.dart';
 import 'package:in_and_co_portal/controllers/translation_controller.dart';
+import 'package:in_and_co_portal/core/services/user_service.dart';
+import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 import 'config/app_routes.dart'; 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,6 +26,7 @@ void main() async {
   FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
   Get.put(ThemeController()); 
   Get.put(LanguageController());
+  Get.put(ProfileController());
   runApp(
     ScreenUtilInit( 
       designSize: Size(375, 812),

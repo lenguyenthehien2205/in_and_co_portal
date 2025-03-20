@@ -20,7 +20,7 @@ class CompanyPostItem extends StatelessWidget{
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.network(
-              post.thumbnailUrl,
+              post.images[0]['url']??'',
               width: 130,
               height: 130,
               fit: BoxFit.cover,

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/core/services/user_service.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 import 'package:in_and_co_portal/layouts/auth_layout.dart';
 import 'package:in_and_co_portal/features/auth/widgets/auth_button.dart';
 
 class WelcomeScreen extends StatelessWidget{
-  const WelcomeScreen({super.key});
+  WelcomeScreen({super.key});
+  UserService userService = UserService();
   @override
   Widget build(BuildContext context) {
     return AuthBackground(
@@ -40,6 +42,7 @@ class WelcomeScreen extends StatelessWidget{
                 text: 'welcome_button'.tr,
               ),
               onPressed: () {
+                userService.updateAllUsersWithKeywords();
                 context.go('/login');
                 // FirebaseAuth.instance.signOut();
                 // context.push('/login');

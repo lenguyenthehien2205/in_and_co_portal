@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 import 'package:in_and_co_portal/features/profile/widgets/page/story_button.dart';
 import 'package:in_and_co_portal/theme/app_colors.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class PageScreen extends StatelessWidget {
-  const PageScreen({super.key});
+  PageScreen({super.key});
+  final ProfileController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +16,7 @@ class PageScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('page_title'.tr, style: AppText.headerTitle(context)),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu), 
-            onPressed: () {
-              context.push('/profile/options');
-            },
-          ),
-        ],
+        scrolledUnderElevation: 0,
       ),
       body: CustomScrollView(
         slivers: [
@@ -33,8 +28,8 @@ class PageScreen extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      'assets/images/sontung.jpeg',
+                    child: Image.network(
+                      profileController.userData["avatar"] ?? '',
                       width: 95,
                       height: 95,
                     ),
@@ -69,12 +64,12 @@ class PageScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Thế Hiển', style: AppText.title(context)),
-                  Text('Đây là trang cá nhân của tôi', style: AppText.normal(context)),
+                  Text(profileController.userData["fullname"], style: AppText.title(context)),
+                  Text(profileController.userData["bio"], style: AppText.normal(context)),
                 ],
               ),
             ),

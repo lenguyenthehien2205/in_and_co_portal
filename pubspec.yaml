@@ -57,6 +57,8 @@ dependencies:
   diacritic: ^0.1.6
   date_picker_timeline: 
   get_storage: 
+  image_picker:
+  google_mlkit_image_labeling: ^0.13.0
 
 dev_dependencies:
   flutter_test:

@@ -41,6 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomScrollView(
         controller: scrollController,
         slivers: [
+          // SliverPersistentHeader(
+          //   delegate: MyHeaderDelegate(),
+          //   floating: true,
+          //   pinned: true,
+          // ),
           SliverToBoxAdapter(
             child: CompanyPosts(),
           ),
@@ -64,9 +69,9 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 60; // Chiều cao tối đa của header
+  double get maxExtent => 260; // Chiều cao tối đa của header
   @override
-  double get minExtent => 60; // Chiều cao tối thiểu khi cuộn
+  double get minExtent => 260; // Chiều cao tối thiểu khi cuộn
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
 }

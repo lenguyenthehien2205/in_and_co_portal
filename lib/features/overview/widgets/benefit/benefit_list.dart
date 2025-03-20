@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:in_and_co_portal/features/profile/controllers/benefit_controller.dart';
+import 'package:in_and_co_portal/core/models/benefit.dart';
+import 'package:in_and_co_portal/features/overview/controllers/benefit_controller.dart';
+import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class BenefitList extends StatelessWidget{
-  final List<Map<String, dynamic>> data;
+  ProfileController _profileController = Get.find();
+  final List<Benefit> data;
   BenefitList({
     super.key, 
     required this.data
@@ -24,22 +27,21 @@ class BenefitList extends StatelessWidget{
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               final benefit = benefitController.filteredBenefits[index];
-
               return ListTile(
-                leading: Image.asset(benefit["icon"] ?? "assets/default_icon.png", width: 50),
-                title: Text(benefit["name"] ?? "Không có tên", style: AppText.normal(context)),
-                subtitle: Text(benefit["description"] ?? "", style: AppText.small(context)),
+                leading: Image.network(benefit.icon, width: 50),
+                title: Text(benefit.title, style: AppText.normal(context)),
+                subtitle: Text(benefit.description, style: AppText.small(context)),
                 trailing: Text(
-                  benefit["status"] ?? "N/A",
+                  (benefit.employeeIds.contains(_profileController.userData["employee_id"]))
+                      ? 'benefit_active'.tr
+                      : 'benefit_unactive'.tr,
                   style: TextStyle(
-                    color: benefit["status"] == "Được hưởng"
+                    color: (benefit.employeeIds.contains(_profileController.userData["employee_id"]))
                         ? Colors.green
-                        : benefit["status"] == "Chưa áp dụng"
-                            ? Colors.orange
-                            : Colors.grey,
+                        : Colors.orange, 
                     fontSize: 16,
                   ),
-                )
+                ),
               );
             },
             childCount: benefitController.filteredBenefits.length, 
@@ -67,7 +69,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
         textAlign: TextAlign.start,
         onChanged: (value) => benefitController.filterBenefits(value),
         decoration: InputDecoration(
-          hintText: "Tìm kiếm phúc lợi...",
+          hintText: 'benefit_search'.tr,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(100),
           ),

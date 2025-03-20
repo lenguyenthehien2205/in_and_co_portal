@@ -67,8 +67,8 @@ class BottomBar extends StatelessWidget {
           ),
           _buildNavItem(
             context,
-            icon: Icons.favorite_outline,
-            route: '/favorite',
+            icon: Icons.corporate_fare,
+            route: '/overview',
             currentPath: currentPath,
           ),
           _buildNavItem(

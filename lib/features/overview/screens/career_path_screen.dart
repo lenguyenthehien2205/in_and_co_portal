@@ -2,7 +2,7 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_and_co_portal/features/profile/controllers/task_controller.dart';
+import 'package:in_and_co_portal/features/overview/controllers/task_controller.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class CareerPathScreen extends StatelessWidget {
@@ -36,7 +36,7 @@ class CareerPathScreen extends StatelessWidget {
 
                 if (taskController.tasks.isEmpty) {
                   return SliverToBoxAdapter(
-                    child: Center(child: Text("Không có công việc nào")),
+                    child: Center(child: Text("Không có công việc nào", style: AppText.normal(context))),
                   );
                 }
                 return SliverList(
@@ -116,7 +116,6 @@ class CareerPathScreen extends StatelessWidget {
     String formatTime(TimeOfDay time) {
       return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
     }
-
     return "${formatTime(start)} - ${formatTime(end)}";
   }
 
@@ -153,7 +152,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
                   ),
                   Text(
                     'Hôm nay',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: AppText.title(context),
                   ),
                 ],
               ),
@@ -166,7 +165,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
                   ),
                 ),
                 onPressed: () {
-                  context.push('/profile/career-path/add-task');
+                  context.push('/overview/career-path/add-task');
                 },
                 child: Text('Thêm công việc'),
               ),
@@ -176,7 +175,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
           DatePicker(
             DateTime.now(),
             height: 100,
-            width: 75,
+            width: 80,
             initialSelectedDate: taskController.selectedDate.value,
             locale: "vi_VN",
             selectionColor: Theme.of(context).colorScheme.primary,
@@ -184,6 +183,9 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
             onDateChange: (newDate) {
               taskController.updateSelectedDate(newDate);
             },
+            monthTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold), 
+            dayTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+            dateTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, fontSize: 18),
           )
         ],
       ),

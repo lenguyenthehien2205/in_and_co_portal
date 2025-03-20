@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:in_and_co_portal/features/profile/widgets/commission/quarterly_bar_chart.dart';
-import 'package:in_and_co_portal/features/profile/widgets/commission/commission_card.dart';
-import 'package:in_and_co_portal/features/profile/widgets/commission/yearly_line_chart.dart';
+import 'package:in_and_co_portal/features/overview/widgets/commission/quarterly_bar_chart.dart';
+import 'package:in_and_co_portal/features/overview/widgets/commission/commission_card.dart';
+import 'package:in_and_co_portal/features/overview/widgets/commission/yearly_line_chart.dart';
 import 'package:in_and_co_portal/theme/app_colors.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
@@ -31,7 +31,7 @@ class CommissionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'profile_commission'.tr,
+          'overview_commission'.tr,
           style: AppText.headerTitle(context),
         ),
         centerTitle: true,
