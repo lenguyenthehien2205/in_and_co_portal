@@ -18,7 +18,7 @@ class HashtagBox extends StatelessWidget{
         children: [
           // Ảnh nền full kích thước của box
           Positioned.fill(
-            child: Image.asset(
+            child: Image.network(
               image,
               fit: BoxFit.cover,
             ),

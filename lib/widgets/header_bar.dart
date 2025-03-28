@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/config/firebase_api.dart';
 
 class HeaderBar extends StatelessWidget{
-  const HeaderBar({super.key});
+  HeaderBar({super.key});
+  final FirebaseApi firebaseApi = FirebaseApi();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,10 @@ class HeaderBar extends StatelessWidget{
             children: [
               IconButton(
                 icon: const Icon(Icons.notifications_none),
-                onPressed: () {},
+                onPressed: () {
+                  // firebaseApi.sendNotificationToAuthor('AMS2M3AL9Dc27IRK9ogeaz6ZDXG3', 'Huy chó', 'Huy chó');
+                  context.push('/home/notification');
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.add_box_outlined),

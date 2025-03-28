@@ -14,7 +14,7 @@ class SearchDataController extends GetxController{
   Timer? _debounce; 
   void searchAndNavigate(BuildContext context, String query) async {
     if(query.isEmpty) return;
-    var postResults = await _postService.searchPostsByLabel(query);
+    var postResults = await _postService.searchPostsByLabelAndTitle(query);
     context.push(
       '/search/result',
       extra: {

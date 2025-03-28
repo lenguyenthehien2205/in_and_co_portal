@@ -6,7 +6,6 @@ class BenefitHistory {
   final Timestamp receivedDate;
   final String description;
   final String icon;
-  final String employeeId;
 
   BenefitHistory({
     required this.id,
@@ -14,7 +13,6 @@ class BenefitHistory {
     required this.receivedDate,
     required this.description,
     required this.icon,
-    required this.employeeId,
   });
 
   // Convert từ Firestore document sang Task Model
@@ -27,7 +25,6 @@ class BenefitHistory {
       receivedDate: data['received_date'] ?? Timestamp.now(),
       description: data['description'] ?? '', 
       icon: data['icon'] ?? '',
-      employeeId: data['employee_id'] ?? '',
     );
   }
 
@@ -38,7 +35,6 @@ class BenefitHistory {
       'received_date': receivedDate,
       'description': description,
       'icon': icon,
-      'employee_id': employeeId,
     };
   }
 }

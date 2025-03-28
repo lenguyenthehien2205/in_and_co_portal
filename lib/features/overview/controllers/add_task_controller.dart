@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +9,7 @@ import 'package:in_and_co_portal/features/profile/controllers/profile_controller
 
 class AddTaskController extends GetxController {
   final ProfileController _profileController = Get.find();
+  final userId = FirebaseAuth.instance.currentUser!.uid;
   var title = "".obs;
   var content = "".obs;
   var selectedDate = Rxn<DateTime>(DateTime.now());// mặc định là hôm nay 
@@ -106,13 +109,13 @@ class AddTaskController extends GetxController {
       id: "",
       title: title.value,
       content: content.value,
-      employeeId: _profileController.userData["employee_id"],
+      // employeeId: _profileController.userData["employee_id"],
       startTime: startTime.value!,
       endTime: endTime.value!,
       status: "pending",
     );
 
-    await _taskService.addTask(newTask, selectedDate.value!);
+    await _taskService.addTask(userId, newTask, selectedDate.value!);
 
     isLoading.value = false;
     ScaffoldMessenger.of(context).showSnackBar(

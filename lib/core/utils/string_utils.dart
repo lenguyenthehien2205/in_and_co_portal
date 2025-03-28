@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 List<String> generateKeywords(String name) {
   Set<String> keywords = {};
   
-  // Loại bỏ dấu tiếng Việt trước khi xử lý
+  // bỏ dấu tiếng Việt
   String normalized = removeDiacritics(name.toLowerCase());
 
   List<String> words = normalized.split(" ");
@@ -24,4 +24,26 @@ List<String> generateKeywords(String name) {
 String formatTimestamp(Timestamp timestamp) {
   DateTime date = timestamp.toDate();
   return DateFormat('dd/MM/yyyy').format(date); 
+}
+
+String getTimeAgoByTimestamp(Timestamp timestamp) {
+  DateTime createdAtDate = timestamp.toDate(); 
+  DateTime now = DateTime.now();
+  Duration diff = now.difference(createdAtDate);
+
+  if (diff.inSeconds < 60) {
+    return 'Vừa xong';
+  } else if (diff.inMinutes < 60) {
+    return '${diff.inMinutes} phút';
+  } else if (diff.inHours < 24) {
+    return '${diff.inHours} giờ';
+  } else if (diff.inDays < 7) {
+    return '${diff.inDays} ngày';
+  } else if (diff.inDays < 30) {
+    return '${(diff.inDays / 7).floor()} tuần';
+  } else if (diff.inDays < 365) {
+    return '${(diff.inDays / 30).floor()} tháng';
+  } else {
+    return '${(diff.inDays / 365).floor()} năm';
+  }
 }

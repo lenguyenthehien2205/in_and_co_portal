@@ -1,25 +1,40 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  var isLoading = false.obs; // Để kiểm soát trạng thái loading
+  var isLoading = false.obs; 
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(BuildContext context, String email, String password) async {
     if (email.isEmpty || password.isEmpty) {
-      Get.snackbar("Lỗi", "Vui lòng nhập đầy đủ thông tin",
-          snackPosition: SnackPosition.BOTTOM);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Vui lòng nhập đầy đủ thông tin.",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.grey,
+        ),
+      );
       return;
     }
 
     try {
       isLoading.value = true;
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      Get.offAllNamed('/home'); // Điều hướng sau khi đăng nhập thành công
+      Get.offAllNamed('/home'); 
     } on FirebaseAuthException catch (e) {
-      Get.snackbar("Lỗi", e.message ?? "Đăng nhập thất bại",
-          snackPosition: SnackPosition.BOTTOM, backgroundColor: Get.theme.colorScheme.error);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Đăng nhập thất bại',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
     } finally {
       isLoading.value = false;
     }

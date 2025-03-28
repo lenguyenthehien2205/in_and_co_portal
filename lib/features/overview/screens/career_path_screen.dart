@@ -12,7 +12,7 @@ class CareerPathScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lộ trình công việc', style: AppText.headerTitle(context)),
+        title: Text('schedule_title'.tr, style: AppText.headerTitle(context)),
         centerTitle: true,
         scrolledUnderElevation: 0,
       ),
@@ -36,7 +36,7 @@ class CareerPathScreen extends StatelessWidget {
 
                 if (taskController.tasks.isEmpty) {
                   return SliverToBoxAdapter(
-                    child: Center(child: Text("Không có công việc nào", style: AppText.normal(context))),
+                    child: Center(child: Text("schedule_no_job".tr, style: AppText.normal(context))),
                   );
                 }
                 return SliverList(
@@ -143,7 +143,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ngày ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+                    '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -151,7 +151,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
                     ),
                   ),
                   Text(
-                    'Hôm nay',
+                    'schedule_today'.tr,
                     style: AppText.title(context),
                   ),
                 ],
@@ -167,26 +167,53 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
                 onPressed: () {
                   context.push('/overview/career-path/add-task');
                 },
-                child: Text('Thêm công việc'),
+                child: Text('schedule_add_job'.tr),
               ),
             ],
           ),
           SizedBox(height: 10),
-          DatePicker(
-            DateTime.now(),
-            height: 100,
-            width: 80,
-            initialSelectedDate: taskController.selectedDate.value,
-            locale: "vi_VN",
-            selectionColor: Theme.of(context).colorScheme.primary,
-            selectedTextColor: Colors.white,
-            onDateChange: (newDate) {
-              taskController.updateSelectedDate(newDate);
-            },
-            monthTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold), 
-            dayTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
-            dateTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, fontSize: 18),
-          )
+          // DatePicker(
+          //   DateTime.now(),
+          //   height: 100,
+          //   width: 80,
+          //   initialSelectedDate: taskController.selectedDate.value,
+          //   locale: Get.locale.toLanguageTag(),
+          //   selectionColor: Theme.of(context).colorScheme.primary,
+          //   selectedTextColor: Colors.white,
+          //   onDateChange: (newDate) {
+          //     taskController.updateSelectedDate(newDate);
+          //   },
+          //   monthTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold), 
+          //   dayTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+          //   dateTextStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold, fontSize: 18),
+          // )
+          Obx(() {
+            return DatePicker(
+              DateTime.now(),
+              height: 100,
+              width: 80,
+              initialSelectedDate: taskController.selectedDate.value,
+              locale: Get.locale?.toLanguageTag() ?? "vi_VN", // Lấy locale từ GetX
+              selectionColor: Theme.of(context).colorScheme.primary,
+              selectedTextColor: Colors.white,
+              onDateChange: (newDate) {
+                taskController.updateSelectedDate(newDate);
+              },
+              monthTextStyle: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface, 
+                fontWeight: FontWeight.bold
+              ), 
+              dayTextStyle: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface, 
+                fontWeight: FontWeight.bold
+              ),
+              dateTextStyle: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface, 
+                fontWeight: FontWeight.bold, 
+                fontSize: 18
+              ),
+            );
+          })
         ],
       ),
     );

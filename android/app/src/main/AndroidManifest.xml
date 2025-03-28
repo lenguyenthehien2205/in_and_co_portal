@@ -38,6 +38,15 @@
 
          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+<!-- Quyền truy cập ảnh trên Android 13+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <!-- Quyền đọc/ghi bộ nhớ trên Android 12 trở xuống -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+
+    <!-- Quyền quản lý bộ nhớ trên Android 11+ -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>

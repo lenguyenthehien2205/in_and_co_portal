@@ -108,4 +108,23 @@ const Map<String, String> vi = {
   'benefit_history': 'Lịch sử nhận',
   'benefit_active': 'Đuợc hưởng',
   'benefit_unactive': 'Chưa áp dụng',
+
+  // overview screen
+  'overview_work_schedule': 'Lịch trình công việc',
+  'overview_weekly_tasks': 'công việc trong tuần',
+  'overview_commission': 'Hoa hồng',
+  'overview_commission_detail': 'triệu VNĐ trong tháng này',
+  'overview_benefit': 'Phúc lợi',
+  'overview_benefit_detail': 'phúc lợi đang hưởng',
+  'overview_tap_for_detail': 'Nhấn để xem chi tiết',
+
+  // Schedule Screen
+  'schedule_title': 'Lịch trình công việc',
+  'schedule_today': 'Hôm nay',
+  'schedule_add_job': 'Thêm công việc',
+  'schedule_no_job': 'Không có công việc nào',
+
+  // Search Screen
+  'search_placeholder': 'Tìm kiếm',
+  'search_recent': 'Gần đây'
 };

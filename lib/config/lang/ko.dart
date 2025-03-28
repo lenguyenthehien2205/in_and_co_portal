@@ -108,4 +108,23 @@ const Map<String, String> ko = {
   'benefit_history': '복리후생 내역',
   'benefit_active': '적용됨',
   'benefit_unactive': '미적용',
+
+  // Overview Screen
+  'overview_work_schedule': '업무 일정',
+  'overview_weekly_tasks': '이번 주 업무',
+  'overview_commission': '커미션',
+  'overview_commission_detail': '이번 달 수익 (백만 VND)',
+  'overview_benefit': '복리후생',
+  'overview_benefit_detail': '현재 혜택',
+  'overview_tap_for_detail': '자세히 보려면 누르세요',
+
+  // Schedule Screen
+  'schedule_title': '업무 일정',
+  'schedule_today': '오늘',
+  'schedule_add_job': '업무 추가',
+  'schedule_no_job': '등록된 업무가 없습니다',
+
+  // Search Screen
+  'search_placeholder': '검색',
+  'search_recent': '최근'
 };

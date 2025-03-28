@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_and_co_portal/features/overview/controllers/commission_controller.dart';
 import 'package:in_and_co_portal/features/overview/widgets/commission/quarterly_bar_chart.dart';
 import 'package:in_and_co_portal/features/overview/widgets/commission/commission_card.dart';
 import 'package:in_and_co_portal/features/overview/widgets/commission/yearly_line_chart.dart';
@@ -7,6 +8,7 @@ import 'package:in_and_co_portal/theme/app_colors.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class CommissionScreen extends StatelessWidget {
+  final CommissionController commissionController = Get.put(CommissionController());
   CommissionScreen({super.key});
   final List<Map<String, dynamic>> commissions = [
     {
@@ -52,23 +54,46 @@ class CommissionScreen extends StatelessWidget {
             sliver: SliverToBoxAdapter(
               child: SizedBox(
                 height: 200,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: commissions.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: CommissionCard(
-                        title: commissions[index]['title'],
-                        amount: commissions[index]['amount'],
-                        image: commissions[index]['image'],
-                      ),
-                    );
-                  },
-                ),
+                child: Obx(() {
+                  if (commissionController.cardLoading.value) {
+                    return Center(child: CircularProgressIndicator()); // Hiển thị loading
+                  }
+                  final commissions = [
+                    {
+                      "title": "commission_this_month".tr,
+                      "amount": "${commissionController.currentMonthCommission},000,000VNĐ",
+                      "image": 'assets/images/commission.png',
+                    },
+                    {
+                      "title": "commission_compare_last_month".tr,
+                      "amount": "${commissionController.lastMonthComparison >= 0 ? '+' : ''}${commissionController.lastMonthComparison},000,000VNĐ", // Nếu có dữ liệu, có thể thay bằng giá trị động
+                      "image": 'assets/images/compare.png',
+                    },
+                    {
+                      "title": "commission_this_year".tr,
+                      "amount": "${commissionController.currentYearCommission},000,000VNĐ",
+                      "image": 'assets/images/annual-report.png',
+                    },
+                  ];
+
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: commissions.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: CommissionCard(
+                          title: commissions[index]['title'] ?? '',
+                          amount: commissions[index]['amount'] ?? '',
+                          image: commissions[index]['image'] ?? '',
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ),
               ),
             ),
-          ),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             sliver: SliverToBoxAdapter(

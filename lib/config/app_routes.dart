@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/features/home/screens/notification_screen.dart';
 import 'package:in_and_co_portal/features/post/screens/add_post_screen.dart';
 import 'package:in_and_co_portal/features/overview/screens/add_task_screen.dart';
 import 'package:in_and_co_portal/features/overview/screens/benefit_screen.dart';
 import 'package:in_and_co_portal/features/overview/screens/career_path_screen.dart';
 import 'package:in_and_co_portal/features/overview/screens/commission_screen.dart';
+import 'package:in_and_co_portal/features/post/screens/post_detail_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/page_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/personal_info_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/settings_screen.dart';
@@ -17,6 +18,7 @@ import 'package:in_and_co_portal/features/auth/screens/forgot_password_screen.da
 import 'package:in_and_co_portal/features/home/screens/home_screen.dart';
 import 'package:in_and_co_portal/features/auth/screens/login_screen.dart';
 import 'package:in_and_co_portal/layouts/main_layout.dart';
+import 'package:in_and_co_portal/main.dart';
 import 'package:in_and_co_portal/screens/not_found_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/profile_screen.dart';
 import 'package:in_and_co_portal/features/search/screens/search_screen.dart';
@@ -61,6 +63,7 @@ final List<String> appBarBackButtonRoutes = [
   '/overview/career-path',
   '/overview/career-path/add-task',
   '/search/result',
+  '/home/notification',
 ];
 
 Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
@@ -86,6 +89,7 @@ final GoRouter router = GoRouter(
   // observers: [GetObserver()], // Thêm GetObserver để theo dõi navigation của GetX
   initialLocation: '/',
   refreshListenable: authNotifier,
+  navigatorKey: navigatorKey,
   redirect: (context, state) {
     final user = FirebaseAuth.instance.currentUser;
     final isLoggingIn = state.uri.path == '/login';
@@ -118,8 +122,15 @@ final GoRouter router = GoRouter(
         return MainLayout(child: child);
       },
       routes: [
-        GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
+        GoRoute(
+          path: '/home', 
+          builder: (context, state) => HomeScreen(), 
+          routes: [
+            GoRoute(path: '/notification', builder: (context, state) => NotificationScreen()),
+          ]
+        ),
         GoRoute(path: '/add-post', builder: (context, state) => AddPostScreen()),
+        GoRoute(path: '/post-detail', builder: (context, state) => PostDetailScreen()),
         GoRoute(
           path: '/search',
           builder: (context, state) => SearchScreen(),

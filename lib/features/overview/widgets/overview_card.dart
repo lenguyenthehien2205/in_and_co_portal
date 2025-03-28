@@ -79,9 +79,9 @@ class OverviewCard extends StatelessWidget {
                     content,
                     style: const TextStyle(fontSize: 17, color: Colors.white70),
                   ),
-                  const SizedBox(height: 75),
+                  const SizedBox(height: 70),
                   Text(
-                    'Nhấn để xem chi tiết',
+                    'overview_tap_for_detail'.tr,
                     style: const TextStyle(fontSize: 14, color: Colors.white70),
                   )
                 ],

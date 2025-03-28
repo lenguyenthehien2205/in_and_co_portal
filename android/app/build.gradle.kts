@@ -47,3 +47,13 @@ android {
 flutter {
     source = "../.."
 }
+dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1")) // BOM để đồng bộ Firebase
+    implementation("com.google.firebase:firebase-messaging") // Firebase Messaging mới nhất
+    implementation("androidx.multidex:multidex:2.0.1") // MultiDex nếu cần
+
+    // 🔥 Loại bỏ firebase-iid để tránh xung đột
+    configurations.all {
+        exclude(group = "com.google.firebase", module = "firebase-iid")
+    }
+}

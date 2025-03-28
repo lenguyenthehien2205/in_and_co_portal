@@ -41,7 +41,7 @@ class InfoRow extends StatelessWidget{
                 )
               ),
             ),
-            width: 210,
+            width: 200,
             child: Row(
               children: [
                 if (icons != null)
@@ -68,7 +68,6 @@ class InfoRow extends StatelessWidget{
               ],
             )
           ),
-
         ],
       ),
     );

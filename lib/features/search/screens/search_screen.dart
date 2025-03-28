@@ -21,7 +21,7 @@ class SearchScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, top: 15),
                   child: Text(
-                    'Gần đây',
+                    'search_recent'.tr,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -82,7 +82,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
         padding: const EdgeInsets.only(right: 20, left: 20, top: 10),
         child: TextField(
           decoration: InputDecoration(
-            hintText: 'Tìm kiếm...',
+            hintText: '${'search_placeholder'.tr}...',
             hintStyle: TextStyle(color: Colors.grey),
             prefixIcon: Icon(Icons.search, color: Colors.grey),
             filled: true,

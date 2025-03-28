@@ -4,42 +4,7 @@ import 'package:in_and_co_portal/core/services/post_service.dart';
 
 class PostController extends GetxController {
   final PostService _postService = PostService();
-  // var posts =
-  //     [
-  //       Post(
-  //         id: '1',
-  //         title: 'Bài viết 1',
-  //         postType: 'Nội dung bài viết 1',
-  //         images: [
-  //           {'url': 'assets/images/thu_hoi_pin_cu.png'},
-  //         ],
-  //       ),
-  //       Post(
-  //         id: '2',
-  //         title: 'Bài viết 2',
-  //         postType: 'Nội dung bài viết 2',
-  //         images: [
-  //           {'url': 'assets/images/thu_hoi_pin_cu.png'},
-  //         ],
-  //       ),
-  //       Post(
-  //         id: '3',
-  //         title: 'Bài viết 3',
-  //         postType: 'Nội dung bài viết 3',
-  //         images: [
-  //           {'url': 'assets/images/thu_hoi_pin_cu.png'},
-  //         ],
-  //       ),
-  //       Post(
-  //         id: '4',
-  //         title: 'Bài viết 4',
-  //         postType: 'Nội dung bài viết 4',
-  //         images: [
-  //           {'url': 'assets/images/thu_hoi_pin_cu.png'},
-  //         ],
-  //       ),
-  //     ].obs;
-  var posts = <Post>[].obs;
+  var posts = <PostDetail>[].obs;
   var isLoadingMore = false.obs;
   var hasMorePosts = true.obs; // tránh chạy hàm load khi hết dữ liệu
   final int pageSize = 3;

@@ -3,11 +3,20 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:in_and_co_portal/controllers/translation_controller.dart';
 import 'package:in_and_co_portal/core/models/post.dart';
+import 'package:in_and_co_portal/core/utils/string_utils.dart';
 import 'package:in_and_co_portal/features/home/controllers/post_controller.dart';
+import 'package:in_and_co_portal/features/home/widgets/comment_frame.dart';
+import 'package:in_and_co_portal/features/home/widgets/like_button.dart';
+import 'package:in_and_co_portal/features/home/widgets/post_options.dart';
+import 'package:in_and_co_portal/features/home/widgets/save_button.dart';
+import 'package:in_and_co_portal/features/post/controllers/comment_controller.dart';
+import 'package:in_and_co_portal/features/post/controllers/download_image_controller.dart';
+import 'package:in_and_co_portal/features/post/controllers/like_controller.dart';
+import 'package:in_and_co_portal/features/post/controllers/save_controller.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class PostItem extends StatefulWidget{
-  final Post post;
+  final PostDetail post;
   const PostItem({super.key, required this.post});
 
   @override
@@ -16,11 +25,12 @@ class PostItem extends StatefulWidget{
 
 class _PostItemState extends State<PostItem>{
   final PostController postController = Get.put(PostController());
+  final DownloadImageController downloadImageController = Get.put(DownloadImageController());
   final PageController pageController = PageController(
     initialPage: 0,
   );
   var currentPage = 1.obs;
-
+ 
   @override
   void initState() {
     super.initState();
@@ -31,10 +41,40 @@ class _PostItemState extends State<PostItem>{
     });
   }
 
+  void openCommentsModal(String postId) {
+    final CommentController commentController = Get.find<CommentController>();
+
+    commentController.fetchComments(postId);
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.9,
+          expand: false,
+          builder: (context, scrollController) {
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: CommentFrame(postId: postId),
+            );
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(context){
+    Get.put(TranslationController(), tag: widget.post.id);
     return GetBuilder<TranslationController>(
-      init: TranslationController(), 
+      init: Get.put(TranslationController(), tag: widget.post.id),
       global: false,
       builder: (translationController) {
         return SizedBox(
@@ -49,15 +89,15 @@ class _PostItemState extends State<PostItem>{
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(0.8), // Độ dày của viền
+                        padding: EdgeInsets.all(0.8), 
                         decoration: BoxDecoration(
-                          color: Colors.grey[300], // Màu bạc
+                          color: Colors.grey[300], 
                           shape: BoxShape.circle,
                         ),
                         child: ClipOval(
                           child: Image.network(
-                            widget.post.authorAvatar, // Ảnh đại diện
-                            width: 40, // Kích thước ảnh
+                            widget.post.authorAvatar, 
+                            width: 40, 
                             height: 40,
                             fit: BoxFit.cover,
                           ),
@@ -71,18 +111,21 @@ class _PostItemState extends State<PostItem>{
                             children: [
                               AppText(text: widget.post.authorName, style: AppText.normal(context)),
                               SizedBox(width: 5),
-                              Icon(Icons.verified, color: Colors.blue, size: 16),
+                              if (widget.post.isChecked)
+                                Icon(Icons.verified, color: Colors.blue, size: 16)
                             ],
                           ),
-                          AppText(text: 'home_post_time'.tr, style: AppText.subtitle(context)),
+                          AppText(text: getTimeAgoByTimestamp(widget.post.createdAt), style: AppText.subtitle(context)),
                         ],
                       ),
                       SizedBox(height: 20)
                     ],
                   ),
-                  IconButton(
-                    icon: Icon(Icons.more_horiz),
-                    onPressed: (){},
+                  PostOptions(
+                    onDownload: () {
+                      print('Download image: ${widget.post.images[pageController.page!.round()]['url']}');
+                      downloadImageController.downloadImage(context, widget.post.images[pageController.page!.round()]['url']);
+                    },
                   )
                 ],
               )
@@ -115,21 +158,24 @@ class _PostItemState extends State<PostItem>{
                       )).toList()
                     )
                   ),
-                  Positioned(
-                    top: 10,
-                    right: 10,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 84, 84, 84).withAlpha(150), // Màu đen đục
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        '${currentPage.value}/${widget.post.images.length}', // Hiển thị số trang
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                  Visibility(
+                    visible: widget.post.images.length > 1, 
+                      child: Positioned(
+                      top: 10,
+                      right: 10,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 84, 84, 84).withAlpha(150), 
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          '${currentPage.value}/${widget.post.images.length}',
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                        ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               )
             ),
@@ -137,39 +183,51 @@ class _PostItemState extends State<PostItem>{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          InkWell(
-                            onTap: () {}, // Xử lý sự kiện nhấn
-                            borderRadius: BorderRadius.circular(100), // Bo góc hiệu ứng
-                            child: Padding( // Thêm padding để dễ bấm hơn
-                              padding: EdgeInsets.all(4),
-                              child: Icon(Icons.favorite_border, size: 20),
-                            ),
+                          GetBuilder<LikeController>(
+                            init: Get.put(LikeController(widget.post.id), tag: widget.post.id), // Đảm bảo mỗi bài có controller riêng
+                            builder: (controller) {
+                              return LikeButton(postId: widget.post.id);
+                            },
                           ),
-                          Text('200', 
-                            style: AppText.subtitle(context),
-                          ), 
                           SizedBox(width: 10),
                           InkWell(
-                            onTap: () {}, // Xử lý sự kiện nhấn
-                            borderRadius: BorderRadius.circular(100), // Bo góc hiệu ứng
-                            child: Padding( // Thêm padding để dễ bấm hơn
+                            onTap: () {
+                              openCommentsModal(widget.post.id);
+                            },
+                            borderRadius: BorderRadius.circular(100), 
+                            child: Padding( 
                               padding: EdgeInsets.all(4),
                               child: Icon(Icons.mode_comment_outlined, size: 20),
                             ),
                           ),
-                          AppText(text: '32', style: AppText.subtitle(context)),
+                          GetBuilder<CommentController>(
+                            init: Get.put(CommentController(), tag: widget.post.id), 
+                            builder: (controller) {
+                              if (!controller.commentCounts.containsKey(widget.post.id)) {
+                                controller.fetchCommentCount(widget.post.id);
+                                return AppText(text: '0', style: AppText.subtitle(context)); 
+                              }
+                              return AppText(
+                                text: '${controller.commentCounts[widget.post.id] ?? 0}', 
+                                style: AppText.subtitle(context),
+                              );
+                            },
+                          ),
                         ],
                       ),
-                      IconButton(
-                        icon: Icon(Icons.bookmark_border),
-                        onPressed: (){},
-                      )
+                      GetBuilder<SaveController>(
+                        init: Get.put(SaveController(widget.post.id), tag: widget.post.id), 
+                        builder: (controller) {
+                          print(widget.post.id);
+                          return SaveButton(postId: widget.post.id, postOwnerId: widget.post.authorId);
+                        },
+                      ),
                     ],
                   ),
                 ),

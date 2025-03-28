@@ -34,14 +34,14 @@ class LoginScreen extends StatelessWidget {
                 AuthTextfield(
                   hintText: 'login_type_email'.tr,
                   controller: _emailController,
-                  onSubmitted: (_) => authController.login(_emailController.text, _passwordController.text),
+                  onSubmitted: (_) => authController.login(context, _emailController.text, _passwordController.text),
                 ),
                 const SizedBox(height: 16),
                 AuthTextfield(
                   hintText: 'login_type_password'.tr,
                   isPassword: true,
                   controller: _passwordController,
-                  onSubmitted: (_) => authController.login(_emailController.text, _passwordController.text),
+                  onSubmitted: (_) => authController.login(context, _emailController.text, _passwordController.text),
                 ),
                 // Quên mật khẩu
                 Align(
@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                     text: AppText(
                         text: 'login_button'.tr, style: AppText.title(context)),
                     onPressed: () {
-                      authController.login(_emailController.text, _passwordController.text);
+                      authController.login(context, _emailController.text, _passwordController.text);
                     },
                   )),
             const SizedBox(height: 44),

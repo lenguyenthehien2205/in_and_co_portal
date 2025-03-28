@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:in_and_co_portal/core/models/benefit-history.dart';
@@ -8,6 +9,7 @@ import 'package:in_and_co_portal/features/profile/controllers/profile_controller
 class BenefitController extends GetxController{
   final BenefitService _benefitService = BenefitService();
   final ProfileController _profileController = Get.find();
+  final userId = FirebaseAuth.instance.currentUser!.uid;
   var isLoading = false.obs;
   var benefits = <Benefit>[].obs;
   var benefitHistory = <BenefitHistory>[].obs; 
@@ -36,7 +38,7 @@ class BenefitController extends GetxController{
 
   void loadBenefitHistory() {
     isLoading.value = true;
-    _benefitService.fetchBenefitHistory(_profileController.userData["employee_id"]).listen((newBenefits) {
+    _benefitService.fetchBenefitHistory(userId).listen((newBenefits) {
       benefitHistory.value = newBenefits;
       filteredBenefitHistory.assignAll(benefitHistory);
       print(benefitHistory);

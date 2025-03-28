@@ -56,7 +56,7 @@ class QuarterlyBarChart extends StatelessWidget{
                 SizedBox(width: 10),
                 Obx(() => DropdownButton<int>(
                   value: commissionController.selectedYear.value,
-                  items: [2024, 2025].map((year){
+                  items: commissionController.availableYears.map((year){
                     return DropdownMenuItem(
                       value: year,
                       child: Text(year.toString())
@@ -70,7 +70,8 @@ class QuarterlyBarChart extends StatelessWidget{
             SizedBox(height: 30),
             Obx(() => SizedBox(
               height: 250,
-              child: BarChart(
+              child: commissionController.currentQuarterlyData.isNotEmpty
+                  ? BarChart(
                 BarChartData(
                   barGroups: List.generate(
                     commissionController.currentQuarterlyData.length, (index) => BarChartGroupData(
@@ -92,7 +93,7 @@ class QuarterlyBarChart extends StatelessWidget{
                       tooltipMargin: 3,
                       getTooltipItem: (group, groupIndex, rod, rodIndex) {
                         return BarTooltipItem(
-                          '${rod.toY.toInt()} triệu', 
+                          '${rod.toY.toInt()} ${'commission_million'.tr}', 
                           TextStyle(
                             color: Colors.white,
                             fontSize: 14, 
@@ -150,7 +151,7 @@ class QuarterlyBarChart extends StatelessWidget{
                   ),
                   borderData: FlBorderData(show: false),
                 ),
-              ),
+              ): Center(child: Text("No commission data available")),
             )
             )
           ],

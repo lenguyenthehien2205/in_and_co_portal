@@ -1,46 +1,78 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:in_and_co_portal/core/models/quarterly_commission.dart';
+import 'package:in_and_co_portal/core/services/commission_service.dart';
+import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 
 class CommissionController extends GetxController {
-  var selectedYear = 2024.obs;
+  final ProfileController profileController = Get.find();
+  var selectedYear = 2023.obs;
   var selectedQuarter = 1.obs;
 
   var fromYear = 0.obs;
   var toYear = 0.obs;
   final RxList<MapEntry<int, int>> currentYearlyData = <MapEntry<int, int>>[].obs;
-
-
-  final Map<int, Map<int, List<int>>> commissionsQuarterData = {
-    2024: {
-      1: [12, 15, 18], 
-      2: [17, 16, 20], 
-      3: [21, 19, 23], 
-      4: [25, 22, 27], 
-    },
-    2025: {
-      1: [13, 14, 19],
-      2: [18, 17, 21],
-      3: [22, 20, 24],
-      4: [26, 23, 28],
-    }
-  };
-
-  final Map<int, int> commissionsYearlyData = {
-    2020: 125,
-    2021: 134,
-    2022: 110,
-    2023: 145,
-    2024: 125,
-    2025: 160,
-  };
+  var currentMonthCommission = 0.obs;
+  var currentYearCommission = 0.obs;
+  var lastMonthComparison = 0.obs;
+  var cardLoading = true.obs;
+  final CommissionService commissionService = CommissionService();
+  final RxMap<int, Map<int, List<int>>> commissionsQuarterData = <int, Map<int, List<int>>>{}.obs;
+  final RxMap<int, int> commissionsYearlyData = <int, int>{}.obs;
 
   final List<int> availableYears = <int>[].obs;
 
   @override
   void onInit() {
     super.onInit();
+    ever(profileController.userData, (data) {
+      if (data.isEmpty || data["employee_id"] == null) {
+        clearCommissions();
+      } else {
+        fetchCommissionsData();
+      }
+    });
+    fetchCommissionsData();
+  }
+
+  Future<void> fetchCurrentCommissions() async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    cardLoading.value = true;
+    currentMonthCommission.value = await commissionService.getCurrentMonthCommission(userId);
+    currentYearCommission.value = await commissionService.getCurrentYearCommission(userId);
+    lastMonthComparison.value = await commissionService.getLastMonthComparison(userId);
+    cardLoading.value = false;
+  }
+
+  void clearCommissions() {
+    commissionsQuarterData.clear();
+    commissionsYearlyData.clear();
+    availableYears.clear();
+    fromYear.value = 0;
+    toYear.value = 0;
+    currentYearlyData.clear();
+  }
+
+  /// Lấy dữ liệu từ Firebase
+  Future<void> fetchCommissionsData() async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    List<QuarterlyCommission> commissions = await commissionService.getAllCommissions(userId);
+    
+    // Chuyển đổi dữ liệu Firebase vào commissionsQuarterData
+    commissionsQuarterData.clear();
+    for (var commission in commissions) {
+      commissionsQuarterData[commission.year] = commission.quarters;
+      
+      // Cập nhật tổng hoa hồng từng năm
+      int totalYearly = commission.quarters.values.expand((e) => e).reduce((a, b) => a + b);
+      commissionsYearlyData[commission.year] = totalYearly;
+    }
+
+    fetchCurrentCommissions();
     updateAvailableYears();
     updateCurrentYearlyData();
   }
+  
 
   void updateAvailableYears() {
     availableYears.assignAll(commissionsYearlyData.keys.toList()..sort());

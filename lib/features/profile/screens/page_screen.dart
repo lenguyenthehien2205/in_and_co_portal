@@ -151,10 +151,10 @@ class PageScreen extends StatelessWidget {
                             mainAxisSpacing: 2,
                             childAspectRatio: 1,
                           ),
-                          itemCount: 6,
+                          itemCount: profileController.posts.length,
                           itemBuilder: (context, index) {
-                            return Image.asset(
-                              'assets/images/food.png',
+                            return Image.network(
+                              profileController.posts[index].url,
                               fit: BoxFit.cover,
                             );
                           },
@@ -167,10 +167,10 @@ class PageScreen extends StatelessWidget {
                             mainAxisSpacing: 2,
                             childAspectRatio: 1,
                           ),
-                          itemCount: 6,
+                          itemCount: profileController.posts_saved.length,
                           itemBuilder: (context, index) {
-                            return Image.asset(
-                              'assets/images/sport.png',
+                            return Image.network(
+                               profileController.posts_saved[index].url,
                               fit: BoxFit.cover,
                             );
                           },

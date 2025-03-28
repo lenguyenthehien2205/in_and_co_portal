@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:in_and_co_portal/core/models/task.dart';
 import 'package:in_and_co_portal/core/services/task_service.dart';
@@ -5,6 +6,7 @@ import 'package:in_and_co_portal/features/profile/controllers/profile_controller
 
 class TaskController extends GetxController {
   final ProfileController _profileController = Get.find();
+  final userId = FirebaseAuth.instance.currentUser!.uid;
   var selectedDate = DateTime.now().obs;
   final TaskService _taskService = TaskService();
   var tasks = <Task>[].obs;
@@ -21,7 +23,6 @@ class TaskController extends GetxController {
         fetchTasks();
       }
     });
-
     fetchTasks(); // Fetch task lần đầu
   }
 
@@ -36,7 +37,7 @@ class TaskController extends GetxController {
 
   void fetchTasks() {
     isLoading.value = true; // Bắt đầu tải dữ liệu
-    _taskService.getTasksByEmployee(_profileController.userData["employee_id"], selectedDate.value).listen((newTasks) {
+    _taskService.getTasksByEmployee(userId, selectedDate.value).listen((newTasks) { // lắng nghe 
       tasks.value = newTasks;
       isLoading.value = false; // Dữ liệu đã tải xong
     }, onError: (error) {

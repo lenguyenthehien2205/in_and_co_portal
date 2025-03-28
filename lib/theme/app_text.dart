@@ -60,7 +60,7 @@ class AppText extends StatelessWidget{
     color: Colors.white,
   );
 
-  static TextStyle semiBoldTitle = TextStyle(
+  static TextStyle semiBoldTitle(BuildContext context) => TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: Colors.black,

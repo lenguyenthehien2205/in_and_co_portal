@@ -108,4 +108,23 @@ const Map<String, String> en = {
   'benefit_history': 'Benefit History',
   'benefit_active': 'Active',
   'benefit_unactive': 'Not Applied',
+
+  // Overview Screen
+  'overview_work_schedule': 'Work Schedule',
+  'overview_weekly_tasks': 'weekly Tasks',
+  'overview_commission': 'Commission',
+  'overview_commission_detail': 'million VND this month',
+  'overview_benefit': 'Benefits',
+  'overview_benefit_detail': 'Current benefits',
+  'overview_tap_for_detail': 'Tap to see details',
+
+  // Schedule Screen
+  'schedule_title': 'Work Schedule',
+  'schedule_today': 'Today',
+  'schedule_add_job': 'Add Job',
+  'schedule_no_job': 'No Jobs Available',
+
+  // Search Screen
+  'search_placeholder': 'Search',
+  'search_recent': 'Recent'
 };

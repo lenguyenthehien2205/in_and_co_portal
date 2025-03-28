@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -9,9 +10,12 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
 import 'package:in_and_co_portal/features/home/controllers/post_controller.dart';
+import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 
 class AddPostController extends GetxController {
   final TextEditingController contentController = TextEditingController(); 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final ProfileController profileController = Get.find();
   final RxList<File> selectedImages = <File>[].obs;
   final ImagePicker picker = ImagePicker();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -102,11 +106,15 @@ class AddPostController extends GetxController {
         });
       }
     }
-
-    await _firestore.collection('posts').add({
-      'title': contentController.text,
-      'post_images': uploadedImages, 
-      'post_type': 'Cá nhân',
+    await _firestore
+      .collection('users')
+      .doc(_auth.currentUser!.uid)
+      .collection('posts')
+      .add({
+        'title': contentController.text,
+        'post_images': uploadedImages,
+        'post_type': profileController.userData['role'] != 'Admin' ? 'Cá nhân' : 'Công ty',
+        'created_at': FieldValue.serverTimestamp(),
     });
     isLoading.value = false;
 
