@@ -5,7 +5,7 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
 class FirebaseApi {
   Future<String> getAccessToken() async {
-    // **Đọc file Service Account JSON**
+    // Đọc file Service Account JSON
     final jsonString = await rootBundle.loadString('assets/service-account.json');
     final Map<String, dynamic> serviceAccount = json.decode(jsonString);
 
@@ -13,7 +13,7 @@ class FirebaseApi {
     final String privateKey = serviceAccount["private_key"];
     final String tokenUri = "https://oauth2.googleapis.com/token";
 
-    // **Tạo JWT**
+    // Tạo JWT
     final jwt = JWT(
       {
         "iss": clientEmail,
@@ -24,10 +24,10 @@ class FirebaseApi {
       },
     );
 
-    // **Ký JWT bằng RSA SHA256**
+    // Ký JWT bằng RSA SHA256
     final signedJWT = jwt.sign(RSAPrivateKey(privateKey), algorithm: JWTAlgorithm.RS256);
 
-    // **Gửi yêu cầu lấy Access Token**
+    // Gửi yêu cầu lấy Access Token
     final response = await http.post(
       Uri.parse(tokenUri),
       headers: {"Content-Type": "application/x-www-form-urlencoded"},
@@ -48,7 +48,7 @@ class FirebaseApi {
     String accessToken = await getAccessToken();
     String projectId = 'in-and-co-portal';
 
-    final response = await http.post(
+    await http.post(
       Uri.parse("https://fcm.googleapis.com/v1/projects/${projectId}/messages:send"),
       headers: {
         "Content-Type": "application/json",
@@ -57,6 +57,30 @@ class FirebaseApi {
       body: jsonEncode({
         "message": {
           "topic": authorUid, // Gửi đến tất cả subscriber của UID này
+          "notification": {
+            "title": title,
+            "body": body,
+          },
+          "data": {
+            "click_action": "FLUTTER_NOTIFICATION_CLICK",
+          }
+        }
+      }),
+    );
+  }
+  Future<void> sendNotificationToAllUser(String title, String body) async {
+    String accessToken = await getAccessToken();
+    String projectId = 'in-and-co-portal';
+
+    await http.post(
+      Uri.parse("https://fcm.googleapis.com/v1/projects/${projectId}/messages:send"),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $accessToken",
+      },
+      body: jsonEncode({
+        "message": {
+          "topic": 'all_users', // Gửi đến tất cả subscriber của topic này
           "notification": {
             "title": title,
             "body": body,

@@ -133,16 +133,31 @@ class PostService {
         });
   }
 
-  Future<PostDetail> getPostById(String userId, String postId) async {
-    var postSnapshot =
-        await _firestore
-            .collection('users')
-            .doc(userId)
-            .collection('posts')
-            .doc(postId)
-            .get();
+  Future<PostDetail> getPostDetailById(String postId) async {
+    var userSnapshot = await _firestore.collection("users").get();
     
-    return PostDetail.fromFirestore(postSnapshot);
+    for (var userDoc in userSnapshot.docs) {
+      var postSnapshot = await _firestore
+          .collection("users")
+          .doc(userDoc.id)
+          .collection("posts")
+          .doc(postId)
+          .get();
+
+      if (postSnapshot.exists) {
+        var post = PostDetail.fromFirestore(postSnapshot);
+
+        // Lấy thông tin tác giả
+        var userData = userDoc.data();
+        post.authorName = userData['fullname'] ?? 'Unknown';
+        post.authorAvatar = userData['avatar'] ?? '';
+        post.isChecked = userData['is_checked'] ?? false;
+        post.authorId = userDoc.id;
+
+        return post;
+      }
+    }
+    throw Exception("Bài viết không tồn tại");
   }
 
   Future<List<Map<String, String>>> getTopLabelsWithImage({

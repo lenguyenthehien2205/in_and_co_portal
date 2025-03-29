@@ -7,15 +7,17 @@ import 'package:in_and_co_portal/theme/app_text.dart';
 
 class CommentFrame extends StatelessWidget{
   final String postId;
+  final String currentPath;
   final CommentController commentController = Get.put(CommentController());
-  CommentFrame({super.key, required this.postId});
+  CommentFrame({super.key, required this.postId, required this.currentPath});
   @override
   Widget build(BuildContext context) {
+    
     return CustomScrollView(
       reverse: true,
       slivers: [
         SliverPersistentHeader(
-          delegate: MyHeaderDelegate(postId: postId),
+          delegate: MyHeaderDelegate(postId: postId, currentPath: currentPath),
           floating: true,
           pinned: true,
         ),
@@ -65,14 +67,18 @@ class CommentFrame extends StatelessWidget{
 }
 class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
   final String postId;
+  final String currentPath;
   final CommentController commentController = Get.find<CommentController>();
 
-  MyHeaderDelegate({required this.postId});
+  MyHeaderDelegate({required this.postId, required this.currentPath});
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    
     return Container(
-      padding: EdgeInsets.only(bottom: 100),
-      color: Colors.white,
+      padding: EdgeInsets.only(
+        bottom: currentPath == '/home' ? 100 : 50, 
+      ),
+      color: Colors.white, 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -107,9 +113,9 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
   
 
   @override
-  double get maxExtent => 150; // Chiều cao tối đa của header
+  double get maxExtent => currentPath == '/home' ? 150 : 100; // Chiều cao tối đa của header
   @override
-  double get minExtent => 150; // Chiều cao tối thiểu khi cuộn
+  double get minExtent => currentPath == '/home' ? 150 : 100; // Chiều cao tối thiểu khi cuộn
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 }

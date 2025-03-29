@@ -32,7 +32,16 @@ class MainLayout extends StatelessWidget {
     final String? currentPath = GoRouterState.of(context).fullPath;
     final bool shouldShowMainRoute = mainRoutes.contains(currentPath);
     final bool shouldHeader = headerRoutes.contains(currentPath);
-    final bool shouldBackBtn = appBarBackButtonRoutes.contains(currentPath);
+    // final bool shouldBackBtn = appBarBackButtonRoutes.contains(currentPath);
+    final bool shouldBackBtn =
+    currentPath != null &&
+    appBarBackButtonRoutes.any(
+      (route) =>
+          route.contains(':')
+              ? currentPath.startsWith(route.split('/:')[0])
+              : currentPath == route,
+    );
+
 
     return Scaffold(
       appBar: shouldHeader || shouldBackBtn ? null : PreferredSize(

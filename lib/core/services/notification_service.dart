@@ -1,23 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:in_and_co_portal/core/models/notification.dart';
+import 'package:in_and_co_portal/core/models/notification.dart' as model;
 
 class NotificationService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> addNotification(String userId, String senderId, String postId, String title, String message) async{
-    await FirebaseFirestore.instance
+  Future<void> addNotification(String userId, model.Notification notification) async{
+        await FirebaseFirestore.instance
       .collection('users') 
       .doc(userId) 
       .collection('notifications') 
-      .add({
-        'sender_id': senderId,
-        'post_id': postId,
-        'title': title,
-        'message': message,
-        'is_read': false,
-        'created_at': FieldValue.serverTimestamp(),
-      });
+      .add(notification.toMap()); 
+  }
+
+  Future<void> addNotificationToAllUser(model.Notification notification) async{
+    final usersCollection = await FirebaseFirestore.instance.collection('users').get();
+    for (var userDoc in usersCollection.docs){
+      String userId = userDoc.id;
+      await FirebaseFirestore.instance
+        .collection('users') 
+        .doc(userId) 
+        .collection('notifications') 
+        .add(notification.toMap());
+    }
   }
 
   Future<void> markAllAsRead(String userId) async {
@@ -38,7 +42,18 @@ class NotificationService {
 
     await batch.commit();
   }
-  Stream<List<NotificationDetail>> getNotifications(String userId) {
+
+  Stream<int> getCountNotifications(String userId) {
+    return _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('notifications')
+        .where('is_read', isEqualTo: false)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.length);
+  }
+
+  Stream<List<model.NotificationDetail>> getNotifications(String userId) {
     return _firestore
         .collection('users')
         .doc(userId)
@@ -46,7 +61,7 @@ class NotificationService {
         .orderBy('created_at', descending: true)
         .snapshots()
         .asyncMap((snapshot) async {
-          List<NotificationDetail> notifications = [];
+          List<model.NotificationDetail> notifications = [];
 
           for (var doc in snapshot.docs) {
             var data = doc.data();
@@ -54,10 +69,11 @@ class NotificationService {
             DocumentSnapshot userDoc = await _firestore.collection('users').doc(senderId).get();
             var userData = userDoc.data() as Map<String, dynamic>;
 
-            notifications.add(NotificationDetail(
+            notifications.add(model.NotificationDetail(
               title: data['title'] ?? '',
               message: data['message'] ?? '',
               postId: data['post_id'] ?? '',
+              type: data['type'] ?? '',
               createdAt: data['created_at'] ?? Timestamp.now(),
               isRead: data['is_read'] ?? false,
               senderId: data['sender_id'] ?? '',

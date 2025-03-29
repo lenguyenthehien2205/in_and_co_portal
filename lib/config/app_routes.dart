@@ -64,6 +64,7 @@ final List<String> appBarBackButtonRoutes = [
   '/overview/career-path/add-task',
   '/search/result',
   '/home/notification',
+  '/post-detail/:postId',
 ];
 
 Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
@@ -130,7 +131,18 @@ final GoRouter router = GoRouter(
           ]
         ),
         GoRoute(path: '/add-post', builder: (context, state) => AddPostScreen()),
-        GoRoute(path: '/post-detail', builder: (context, state) => PostDetailScreen()),
+        GoRoute(
+          path: '/post-detail/:postId',
+          builder: (context, state) {
+            final String? postId = state.pathParameters['postId'];
+            if (postId == null) {
+              return Scaffold(
+                body: Center(child: Text("Lỗi: Không có postId!")),
+              );
+            }
+            return PostDetailScreen(postId: postId);
+          },
+        ),
         GoRoute(
           path: '/search',
           builder: (context, state) => SearchScreen(),

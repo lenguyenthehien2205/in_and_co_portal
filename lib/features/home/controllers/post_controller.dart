@@ -51,4 +51,9 @@ class PostController extends GetxController {
     hasMorePosts.value = true;
     loadMorePosts();
   }
+  Future<PostDetail> getPostDetailById(String postId) async {
+    final post = await _postService.getPostDetailById(postId);
+    print('Post: $post');
+    return post;
+  }
 }

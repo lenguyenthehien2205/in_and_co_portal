@@ -20,7 +20,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform, 
   );
-  await FCMService().initNotifications();
+  await FCMService().initNotifications(); // Khởi tạo FCM
   // Tắt cache của Firestore để tránh lấy dữ liệu cũ 
   FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
   Get.put(ThemeController(), permanent: true); 

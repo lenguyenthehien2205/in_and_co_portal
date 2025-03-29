@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/controllers/translation_controller.dart';
 import 'package:in_and_co_portal/core/models/post.dart';
 import 'package:in_and_co_portal/core/utils/string_utils.dart';
@@ -41,10 +42,12 @@ class _PostItemState extends State<PostItem>{
     });
   }
 
-  void openCommentsModal(String postId) {
+  void openCommentsModal(context, String postId) {
     final CommentController commentController = Get.find<CommentController>();
 
     commentController.fetchComments(postId);
+
+    var currentPath = GoRouterState.of(context).uri.toString() ?? '';
 
     showModalBottomSheet(
       context: context,
@@ -62,7 +65,7 @@ class _PostItemState extends State<PostItem>{
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               ),
-              child: CommentFrame(postId: postId),
+              child: CommentFrame(postId: postId, currentPath: currentPath),
             );
           },
         );
@@ -100,6 +103,9 @@ class _PostItemState extends State<PostItem>{
                             width: 40, 
                             height: 40,
                             fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/images/default_avatar.png', width: 40, height: 40);
+                            },
                           ),
                         ),
                       ),
@@ -109,7 +115,7 @@ class _PostItemState extends State<PostItem>{
                         children: [
                           Row(
                             children: [
-                              AppText(text: widget.post.authorName, style: AppText.normal(context)),
+                              AppText(text: widget.post.authorName, style: AppText.semiBoldTitle(context)),
                               SizedBox(width: 5),
                               if (widget.post.isChecked)
                                 Icon(Icons.verified, color: Colors.blue, size: 16)
@@ -198,7 +204,7 @@ class _PostItemState extends State<PostItem>{
                           SizedBox(width: 10),
                           InkWell(
                             onTap: () {
-                              openCommentsModal(widget.post.id);
+                              openCommentsModal(context, widget.post.id);
                             },
                             borderRadius: BorderRadius.circular(100), 
                             child: Padding( 

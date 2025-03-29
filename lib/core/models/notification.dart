@@ -4,6 +4,7 @@ class Notification {
   final String title;
   final String message;
   final String postId;
+  final String type;
   final Timestamp createdAt;
   final bool isRead;
   final String senderId;
@@ -12,6 +13,7 @@ class Notification {
     required this.title,
     required this.message,
     required this.postId,
+    required this.type,
     required this.createdAt,
     required this.isRead,
     required this.senderId,
@@ -23,18 +25,21 @@ class Notification {
       title: data['title'],
       message: data['message'],
       postId: data['post_id'],
+      type: data['type'], 
       createdAt: data['created_at'],
       isRead: data['is_read'],
       senderId: data['sender_id'],
     );
   }
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() { 
     return {
       "title": title,
       "message": message,
       "post_id": postId,
+      "type": type,
       "created_at": createdAt,
       "is_read": isRead,
+      "sender_id": senderId,
     };
   }
 }
@@ -47,6 +52,7 @@ class NotificationDetail extends Notification {
     required String title,
     required String message,
     required String postId,
+    required String type,
     required Timestamp createdAt,
     required bool isRead,
     required String senderId,
@@ -56,6 +62,7 @@ class NotificationDetail extends Notification {
           title: title,
           message: message,
           postId: postId,
+          type: type,
           createdAt: createdAt,
           isRead: isRead,
           senderId: senderId,
@@ -67,6 +74,7 @@ class NotificationDetail extends Notification {
       title: data['title'] ?? '',
       message: data['message'] ?? '',
       postId: data['post_id'] ?? '',
+      type: data['type'] ?? '',
       createdAt: data['created_at'] ?? Timestamp.now(),
       isRead: data['is_read'] ?? false,
       senderId: data['sender_id'] ?? '',

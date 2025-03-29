@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:in_and_co_portal/config/firebase_api.dart';
-import 'package:in_and_co_portal/core/services/firebase_service.dart';
+import 'package:in_and_co_portal/core/models/notification.dart' as model;
 import 'package:in_and_co_portal/core/services/notification_service.dart';
 import 'package:in_and_co_portal/core/services/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +42,16 @@ class LikeService {
         String title = 'Thông báo về lượt thích 💕';
         String message = '${userLiked['fullname']} đã thích bài viết của bạn';
         await _firebaseApi.sendNotificationToAuthor(author['id'], title, message);
-        await _notificationService.addNotification(author['id'], userId, postId, title, message);
+        model.Notification notification = model.Notification(
+          title: title,
+          message: message,
+          postId: postId,
+          type: 'like',
+          createdAt: Timestamp.now(),
+          isRead: false,
+          senderId: userId,
+        ); 
+        await _notificationService.addNotification(author['id'], notification);
       }
     } else {
       if (likeQuery.docs.isNotEmpty) {

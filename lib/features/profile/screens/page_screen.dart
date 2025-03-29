@@ -153,9 +153,16 @@ class PageScreen extends StatelessWidget {
                           ),
                           itemCount: profileController.posts.length,
                           itemBuilder: (context, index) {
-                            return Image.network(
-                              profileController.posts[index].url,
-                              fit: BoxFit.cover,
+                            return GestureDetector(
+                              onTap: () {
+                                context.push('/post-detail/${profileController.posts[index].id}');
+                              },
+                              child: ClipRRect(
+                                child: Image.network(
+                                  profileController.posts[index].url,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -169,9 +176,16 @@ class PageScreen extends StatelessWidget {
                           ),
                           itemCount: profileController.posts_saved.length,
                           itemBuilder: (context, index) {
-                            return Image.network(
-                               profileController.posts_saved[index].url,
-                              fit: BoxFit.cover,
+                            return GestureDetector(
+                              onTap: () {
+                                context.push('/post-detail/${profileController.posts_saved[index].id}');
+                              },
+                              child: ClipRRect(
+                                child: Image.network(
+                                  profileController.posts_saved[index].url,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             );
                           },
                         ),
