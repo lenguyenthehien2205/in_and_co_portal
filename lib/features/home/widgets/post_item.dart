@@ -75,6 +75,9 @@ class _PostItemState extends State<PostItem>{
 
   @override
   Widget build(context){
+    String labels = widget.post.getUniqueLabels()
+        .map((label) => '#$label') 
+        .join('  ');  
     Get.put(TranslationController(), tag: widget.post.id);
     return GetBuilder<TranslationController>(
       init: Get.put(TranslationController(), tag: widget.post.id),
@@ -269,7 +272,10 @@ class _PostItemState extends State<PostItem>{
                             : widget.post.title,
                         style: AppText.normal(context),
                       )),
-                      Text('#MTAC #MôiTrườngÁChâu', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600)),
+                      Text(
+                        labels,
+                        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
+                      ),
                       Obx(() => TextButton(
                           onPressed: () {
                             if(translationController.isTranslated.value){

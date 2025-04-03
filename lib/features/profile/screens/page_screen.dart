@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
-import 'package:in_and_co_portal/features/profile/widgets/page/story_button.dart';
 import 'package:in_and_co_portal/theme/app_colors.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
@@ -81,7 +80,7 @@ class PageScreen extends StatelessWidget {
                           Text(displayData["bio"], style: AppText.normal(context)),
                         ],
                       ),
-                      if(profileController.isViewingOtherUser.value)
+                      if(profileController.isViewingOtherUser.value && profileController.currentUID.value != userId)
                         IconButton(
                           onPressed: () {
                             if (profileController.isViewingOtherUser.value) {

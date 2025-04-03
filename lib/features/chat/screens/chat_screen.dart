@@ -134,7 +134,7 @@ class ChatScreen extends StatelessWidget{
                   ),
                   SizedBox(height: 50),
                 ],
-              ), // Khoảng cách dưới cùng
+              ), 
             ),
           ],
         )
@@ -161,7 +161,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
       ),
       padding: EdgeInsets.only(
         top: 10,
-        bottom: 30, 
+        bottom: 20, 
       ), 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

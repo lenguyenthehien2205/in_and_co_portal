@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
               (context, index) {
                 return Posts();
               },
-              childCount: 1, // Chỉ có 1 danh sách Posts
+              childCount: 1,
             ),
           ),
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_and_co_portal/features/post/controllers/add_post_controller.dart';
+import 'package:in_and_co_portal/theme/app_colors.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 
@@ -36,36 +37,74 @@ class AddPostScreen extends StatelessWidget {
             SizedBox(height: 20),
 
             Obx(() => addPostController.selectedImages.isNotEmpty
-                ? SizedBox(
-                    height: 250,
-                    child: PageView.builder(
-                      itemCount: addPostController.selectedImages.length,
-                      itemBuilder: (context, index) {
-                        return Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.file(
-                                addPostController.selectedImages[index],
-                                width: double.infinity,
-                                fit: BoxFit.cover,
+              ? SizedBox(
+                  height: 330, 
+                  child: PageView.builder(
+                    itemCount: addPostController.selectedImages.length,
+                    itemBuilder: (context, index) { 
+                      return Column(
+                        children: [
+                          Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.file(
+                                  addPostController.selectedImages[index],
+                                  width: double.infinity,
+                                  height: 220,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: IconButton(
+                                  icon: Icon(Icons.cancel, color: Colors.white),
+                                  onPressed: () => addPostController.removeImage(index),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Obx(() {
+                            return SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Wrap(
+                                  spacing: 8.0,
+                                  runSpacing: 5.0,
+                                  children: addPostController.imageLabels[index]
+                                    .map((label) => GestureDetector(
+                                          onTap: () {
+                                            addPostController.editLabel(index, label, context);
+                                          },
+                                          child: Chip(
+                                            label: Text(label),
+                                            onDeleted: () => addPostController.removeLabel(index, label),
+                                          ),
+                                        ))
+                                    .toList(),
+                                ),
+                              )
+                            );
+                          }),
+                          TextButton(
+                            onPressed: () => addPostController.addNewLabel(index, context),
+                            style: TextButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
                               ),
                             ),
-                            Positioned(
-                              top: 0,
-                              right: 0,
-                              child: IconButton(
-                                icon: Icon(Icons.cancel, color: Colors.white),
-                                onPressed: () => addPostController.removeImage(index),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  )
-                : SizedBox()),
-
+                            child: Icon(Icons.add, color: Colors.white),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                )
+              : SizedBox()),
 
             Align(
               alignment: Alignment.center,

@@ -18,21 +18,10 @@ class PostController extends GetxController {
   }
 
   void loadMorePosts() async {
-    print('Load more posts');
     if (isLoadingMore.value || !hasMorePosts.value) return;
-
     try {
       isLoadingMore.value = true;
-
-      final data =
-          await _postService
-              .getPosts(
-                limit: pageSize,
-                excludeIds: loadPostIds.toList(),
-              )
-              .first;
-      print('Data: $data');
-
+      final data = await _postService.getPosts(limit: pageSize,excludeIds: loadPostIds.toList()).first;
       if (data.isNotEmpty) {
         loadPostIds.addAll(data.map((post) => post.id));
         posts.addAll(data);
@@ -53,7 +42,6 @@ class PostController extends GetxController {
   }
   Future<PostDetail> getPostDetailById(String postId) async {
     final post = await _postService.getPostDetailById(postId);
-    print('Post: $post');
     return post;
   }
 

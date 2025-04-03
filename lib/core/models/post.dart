@@ -95,6 +95,15 @@ class PostDetail{
       likes: data['likes'] ?? 0,
     );
   }
+  // Lấy tất cả nhãn từ tất cả ảnh trong bài viết và loại bỏ nhãn trùng
+  List<String> getUniqueLabels() {
+    Set<String> labelsSet = {};
+    for (var image in images) {
+      var labels = image['labels'] as List<String>;
+      labelsSet.addAll(labels);
+    }
+    return labelsSet.toList();
+  }
 }
 
 class PostOnlyImage{

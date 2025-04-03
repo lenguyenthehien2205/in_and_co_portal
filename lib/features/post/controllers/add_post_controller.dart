@@ -57,6 +57,87 @@ class AddPostController extends GetxController {
     }
   }
 
+  void editLabel(int imageIndex, String oldLabel, BuildContext context) {
+    TextEditingController labelController = TextEditingController(text: oldLabel);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Chỉnh sửa nhãn"),
+          content: TextField(
+            controller: labelController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Nhập nhãn mới",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("Hủy"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (labelController.text.isNotEmpty) {
+                  int labelIndex = imageLabels[imageIndex].indexOf(oldLabel);
+                  if (labelIndex != -1) {
+                    List<String> updatedLabels = List.from(imageLabels[imageIndex]); 
+                    updatedLabels[labelIndex] = labelController.text;
+                    imageLabels[imageIndex] = updatedLabels; 
+                  }
+                  Navigator.pop(context);
+                }
+              },
+              child: Text("Lưu"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void addNewLabel(int imageIndex, BuildContext context) {
+    TextEditingController labelController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Thêm nhãn mới"),
+          content: TextField(
+            controller: labelController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Nhập nhãn",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("Hủy"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (labelController.text.isNotEmpty) {
+                  List<String> updatedLabels = List.from(imageLabels[imageIndex]); 
+                  updatedLabels.add(labelController.text);
+                  imageLabels[imageIndex] = updatedLabels; 
+                  Navigator.pop(context);
+                }
+              },
+              child: Text("Thêm"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void removeLabel(int imageIndex, String label) {
+    List<String> updatedLabels = List.from(imageLabels[imageIndex]); 
+    updatedLabels.remove(label);
+    imageLabels[imageIndex] = updatedLabels; 
+  }
+
   void removeImage(int index) {
     selectedImages.removeAt(index);
   }
