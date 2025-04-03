@@ -11,12 +11,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
 import 'package:in_and_co_portal/config/firebase_api.dart';
 import 'package:in_and_co_portal/core/services/notification_service.dart';
+import 'package:in_and_co_portal/core/services/user_service.dart';
 import 'package:in_and_co_portal/features/home/controllers/post_controller.dart';
 import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 import 'package:in_and_co_portal/core/models/notification.dart' as model;
 
 class AddPostController extends GetxController {
   final NotificationService notificationService = NotificationService();
+  final UserService userService = UserService();
   final FirebaseApi firebaseApi = FirebaseApi();
   final TextEditingController contentController = TextEditingController(); 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -120,6 +122,7 @@ class AddPostController extends GetxController {
         'post_images': uploadedImages,
         'post_type': profileController.userData['role'] != 'Admin' ? 'Cá nhân' : 'Công ty',
         'created_at': FieldValue.serverTimestamp(),
+        'status': profileController.userData['role'] != 'Admin' ? 'pending' : 'accepted',
     });
     isLoading.value = false;
 
@@ -128,7 +131,7 @@ class AddPostController extends GetxController {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Thêm bài viết thành công',
+          profileController.userData['role'] != 'Admin' ? 'Đã gửi bài viết cho Admin' : 'Đã đăng bài viết',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.green,
@@ -148,6 +151,23 @@ class AddPostController extends GetxController {
       );
       notificationService.addNotificationToAllUser(notification);
       firebaseApi.sendNotificationToAllUser(title, body);
+    }else{
+      var adminId = await userService.getFirstAdminId();
+      if(adminId != null){
+        var title = 'Thông báo về bài viết mới 📝';
+        var body = '${profileController.userData['fullname']} có bài viết cần xét duyệt!';
+        model.Notification notification = model.Notification(
+          title: title,
+          message: body,
+          postId: postRef.id, 
+          type: 'post',
+          createdAt: Timestamp.now(),
+          isRead: false,
+          senderId: _auth.currentUser!.uid,
+        );
+        notificationService.addNotification(adminId, notification);
+        firebaseApi.sendNotificationToAuthor(adminId, title, body);
+      }
     }
     context.go('/home');
     contentController.clear();

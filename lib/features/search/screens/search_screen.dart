@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/features/search/controllers/search_data_controller.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -51,7 +52,9 @@ class SearchScreen extends StatelessWidget {
                         user["avatar"] ?? "https://via.placeholder.com/150",
                       ),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      context.push('/profile/page/${user["id"]}');
+                    },
                   );
                 }, childCount: searchController.searchResults.length),
               ),
@@ -81,6 +84,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
       child: Padding(
         padding: const EdgeInsets.only(right: 20, left: 20, top: 10),
         child: TextField(
+          autofocus: true,
           decoration: InputDecoration(
             hintText: '${'search_placeholder'.tr}...',
             hintStyle: TextStyle(color: Colors.grey),

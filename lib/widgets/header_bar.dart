@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/config/firebase_api.dart';
+import 'package:in_and_co_portal/features/chat/controllers/conversation_controller.dart';
 import 'package:in_and_co_portal/features/home/controllers/notification_controller.dart';
 
 class HeaderBar extends StatelessWidget{
   HeaderBar({super.key});
   final FirebaseApi firebaseApi = FirebaseApi();
   final NotificationController notificationController = Get.put(NotificationController());
+  final ConversationController conversationController = Get.put(ConversationController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +25,6 @@ class HeaderBar extends StatelessWidget{
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // IconButton(
-              //   icon: const Icon(Icons.notifications_none),
-              //   onPressed: () {
-              //     context.push('/home/notification');
-              //   },
-              // ),
               Obx(() {
                 return Stack(
                   children: [
@@ -59,7 +55,12 @@ class HeaderBar extends StatelessWidget{
                   ],
                 );
               }),
-
+              IconButton(
+                icon: const Icon(Icons.messenger_outline),
+                onPressed: () {
+                  context.push('/conversations');
+                },
+              ),
               IconButton(
                 icon: const Icon(Icons.add_box_outlined),
                 onPressed: () {

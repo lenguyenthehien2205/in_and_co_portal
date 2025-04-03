@@ -57,7 +57,7 @@ class _PostItemState extends State<PostItem>{
       ),
       builder: (context) {
         return DraggableScrollableSheet(
-          initialChildSize: 0.9,
+          initialChildSize: 0.75,
           expand: false,
           builder: (context, scrollController) {
             return Container(
@@ -91,38 +91,51 @@ class _PostItemState extends State<PostItem>{
                 children: [
                   Row(
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(0.8), 
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300], 
-                          shape: BoxShape.circle,
-                        ),
-                        child: ClipOval(
-                          child: Image.network(
-                            widget.post.authorAvatar, 
-                            width: 40, 
-                            height: 40,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Image.asset('assets/images/default_avatar.png', width: 40, height: 40);
-                            },
+                      GestureDetector(
+                        onTap: () {
+                          print('Author ID: ${widget.post.authorId}');
+                          context.push('/profile/page/${widget.post.authorId}');
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(0.8), 
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300], 
+                            shape: BoxShape.circle,
+                          ),
+                          child: ClipOval(
+                            child: Image.network(
+                              widget.post.authorAvatar, 
+                              width: 40, 
+                              height: 40,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.asset('assets/images/default_avatar.png', width: 40, height: 40);
+                              },
+                            ),
                           ),
                         ),
                       ),
+                      
                       SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              AppText(text: widget.post.authorName, style: AppText.semiBoldTitle(context)),
-                              SizedBox(width: 5),
-                              if (widget.post.isChecked)
-                                Icon(Icons.verified, color: Colors.blue, size: 16)
-                            ],
-                          ),
-                          AppText(text: getTimeAgoByTimestamp(widget.post.createdAt), style: AppText.subtitle(context)),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          print('Author ID: ${widget.post.authorId}');
+                          context.push('/profile/page/${widget.post.authorId}');
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                AppText(text: widget.post.authorName, style: AppText.semiBoldTitle(context)),
+                                SizedBox(width: 5),
+                                if (widget.post.isChecked)
+                                  Icon(Icons.verified, color: Colors.blue, size: 16)
+                              ],
+                            ),
+                            AppText(text: getTimeAgoByTimestamp(widget.post.createdAt), style: AppText.subtitle(context)),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 20)
                     ],
@@ -188,54 +201,62 @@ class _PostItemState extends State<PostItem>{
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          GetBuilder<LikeController>(
-                            init: Get.put(LikeController(widget.post.id), tag: widget.post.id), // Đảm bảo mỗi bài có controller riêng
-                            builder: (controller) {
-                              return LikeButton(postId: widget.post.id);
-                            },
-                          ),
-                          SizedBox(width: 10),
-                          InkWell(
-                            onTap: () {
-                              openCommentsModal(context, widget.post.id);
-                            },
-                            borderRadius: BorderRadius.circular(100), 
-                            child: Padding( 
-                              padding: EdgeInsets.all(4),
-                              child: Icon(Icons.mode_comment_outlined, size: 20),
+                Visibility(
+                  visible: widget.post.status == 'accepted',
+                  replacement: SizedBox(width: 400), 
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            GetBuilder<LikeController>(
+                              init: Get.put(LikeController(widget.post.id), tag: widget.post.id), // Đảm bảo mỗi bài có controller riêng
+                              builder: (controller) {
+                                return LikeButton(postId: widget.post.id);
+                              },
                             ),
-                          ),
-                          GetBuilder<CommentController>(
-                            init: Get.put(CommentController(), tag: widget.post.id), 
-                            builder: (controller) {
-                              if (!controller.commentCounts.containsKey(widget.post.id)) {
-                                controller.fetchCommentCount(widget.post.id);
-                                return AppText(text: '0', style: AppText.subtitle(context)); 
-                              }
-                              return AppText(
-                                text: '${controller.commentCounts[widget.post.id] ?? 0}', 
-                                style: AppText.subtitle(context),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      GetBuilder<SaveController>(
-                        init: Get.put(SaveController(widget.post.id), tag: widget.post.id), 
-                        builder: (controller) {
-                          print(widget.post.id);
-                          return SaveButton(postId: widget.post.id, postOwnerId: widget.post.authorId);
-                        },
-                      ),
-                    ],
+                            SizedBox(width: 10),
+                            InkWell(
+                              onTap: () {
+                                openCommentsModal(context, widget.post.id);
+                              },
+                              borderRadius: BorderRadius.circular(100), 
+                              child: Padding( 
+                                padding: EdgeInsets.all(4),
+                                child: Icon(Icons.mode_comment_outlined, size: 20),
+                              ),
+                            ),
+                            GetBuilder<CommentController>(
+                              init: Get.put(CommentController(), tag: widget.post.id), 
+                              builder: (controller) {
+                                if (!controller.commentCounts.containsKey(widget.post.id)) {
+                                  controller.fetchCommentCount(widget.post.id);
+                                  return AppText(text: '0', style: AppText.subtitle(context)); 
+                                }
+                                return AppText(
+                                  text: '${controller.commentCounts[widget.post.id] ?? 0}', 
+                                  style: AppText.subtitle(context),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        GetBuilder<SaveController>(
+                          init: Get.put(SaveController(widget.post.id), tag: widget.post.id), 
+                          builder: (controller) {
+                            return SaveButton(postId: widget.post.id, postOwnerId: widget.post.authorId);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
+                ),
+                
+                if(widget.post.status == 'pending')
+                SizedBox(
+                  height: 5,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
@@ -269,7 +290,7 @@ class _PostItemState extends State<PostItem>{
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 5,
             )
           ],
         ),

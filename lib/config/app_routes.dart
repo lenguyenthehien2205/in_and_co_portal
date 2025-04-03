@@ -1,7 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/features/chat/screens/chat_screen.dart';
+import 'package:in_and_co_portal/features/chat/screens/conversations_screen.dart';
 import 'package:in_and_co_portal/features/home/screens/notification_screen.dart';
+import 'package:in_and_co_portal/features/overview/screens/add_schedule_screen.dart';
+import 'package:in_and_co_portal/features/overview/screens/business_itinerary_screen.dart';
+import 'package:in_and_co_portal/features/overview/screens/pending_post_screen.dart';
 import 'package:in_and_co_portal/features/post/screens/add_post_screen.dart';
 import 'package:in_and_co_portal/features/overview/screens/add_task_screen.dart';
 import 'package:in_and_co_portal/features/overview/screens/benefit_screen.dart';
@@ -19,11 +24,11 @@ import 'package:in_and_co_portal/features/home/screens/home_screen.dart';
 import 'package:in_and_co_portal/features/auth/screens/login_screen.dart';
 import 'package:in_and_co_portal/layouts/main_layout.dart';
 import 'package:in_and_co_portal/main.dart';
-import 'package:in_and_co_portal/screens/not_found_screen.dart';
+import 'package:in_and_co_portal/theme/screens/not_found_screen.dart';
 import 'package:in_and_co_portal/features/profile/screens/profile_screen.dart';
 import 'package:in_and_co_portal/features/search/screens/search_screen.dart';
-import 'package:in_and_co_portal/screens/splash.dart';
-import 'package:in_and_co_portal/screens/upload_screen.dart';
+import 'package:in_and_co_portal/theme/screens/splash.dart';
+import 'package:in_and_co_portal/theme/screens/upload_screen.dart';
 import 'package:in_and_co_portal/features/auth/screens/welcome_screen.dart';
 
 class AuthNotifier extends ChangeNotifier {
@@ -56,15 +61,21 @@ final List<String> appBarBackButtonRoutes = [
   '/profile',
   '/profile/personal-info',
   '/profile/settings',
-  '/profile/page',
+  '/profile/page/:userId',
 
   '/overview/commission',
   '/overview/benefit',
   '/overview/career-path',
   '/overview/career-path/add-task',
+  '/overview/pending-posts',
+  '/overview/business-itinerary',
+  '/overview/business-itinerary/add-schedule',
+
   '/search/result',
   '/home/notification',
   '/post-detail/:postId',
+  '/conversations',
+  '/conversations/chat/:conversationId',
 ];
 
 Page<dynamic> customPageTransition(Widget child, GoRouterState state) {
@@ -130,6 +141,21 @@ final GoRouter router = GoRouter(
             GoRoute(path: '/notification', builder: (context, state) => NotificationScreen()),
           ]
         ),
+        GoRoute(
+          path: '/conversations', 
+          builder: (context, state) => ConversationsScreen(),
+          routes: [
+            GoRoute(path: '/chat/:conversationId', builder: (context, state) {
+              final String? conversationId = state.pathParameters['conversationId'];
+              if (conversationId == null) {
+                return Scaffold(
+                  body: Center(child: Text("Lỗi: Không có userId!")),
+                );
+              }
+              return ChatScreen(conversationId: conversationId);
+            }),
+          ],
+        ),
         GoRoute(path: '/add-post', builder: (context, state) => AddPostScreen()),
         GoRoute(
           path: '/post-detail/:postId',
@@ -164,6 +190,15 @@ final GoRouter router = GoRouter(
           builder: (context, state) => OverviewScreen(),
           routes: [
             GoRoute(
+              path: 'business-itinerary',
+              builder: (context, state) => BusinessItineraryScreen(),
+              routes: [
+                GoRoute(path: 'add-schedule', builder: (context, state) {
+                  return AddScheduleScreen();
+                }),
+              ]
+            ),
+            GoRoute(
               path: 'commission',
               builder: (context, state) => CommissionScreen(),
             ),
@@ -181,6 +216,10 @@ final GoRouter router = GoRouter(
                 ),
               ],
             ),
+            GoRoute(
+              path: 'pending-posts',
+              builder: (context, state) => PendingPostScreen(),
+            ),
           ],
         ),
         GoRoute(
@@ -191,7 +230,18 @@ final GoRouter router = GoRouter(
               path: 'personal-info',
               builder: (context, state) => PersonalInfoScreen(),
             ),
-            GoRoute(path: 'page', builder: (context, state) => PageScreen()),
+            GoRoute(
+              path: 'page/:userId', 
+              builder: (context, state) {
+                final String? userId = state.pathParameters['userId'];
+                if(userId == null) {
+                  return Scaffold(
+                    body: Center(child: Text("Lỗi: Không có userId!")),
+                  );
+                }
+                return PageScreen(userId: userId);
+              }
+            ),
             GoRoute(
               path: 'settings',
               builder: (context, state) => SettingsScreen(),

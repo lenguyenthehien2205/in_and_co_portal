@@ -38,7 +38,7 @@ class MainLayout extends StatelessWidget {
     appBarBackButtonRoutes.any(
       (route) =>
           route.contains(':')
-              ? currentPath.startsWith(route.split('/:')[0])
+              ? currentPath.startsWith(route.split('/:')[0])//
               : currentPath == route,
     );
 

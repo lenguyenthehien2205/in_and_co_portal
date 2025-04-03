@@ -6,6 +6,8 @@ import 'package:in_and_co_portal/controllers/language_controller.dart';
 import 'package:in_and_co_portal/controllers/theme_controller.dart';
 import 'package:in_and_co_portal/config/lang/localization_service.dart';
 import 'package:in_and_co_portal/controllers/translation_controller.dart';
+import 'package:in_and_co_portal/features/chat/controllers/chat_controller.dart';
+import 'package:in_and_co_portal/features/chat/controllers/conversation_controller.dart';
 import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 import 'config/app_routes.dart'; 
 import 'package:firebase_core/firebase_core.dart';
@@ -14,6 +16,8 @@ import 'config/firebase_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<ScaffoldMessengerState> globalScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -27,8 +31,6 @@ void main() async {
   Get.put(LanguageController(), permanent: true);
   Get.put(ProfileController(), permanent: true);
   Get.put(TranslationController(), permanent: true);  
-  // Get.put(CommentController(), permanent: true);
-  // Get.put(OverviewController());
   runApp(
     ScreenUtilInit(  
       designSize: Size(375, 812),
@@ -54,6 +56,7 @@ class MyApp extends StatelessWidget {
       routeInformationProvider: router.routeInformationProvider, // dùng để cập nhật url
       // routerConfig: router,
       translations: LocalizationService(),
+      scaffoldMessengerKey: globalScaffoldMessengerKey,
       locale: Locale(languageController.selectedLanguage.value), // Ngôn ngữ mặc định
       fallbackLocale: LocalizationService.locale,
       debugShowCheckedModeBanner: false,

@@ -12,7 +12,6 @@ class ResultSearchScreen extends StatelessWidget {
     final List<Map<String, dynamic>> posts =
         List<Map<String, dynamic>>.from(data?["posts"] ?? []);
 
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Kết quả tìm kiếm', style: AppText.headerTitle(context)),
@@ -22,41 +21,9 @@ class ResultSearchScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-            delegate: _StickyHeaderDelegate(),
+            delegate: _StickyHeaderDelegate(initialValue: data?["query"] ?? ""),
             floating: true,
             pinned: true,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 15),
-              child: Text(
-                'Tài khoản',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return ListTile(
-                title: Text(
-                  'Thế Hiển $index',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                ),
-                leading: CircleAvatar(
-                  radius: 23,
-                  backgroundImage: AssetImage('assets/images/sontung.jpeg'),
-                ),
-                onTap: () {},
-              );
-            }, childCount: 2),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -73,9 +40,8 @@ class ResultSearchScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: GridView.builder(
-              shrinkWrap: true, // Giúp GridView không chiếm toàn bộ chiều cao
-              physics:
-                  NeverScrollableScrollPhysics(), // Tắt cuộn riêng của GridView
+              shrinkWrap: true, 
+              physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 2,
@@ -84,7 +50,12 @@ class ResultSearchScreen extends StatelessWidget {
               ),
               itemCount: posts.length,
               itemBuilder: (context, index) {
-                return Image.network(posts[index]["post_images"][0]['url'], fit: BoxFit.cover);
+                return GestureDetector(
+                  onTap: () {
+                    context.push('/post-detail/${posts[index]["id"]}');
+                  },
+                  child: Image.network(posts[index]["post_images"][0]['url'], fit: BoxFit.cover),
+                );  
               },
             ),
           ),
@@ -101,6 +72,11 @@ class ResultSearchScreen extends StatelessWidget {
 }
 
 class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
+   final TextEditingController _controller;
+
+  _StickyHeaderDelegate({required String initialValue})
+      : _controller = TextEditingController(text: initialValue);
+      
   @override
   double get minExtent => 55;
   @override
@@ -117,6 +93,10 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
       child: Padding(
         padding: const EdgeInsets.only(right: 20, left: 20, top: 10),
         child: TextField(
+          controller: _controller,
+          onTap: () {
+            context.pop(); 
+          },
           decoration: InputDecoration(
             hintText: 'Tìm kiếm...',
             hintStyle: TextStyle(color: Colors.grey),

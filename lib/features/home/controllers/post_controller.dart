@@ -56,4 +56,9 @@ class PostController extends GetxController {
     print('Post: $post');
     return post;
   }
+
+  Future<int> getPostCountByUserId(String userId) async {
+    final count = await _postService.getPostCountByUserId(userId);
+    return count;
+  }
 }

@@ -72,11 +72,7 @@ class NotificationScreen extends StatelessWidget{
             itemBuilder: (context, index) {
               var notification = notificationController.notifications[index];
 
-              return GestureDetector(
-                onTap: () {
-                  // Xử lý khi nhấn vào thông báo (có thể chuyển đến bài post liên quan)
-                },
-                child: ListTile(
+              return ListTile(
                 leading: Stack(
                   children: [
                     CircleAvatar(
@@ -103,9 +99,8 @@ class NotificationScreen extends StatelessWidget{
                     ? SizedBox()
                     : Icon(Icons.circle, color: Theme.of(context).primaryColor, size: 10),
                 onTap: () {
-                  context.push('/post-detail/${notification.postId}'); 
+                  context.push('/post-detail/${notification.postId}');
                 },
-              ),
               );
             },
           );

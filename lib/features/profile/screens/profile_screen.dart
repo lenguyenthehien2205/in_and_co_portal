@@ -134,6 +134,10 @@ Widget build(BuildContext context) {
                       context.go('/login');
                       return;
                     }
+                    if(btn['url'] == 'page'){
+                      context.push('/profile/page/${profileController.currentUID}');
+                      return;
+                    }
                     context.push('/profile/${btn['url']}');
                   },
                 ),

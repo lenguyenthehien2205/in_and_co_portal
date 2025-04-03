@@ -35,18 +35,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>{
     
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('forgot_password_success'.tr, style: AppText.normal(context)),
+          content: Text('forgot_password_success'.tr, style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.green,
         ),
       );
-      // Quay lại màn hình đăng nhập
-      // Future.delayed(const Duration(seconds: 2), () {
-      //   if (mounted) context.pop();
-      // });
     } on FirebaseAuthException catch (e) {
+      String errorMessage = 'Đã xảy ra lỗi! 🔴';
+
+      if (e.code == 'user-not-found') {
+        errorMessage = 'Email không tồn tại trong hệ thống! ⛔️';
+      } else {
+        errorMessage = e.message ?? errorMessage;
+      }
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(e.message ?? 'Đã xảy ra lỗi! 🔴'),
+          content: Text(errorMessage),
           backgroundColor: Colors.red,
         ),
       );

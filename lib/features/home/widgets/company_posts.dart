@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/features/home/controllers/company_post_controller.dart';
 import 'package:in_and_co_portal/widgets/header_title.dart';
 import 'package:in_and_co_portal/features/home/widgets/company_post_item.dart';
@@ -42,9 +43,14 @@ class _CompanyPostsState extends State<CompanyPosts>{
                     if (index == controller.posts.length) {
                       return Center(child: CircularProgressIndicator()); 
                     }
-                    return Padding(
-                      padding: EdgeInsets.only(right: index == controller.posts.length - 1 ? 0 : 15),
-                      child: CompanyPostItem(post: controller.posts[index]),
+                    return GestureDetector(
+                      onTap: () {
+                        context.push('/post-detail/${controller.posts[index].id}'); 
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: index == controller.posts.length - 1 ? 0 : 15),
+                        child: CompanyPostItem(post: controller.posts[index]),
+                      ),
                     );
                   },
                 ),

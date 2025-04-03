@@ -64,5 +64,12 @@ class SaveService {
     return saves.docs.map((doc) => Save.fromFirestore(doc)).toList();
   }
 
-  
+  Future<int> getSavedPostsCount(String userId) async {
+    final saves = await _firestore
+        .collection('post_saves')
+        .where('user_id', isEqualTo: userId)
+        .get();
+
+    return saves.docs.length;
+  }
 }

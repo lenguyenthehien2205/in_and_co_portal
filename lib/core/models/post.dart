@@ -5,12 +5,14 @@ class Post {
   final String title;
   final List<Map<String, dynamic>> images;
   final String postType;
+  final String status;
 
   Post({
     required this.id,
     required this.title, 
     required this.images, 
     required this.postType,
+    required this.status,
   });
 
     // Convert từ Firestore document sang Post model
@@ -26,6 +28,7 @@ class Post {
               })
           .toList() ?? [],
       postType: data['post_type'] ?? '',
+      status: data['status'] ?? 'pending',
     );
   }
 
@@ -39,6 +42,7 @@ class Post {
         'labels': item['labels'],
       }).toList(),
       'post_type': postType,
+      'status': status,
     };
   }
 }
@@ -48,6 +52,7 @@ class PostDetail{
   final String title;
   final List<Map<String, dynamic>> images;
   final String postType;
+  final String status;
   late String authorId;
   late String authorName;
   late String authorAvatar;
@@ -60,6 +65,7 @@ class PostDetail{
     required this.title, 
     required this.images, 
     required this.postType,
+    required this.status,
     required this.authorId,
     required this.authorName,
     required this.authorAvatar,
@@ -80,6 +86,7 @@ class PostDetail{
               })
           .toList() ?? [],
       postType: data['post_type'] ?? '',
+      status: data['status'] ?? 'pending',
       authorId: data['author_id'] ?? '',
       authorName: data['author_name'] ?? '',
       authorAvatar: data['author_avatar'] ?? '',

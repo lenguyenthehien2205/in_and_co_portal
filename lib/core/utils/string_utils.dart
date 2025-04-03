@@ -47,3 +47,18 @@ String getTimeAgoByTimestamp(Timestamp timestamp) {
     return '${(diff.inDays / 365).floor()} năm';
   }
 }
+
+String formatTimestampToTime(Timestamp timestamp) {
+  final now = DateTime.now();
+  final messageDate = DateTime(timestamp.toDate().year, timestamp.toDate().month, timestamp.toDate().day); // Cắt bỏ thời gian của timestamp để so sánh ngày
+
+  if (now.year == messageDate.year && now.month == messageDate.month && now.day == messageDate.day) {
+    return 'Hôm nay · ${DateFormat('HH:mm').format(timestamp.toDate())}';
+  } else {
+    return DateFormat('dd/MM/yyyy · HH:mm').format(timestamp.toDate());
+  }
+}
+
+String formatTimestampToDate(Timestamp timestamp) {
+  return DateFormat('dd/MM/yyyy').format(timestamp.toDate());
+}

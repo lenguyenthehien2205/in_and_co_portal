@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diacritic/diacritic.dart';
+import 'package:flutter/material.dart';
 import 'package:in_and_co_portal/core/models/post.dart';
 import 'package:in_and_co_portal/core/models/save.dart';
+import 'package:in_and_co_portal/main.dart';
 
 class PostService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -52,6 +55,7 @@ class PostService {
                 .collection('users')
                 .doc(userId)
                 .collection('posts')
+                .where('status', isEqualTo: 'accepted')
                 .get();
 
         List<PostDetail> userPosts =
@@ -93,12 +97,13 @@ class PostService {
               .collection("users")
               .doc(userDoc.id)
               .collection("posts")
+              .where("status", isEqualTo: "accepted")
               .get();
       var posts =
           postSnapshot.docs.map((doc) => {"id": doc.id, ...doc.data()}).where((
             post,
           ) {
-            String title = post["title"]?.toString().toLowerCase() ?? "";
+            String title = removeDiacritics(post["title"]?.toString().toLowerCase() ?? "");
             var images = post["post_images"];
 
             bool matchesTitle = title.contains(keyword.toLowerCase());
@@ -120,17 +125,29 @@ class PostService {
     return results;
   }
 
-  Stream<List<PostOnlyImage>> getPostsByUserId(String userId) {
-    return _firestore
+  // Stream<List<PostOnlyImage>> getPostsByUserId(String userId) {
+  //   return _firestore
+  //       .collection('users')
+  //       .doc(userId)
+  //       .collection('posts')
+  //       .snapshots()
+  //       .map((querySnapshot) {
+  //         return querySnapshot.docs
+  //             .map((doc) => PostOnlyImage.fromFirestore(doc))
+  //             .toList();
+  //       });
+  // }
+  Future<List<PostOnlyImage>> getPostsByUserId(String userId) async {
+    QuerySnapshot querySnapshot = await _firestore
         .collection('users')
         .doc(userId)
         .collection('posts')
-        .snapshots()
-        .map((querySnapshot) {
-          return querySnapshot.docs
-              .map((doc) => PostOnlyImage.fromFirestore(doc))
-              .toList();
-        });
+        .where('status', isEqualTo: 'accepted')
+        .get();
+
+    return querySnapshot.docs
+        .map((doc) => PostOnlyImage.fromFirestore(doc))
+        .toList();
   }
 
   Future<PostDetail> getPostDetailById(String postId) async {
@@ -175,6 +192,7 @@ class PostService {
               .collection("users")
               .doc(userDoc.id)
               .collection("posts")
+              .where("status", isEqualTo: "accepted")
               .get();
 
       for (var doc in postSnapshot.docs) {
@@ -238,19 +256,187 @@ class PostService {
   Future<List<PostOnlyImage>> getPostsByUserAndIds(List<Save> savedPosts) async {
     if (savedPosts.isEmpty) return [];
     List<PostOnlyImage> posts = [];
+
     for (Save saved in savedPosts) {
       DocumentSnapshot docSnapshot = await _firestore
           .collection('users')
-          .doc(saved.postOwnerId)  // 🔹 Truy vấn đúng user
+          .doc(saved.postOwnerId)
           .collection('posts')
-          .doc(saved.postId)  // 🔹 Truy vấn đúng bài viết
+          .doc(saved.postId)
           .get();
-      print(saved.postId);
+
       if (docSnapshot.exists) {
-        posts.add(PostOnlyImage.fromFirestore(docSnapshot));
+        var data = docSnapshot.data() as Map<String, dynamic>;
+        
+        // Kiểm tra nếu bài viết có status là "accepted"
+        if (data["status"] == "accepted") {
+          posts.add(PostOnlyImage.fromFirestore(docSnapshot));
+        }
       }
     }
+    
     print('Posts: ${posts.length}');
     return posts;
+  }
+
+  Future<int> getPostCountByUserId(String userId) async {
+    var postSnapshot = await _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('posts')
+        .where('status', isEqualTo: 'accepted')
+        .get();
+    return postSnapshot.docs.length;
+  }
+  Future<int> getPendingPostCountByUsers() async {
+    int totalPendingPosts = 0;
+    var userSnapshot = await _firestore.collection('users').get();
+    for (var userDoc in userSnapshot.docs) {
+      String userId = userDoc.id; 
+      var postSnapshot = await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('posts')
+          .where('status', isEqualTo: 'pending') 
+          .get();
+
+      totalPendingPosts += postSnapshot.docs.length; 
+    }
+    return totalPendingPosts;
+  }
+
+  // Stream<List<PostDetail>> getAllPendingPostsStream() {
+  //   return _firestore.collection('users')
+  //     .snapshots() // Lắng nghe thay đổi trong collection 'users'
+  //     .asyncMap((snapshot) async {
+  //       List<PostDetail> posts = [];
+  //       for (var userDoc in snapshot.docs) {
+  //         String userId = userDoc.id;
+          
+  //         // Lấy các bài viết 'pending' của từng user
+  //         var postsSnapshot = await _firestore
+  //             .collection('users')
+  //             .doc(userId)
+  //             .collection('posts')
+  //             .where('status', isEqualTo: 'pending')
+  //             .get(); // Lấy dữ liệu bài viết
+
+  //         for (var doc in postsSnapshot.docs) {
+  //           var post = PostDetail.fromFirestore(doc);
+  //           post.authorName = userDoc.data()['fullname'];
+  //           post.authorAvatar = userDoc.data()['avatar'];
+  //           post.authorId = userId;
+  //           posts.add(post);
+  //         }
+  //       }
+  //       return posts; // Trả về danh sách bài viết
+  //     });
+  // }
+  // Stream<List<PostDetail>> getAllPendingPostsStream() {
+  //   return _firestore.collection('users').snapshots().asyncMap((snapshot) async {
+  //     List<PostDetail> posts = [];
+
+  //     for (var userDoc in snapshot.docs) {
+  //       String userId = userDoc.id;
+
+  //       var postsStream = _firestore
+  //           .collection('users')
+  //           .doc(userId)
+  //           .collection('posts')
+  //           .where('status', isEqualTo: 'pending')
+  //           .snapshots();
+
+  //       await for (var postsSnapshot in postsStream) {
+  //         for (var doc in postsSnapshot.docs) {
+  //           var post = PostDetail.fromFirestore(doc);
+  //           post.authorName = userDoc.data()['fullname'] ?? 'Unknown';
+  //           post.authorAvatar = userDoc.data()['avatar'] ?? '';
+  //           post.authorId = userId;
+  //           posts.add(post);
+  //         }
+  //         return posts; 
+  //       }
+  //     }
+  //     return posts;
+  //   });
+  // }
+  Stream<List<PostDetail>> getAllPendingPostsStream() {
+    return _firestore
+        .collectionGroup('posts')
+        .where('status', isEqualTo: 'pending')
+        .orderBy('created_at', descending: false)
+        .snapshots()
+        .asyncMap((snapshot) async {
+      List<PostDetail> posts = [];
+
+      for (var doc in snapshot.docs) {
+        PostDetail post = PostDetail.fromFirestore(doc);
+
+        // Lấy đường dẫn tài liệu để trích xuất userId
+        List<String> pathSegments = doc.reference.path.split('/');
+        String userId = pathSegments[pathSegments.indexOf('users') + 1];
+        
+        // Lấy thông tin user từ Firestore
+        DocumentSnapshot userDoc =
+            await _firestore.collection('users').doc(userId).get();
+
+        if (userDoc.exists) {
+          post.authorName = userDoc['fullname'] ?? 'Unknown';
+          post.authorAvatar = userDoc['avatar'] ?? '';
+          post.authorId = userId;
+        }
+
+        posts.add(post);
+      }
+
+      return posts;
+    });
+  }
+  Future<void> acceptPost(String postId, String newStatus) async {
+    try {
+      var usersSnapshot = await _firestore.collection('users').get(); 
+      for (var userDoc in usersSnapshot.docs) {
+        var postsSnapshot = await _firestore
+            .collection('users')
+            .doc(userDoc.id)
+            .collection('posts')
+            .where(FieldPath.documentId, isEqualTo: postId) 
+            .get();
+  
+        if (postsSnapshot.docs.isNotEmpty) { 
+          await postsSnapshot.docs.first.reference.update({'status': newStatus, 'created_at': FieldValue.serverTimestamp()});
+          globalScaffoldMessengerKey.currentState?.showSnackBar(
+            SnackBar(content: Text("Bài viết đã được duyệt"), backgroundColor: Colors.green)
+          );
+          break; 
+        }
+      }
+    } catch (e) {
+      print("Error updating post status: $e");
+    }
+  }
+  Future<void> rejectPost(String postId) async {
+    try {
+      var usersSnapshot = await _firestore.collection('users').get();
+
+      for(var userDoc in usersSnapshot.docs){
+        var postsSnapshot = await _firestore
+            .collection('users')
+            .doc(userDoc.id)
+            .collection('posts')
+            .where(FieldPath.documentId, isEqualTo: postId)
+            .get();
+          
+        if (postsSnapshot.docs.isNotEmpty) {
+          await postsSnapshot.docs.first.reference.delete();
+          globalScaffoldMessengerKey.currentState?.showSnackBar(
+            SnackBar(content: Text("Bài viết đã bị từ chối"), backgroundColor: Colors.red)
+          );
+          break; 
+        }
+      }
+    } catch (e) {
+      print("Error deleting post: $e");
+    }
   }
 }

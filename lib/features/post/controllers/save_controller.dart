@@ -56,7 +56,7 @@ class SaveController extends GetxController{
 
     try {
       await saveService.toggleSave(userId, postId, postOwnerId);
-      profileController.loadSavedPosts();
+      profileController.loadSavedPosts(userId);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(

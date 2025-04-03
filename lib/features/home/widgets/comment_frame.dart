@@ -23,12 +23,32 @@ class CommentFrame extends StatelessWidget{
         ),
         Obx(() {
           if (commentController.isLoading.value) {
-            return SliverFillRemaining(
-              child: Center(child: CircularProgressIndicator()),
+            return SliverToBoxAdapter(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20),
+                  Center(
+                    child: CircularProgressIndicator(), 
+                  ),
+                  SizedBox(height: 150),
+                ],
+              ),
             );
           } else if (commentController.comments.isEmpty) {
-            return SliverFillRemaining(
-              child: Center(child: Text('Chưa có bình luận nào')),
+            return SliverToBoxAdapter(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20),
+                  Icon(Icons.comment, size: 50, color: Colors.grey),
+                  SizedBox(height: 10),
+                  Text('Chưa có bình luận nào', style: AppText.subtitle(context)),
+                  SizedBox(height: 100),
+                ],
+              ),
             );
           } else {
             return SliverList(
@@ -76,7 +96,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
     
     return Container(
       padding: EdgeInsets.only(
-        bottom: currentPath == '/home' ? 100 : 50, 
+        bottom: currentPath == '/home' ? 100 : 22, 
       ),
       color: Colors.white, 
       child: Row(
