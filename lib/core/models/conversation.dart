@@ -39,6 +39,8 @@ class ConversationDetail extends Conversation {
   final String fullname;
   final String avatar;
   final String otherUserId;
+  final bool isChecked;
+  final String role;
 
   ConversationDetail({
     required String id,
@@ -49,6 +51,8 @@ class ConversationDetail extends Conversation {
     required this.fullname,
     required this.avatar,
     required this.otherUserId,
+    required this.isChecked,
+    required this.role,
   }) : super(
           id: id,
           users: users,
@@ -66,6 +70,8 @@ class ConversationDetail extends Conversation {
       lastMessageSenderId: data['last_message_sender_id'] ?? '',
       fullname: data['fullname'] ?? 'Unknown',
       avatar: data['avatar'] ?? '',
+      isChecked: data['is_checked'] ?? false,
+      role: data['role'] ?? '',
       otherUserId: data['users'].firstWhere(
         (userId) => userId != id,
         orElse: () => '', 
@@ -79,6 +85,8 @@ class ConversationDetail extends Conversation {
       ..addAll({
         'fullname': fullname,
         'avatar': avatar,
+        'is_checked': isChecked,
+        'role': role,
       });
   }
 }

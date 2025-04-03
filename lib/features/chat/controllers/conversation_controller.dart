@@ -27,7 +27,7 @@ class ConversationController extends GetxController {
 
   void fetchConversations() {
     isLoading.value = true;
-    _conversationSubscription?.cancel(); // Hủy đăng ký trước đó nếu có
+    _conversationSubscription?.cancel(); // Hủy bỏ subscription cũ nếu có
     _conversationSubscription = conversationService.getConversations(FirebaseAuth.instance.currentUser?.uid ?? "").listen(
       (data) {
         conversations.assignAll(data);

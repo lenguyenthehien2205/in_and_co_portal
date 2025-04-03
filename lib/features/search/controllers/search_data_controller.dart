@@ -30,7 +30,7 @@ class SearchDataController extends GetxController{
     _debounce?.cancel();
     _debounce = Timer(Duration(milliseconds: 200), () async {
       if (query.isNotEmpty) {
-        var result = await _userService.searchUsers(query);
+        var result = await _userService.searchUsers(query.toLowerCase());
         searchResults.assignAll(result);
       } else {
         searchResults.clear();

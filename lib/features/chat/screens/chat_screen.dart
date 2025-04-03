@@ -28,19 +28,27 @@ class ChatScreen extends StatelessWidget{
       appBar: AppBar(
         leadingWidth: 50,
         title: ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 5),
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  otherUserInfo?["avatar"] ?? "", 
-                ),
-                radius: 22,
-              ),
-              title: Text(
-                otherUserInfo?["fullname"] ?? "Ten nguoi dung",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-              ),
-              trailing: Icon(Icons.more_vert, color: Colors.grey, size: 20),
+          contentPadding: EdgeInsets.symmetric(horizontal: 5),
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(
+              otherUserInfo?["avatar"] ?? "", 
             ),
+            radius: 22,
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(otherUserInfo?["fullname"] ?? "Ten nguoi dung", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              SizedBox(width: 5),
+              if(otherUserInfo?["is_checked"] == true) 
+                Icon(
+                  Icons.verified,
+                  color: Colors.blue,
+                  size: 16,
+                ),
+            ]), 
+          trailing: Icon(Icons.more_vert, color: Colors.grey, size: 20),
+        ),
         scrolledUnderElevation: 0,
       ),
       body: Center(
@@ -129,9 +137,20 @@ class ChatScreen extends StatelessWidget{
                     radius: 65,
                   ),
                   SizedBox(height: 10),
-                  Text(otherUserInfo?["fullname"] ?? "Ten nguoi dung", 
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(otherUserInfo?["fullname"] ?? "Ten nguoi dung", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                      SizedBox(width: 5),
+                      if(otherUserInfo?["is_checked"] == true) 
+                        Icon(
+                          Icons.verified,
+                          color: Colors.blue,
+                          size: 20,
+                        ),
+                    ]),
+                  SizedBox(height: 5),
+                  Text(otherUserInfo?["role"] ?? ""),
                   SizedBox(height: 50),
                 ],
               ), 

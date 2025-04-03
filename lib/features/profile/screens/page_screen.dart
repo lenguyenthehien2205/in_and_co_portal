@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -10,9 +11,9 @@ class PageScreen extends StatelessWidget {
   PageScreen({super.key, required this.userId});
   final ProfileController profileController = Get.find();
 
-
   @override
   Widget build(BuildContext context) {
+    print('${profileController.currentUID.value} - $userId');
     profileController.fetchUserData(userId: userId);
     return Scaffold(
       appBar: AppBar(
@@ -71,26 +72,42 @@ class PageScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(displayData["fullname"], style: AppText.title(context)),
-                          Text(displayData["role"], style: AppText.subtitle(context)),
-                          SizedBox(height: 10),
-                          Text(displayData["bio"], style: AppText.normal(context)),
-                        ],
+                      Expanded( 
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(displayData["fullname"], style: AppText.title(context)),
+                                SizedBox(width: 5),
+                                if (displayData["is_checked"] == true)
+                                  Icon(Icons.verified, color: Colors.blue, size: 18),
+                              ],
+                            ),
+                            Text(displayData["role"], style: AppText.subtitle(context)),
+                            SizedBox(height: 10),
+                            Text(
+                              displayData["bio"],
+                              style: AppText.normal(context),
+                              softWrap: true, // Đảm bảo xuống hàng
+                            ),
+                          ],
+                        ),
                       ),
-                      if(profileController.isViewingOtherUser.value && profileController.currentUID.value != userId)
+                      if (profileController.isViewingOtherUser.value && FirebaseAuth.instance.currentUser?.uid != userId)
                         IconButton(
                           onPressed: () {
-                            if (profileController.isViewingOtherUser.value) {
-                              print('Chat with ${profileController.otherUserData["fullname"]}');
-                            } else {
-                              print('Chat with ${profileController.userData["fullname"]}');
-                            }
+                            context.push('/conversations/chat/${profileController.conversationId.value}', extra: {
+                              "otherUserInfo": {
+                                "fullname": displayData["fullname"],
+                                "avatar": displayData["avatar"],
+                                "is_checked": displayData["is_checked"],
+                                "role": displayData["role"],
+                              },
+                            });
                           },
                           icon: Icon(Icons.question_answer, color: AppColors.primary),
-                        )
+                        ),
                     ],
                   )
                 ),

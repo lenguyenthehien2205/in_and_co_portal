@@ -13,6 +13,7 @@ class ConversationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConversationController conversationController = Get.put(ConversationController());
 
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Cuộc trò chuyện"),
@@ -70,6 +71,8 @@ class ConversationsScreen extends StatelessWidget {
                           "otherUserInfo": {
                             "fullname": conversation.fullname,
                             "avatar": conversation.avatar,
+                            "is_checked": conversation.isChecked,
+                            "role": conversation.role,
                           },
                         });
                       },

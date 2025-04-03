@@ -38,13 +38,20 @@ class SearchScreen extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate((context, index) {
                   var user = searchController.searchResults[index];
                   return ListTile(
-                    title: Text(
-                      user["fullname"] ?? "Không có tên",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
+                    title: Row(
+                      children: [
+                        Text(
+                          user["fullname"] ?? "Không có tên",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                        if (user["is_checked"] == true)
+                          Icon(Icons.verified, color: Colors.blue, size: 16),
+                      ],
                     ),
                     leading: CircleAvatar(
                       radius: 23,

@@ -52,12 +52,14 @@ class UserService {
         userData.value = userDoc.data() as Map<String, dynamic>;
         userData["post_count"] = await _postService.getPostCountByUserId(user.uid);
         userData["save_count"] =  await _saveService.getSavedPostsCount(user.uid);
+        userData["id"] = user.uid;
       }
     }else{
       DocumentSnapshot userDoc = await _firestore.collection("users").doc(userId).get();
       otherUserData.value = userDoc.data() as Map<String, dynamic>;
       otherUserData["post_count"] = await _postService.getPostCountByUserId(userId);
       otherUserData["save_count"] =  await _saveService.getSavedPostsCount(userId);
+      otherUserData["id"] = userId;
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:in_and_co_portal/core/services/conversation_service.dart';
 import 'package:in_and_co_portal/core/services/firebase_service.dart';
 import 'package:in_and_co_portal/core/models/post.dart';
 import 'package:in_and_co_portal/core/models/save.dart';
@@ -16,11 +17,13 @@ class ProfileController extends GetxController{
   var currentUID = ''.obs;
   var posts = <PostOnlyImage>[].obs;
   var posts_saved = <PostOnlyImage>[].obs;
+  var conversationId = ''.obs;
 
   final UserService userService = UserService();
   final CommissionService commissionService = CommissionService();
   final PostService postService = PostService();
   final SaveService saveService = SaveService();
+  final ConversationService conversationService = ConversationService();
   final FCMService fcmService = FCMService();
 
   @override
@@ -69,8 +72,10 @@ class ProfileController extends GetxController{
       //   posts.assignAll(postList);
       // });
       posts.assignAll(await postService.getPostsByUserId(currentUID.value));
+      print('${otherUserData["id"]} ${FirebaseAuth.instance.currentUser?.uid ?? ''}');
+      conversationId.value = await conversationService.getConversationId(otherUserData["id"], FirebaseAuth.instance.currentUser?.uid ?? '');
       loadSavedPosts(userId);
-      isLoading.value = false;
+      isLoading.value = false;  
     }
   }
 
@@ -96,4 +101,5 @@ class ProfileController extends GetxController{
     await userService.updateAllUsersWithKeywords();
   }
 
+  
 }

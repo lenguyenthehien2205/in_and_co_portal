@@ -24,6 +24,9 @@ class ConversationService {
             var userDoc = await _firestore.collection('users').doc(otherUserId).get();
             String fullname = userDoc.exists ? userDoc['fullname'] ?? 'Unknown' : 'Unknown';
             String avatar = userDoc.exists ? userDoc['avatar'] ?? '' : '';
+            bool isChecked = userDoc.exists ? (userDoc['is_checked'] ?? false) as bool : false;
+            String role = userDoc.exists ? userDoc['role'] ?? '' : '';
+            print("${userDoc['fullname']} - ${userDoc['avatar']} - ${userDoc['is_checked']} - ${userDoc['role']}");
             conversations.add(ConversationDetail(
               id: conversation.id,
               users: conversation.users,
@@ -33,6 +36,8 @@ class ConversationService {
               fullname: fullname,  
               avatar: avatar,  
               otherUserId: otherUserId,
+              isChecked: isChecked,
+              role: role,
             ));
           }
           return conversations;
@@ -45,4 +50,18 @@ class ConversationService {
       'last_message_time': Timestamp.now(),
     });
   } 
+
+  Future<String> getConversationId(String userId1, String userId2) async {
+    var querySnapshot = await _firestore
+        .collection('conversations')
+        .where('users', arrayContains: userId1) 
+        .get();
+    for (var doc in querySnapshot.docs) {
+      List<String> users = List<String>.from(doc['users']);
+      if (users.contains(userId2)) {
+        return doc.id;
+      }
+    }
+    return '';
+  }
 }
