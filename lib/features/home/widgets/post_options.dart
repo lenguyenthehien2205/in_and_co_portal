@@ -17,15 +17,15 @@ class PostOptions extends StatelessWidget{
           context: context,
           bodyBuilder: (context) => IntrinsicWidth( 
             child: IntrinsicHeight( 
-              child: Column(
+              child: Column( 
                 mainAxisSize: MainAxisSize.min, 
                 children: [
                   ListTile(
-                    leading: Icon(Icons.download),
-                    title: Text('Tải xuống ảnh này'),
+                    leading: Icon(Icons.download, color: Theme.of(context).colorScheme.onSurface), 
+                    title: Text('Tải xuống ảnh này', style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
                     onTap: () {
                       Navigator.pop(context); 
-                      if (onDownload != null) {
+                      if (onDownload != null) { 
                         onDownload!();
                       }
                     },
@@ -34,7 +34,7 @@ class PostOptions extends StatelessWidget{
               ),
             ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           direction: PopoverDirection.bottom, 
           arrowHeight: 10,
           arrowWidth: 20,

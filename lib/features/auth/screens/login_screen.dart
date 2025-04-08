@@ -54,6 +54,10 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                IconButton(
+                  onPressed: () => authController.signInWithGoogle(context),
+                  icon: Image.asset('assets/images/gg_icon.png', width: 24, height: 24),
+                ),
               ],
             ),
             const SizedBox(height: 85),

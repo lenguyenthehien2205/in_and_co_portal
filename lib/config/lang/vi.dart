@@ -34,6 +34,7 @@ const Map<String, String> vi = {
   'home_lastest_newsfeed': 'Bản tin mới',
   'home_post_time': '1 giờ trước',
 
+
   // Trending Screen
   'trending_subtitle': 'Được quan tâm nhiều nhất',
 
@@ -126,5 +127,52 @@ const Map<String, String> vi = {
 
   // Search Screen
   'search_placeholder': 'Tìm kiếm',
-  'search_recent': 'Gần đây'
+  'search_recent': 'Gần đây',
+  'search_result': 'Kết quả tìm kiếm',
+  'search_no_result': 'Không tìm thấy kết quả nào',
+  'search_post': 'Bài viết',
+
+  // time
+  'time_just_now': 'Vừa xong',
+  'time_ago': 'trước',
+  'time_today': 'Hôm nay',
+  'time_day': 'ngày',
+  'time_week': 'tuần',
+  'time_month': 'tháng',
+  'time_year': 'năm',
+
+  // post
+  'view_translation': 'Xem bản dịch',
+  'hide_translation': 'Ẩn bản dịch',
+  'post_detail': 'Chi tiết bài viết',
+  'post_saved': 'Bài viết đã lưu',
+  'post_comment': 'Bình luận',
+  'post_no_comment': 'Chưa có bình luận nào',
+
+  // pending posts
+  'pending_posts_title': 'Bài viết chờ duyệt',
+  'pending_posts_post': 'Bài viết',
+  'pending_posts_approve': 'Duyệt bài viết',
+  'pending_posts_no_post': 'Không có bài viết nào chờ duyệt',
+
+  // business-itinerary
+  'business_itinerary_title': 'Lịch trình công tác',
+  'business_itinerary_this_month': 'chuyến công tác trong tháng này',
+  'business_itinerary_no_job': 'Không có chuyến công tác nào',
+  'business_itinerary_schedule': 'Lịch công tác',
+  'bussiness_itinerary_vehicle': 'Phương tiện',
+  'bussiness_itinerary_purpose': 'Mục đích',
+  'bussiness_itinerary_status': 'Trạng thái',
+  'bussiness_itinerary_time': 'Thời gian',
+  'bussiness_itinerary_vehicle_company': 'Xe công ty',
+  'bussiness_itinerary_vehicle_personal': 'Xe cá nhân',
+  'bussiness_itinerary_vehicle_plane': 'Máy bay',
+  'bussiness_itinerary_add': 'Thêm lịch',
+  'bussiness_itinerary_title': 'Tiêu đề',
+  'bussiness_itinerary_title_placeholder': 'Nhập tiêu đề',
+  'bussiness_itinerary_purpose_placeholder': 'Chọn mục đích',
+  'bussiness_itinerary_vehicle_placeholder': 'Chọn phương tiện',
+  'bussiness_itinerary_start_date': 'Ngày bắt đầu',
+  'bussiness_itinerary_end_date': 'Ngày kết thúc',
+  'bussiness_itinerary_date_placeholder': 'Chọn ngày',
 };

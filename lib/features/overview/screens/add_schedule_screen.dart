@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/controllers/language_controller.dart';
 import 'package:in_and_co_portal/features/overview/controllers/add_schedule_controller.dart';
 import 'package:in_and_co_portal/features/overview/controllers/business_itinerary_controller.dart';
 import 'package:in_and_co_portal/features/overview/widgets/date_picker_custom.dart';
@@ -15,10 +16,11 @@ class AddScheduleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final AddScheduleController addScheduleController = Get.put(AddScheduleController());
     final BusinessItineraryController businessItineraryController = Get.find<BusinessItineraryController>();
+    final LanguageController languageController = Get.find<LanguageController>();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Thêm lịch', style: AppText.headerTitle(context)),
+        title: Text('bussiness_itinerary_add'.tr, style: AppText.headerTitle(context)),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -34,30 +36,30 @@ class AddScheduleScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFieldCustom(
-                label: 'Tiêu đề',
-                hintText: 'Nhập tiêu đề',
+                label: 'bussiness_itinerary_title'.tr,
+                hintText: 'bussiness_itinerary_title_placeholder'.tr,
                 onChanged: (value) => addScheduleController.title.value = value,
               ),
               Obx(() => DropdownCustom(
-                label: "Chọn mục đích",
-                items: ["Mục đích", "Công tác nội bộ", "Gặp khách hàng", "Công ty khác"],
+                label: 'bussiness_itinerary_purpose'.tr,
+                items: ['bussiness_itinerary_purpose_placeholder'.tr, "Công tác nội bộ", "Gặp khách hàng", "Công ty khác"],
                 value: addScheduleController.purpose.value,
                 onChanged: (value) {
                   addScheduleController.setPurpose(value!);
                 },
               )),
               Obx(() => DropdownCustom(
-                label: "Phương tiện di chuyển",
-                items: ["Phương tiện", "Xe công ty", "Xe cá nhân", "Máy bay"],
+                label: 'bussiness_itinerary_vehicle'.tr,
+                items: ["bussiness_itinerary_vehicle_placeholder".tr, "Xe công ty", "Xe cá nhân", "Máy bay"],
                 value: addScheduleController.vehicle.value,
                 onChanged: (value) {
                   addScheduleController.setVehicle(value!);
                 },
               )),
               Obx(() => DatePickerCustom(
-                label: "Ngày bắt đầu",
+                label: 'bussiness_itinerary_start_date'.tr,
                 dateText: addScheduleController.startDate.value == null
-                    ? "Chọn ngày"
+                    ? 'bussiness_itinerary_date_placeholder'.tr
                     : "${addScheduleController.startDate.value!.day}/${addScheduleController.startDate.value!.month}/${addScheduleController.startDate.value!.year}",
                 onTap: () async {
                   DateTime today = DateTime.now();
@@ -74,9 +76,9 @@ class AddScheduleScreen extends StatelessWidget {
               )),
 
           Obx(() => DatePickerCustom(
-                label: "Ngày kết thúc",
+                label: 'bussiness_itinerary_end_date'.tr,
                 dateText: addScheduleController.endDate.value == null
-                    ? "Chọn ngày"
+                    ? 'bussiness_itinerary_date_placeholder'.tr
                     : "${addScheduleController.endDate.value!.day}/${addScheduleController.endDate.value!.month}/${addScheduleController.endDate.value!.year}",
                 onTap: () async {
                   DateTime today = DateTime.now();
@@ -85,6 +87,7 @@ class AddScheduleScreen extends StatelessWidget {
                     initialDate: addScheduleController.endDate.value ?? addScheduleController.startDate.value ?? today,
                     firstDate: addScheduleController.startDate.value ?? today, // Giới hạn min là ngày bắt đầu nếu đã chọn
                     lastDate: DateTime(2100),
+                    locale: Get.locale,
                   );
                   if (pickedDate != null) {
                     addScheduleController.setEndDate(pickedDate);
@@ -100,7 +103,7 @@ class AddScheduleScreen extends StatelessWidget {
                     context.pop(); 
                   }
                 },
-                child: Text('Thêm lịch'),
+                child: Text('bussiness_itinerary_add'.tr, style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 16)),
               ),
             ],
           ),

@@ -45,6 +45,24 @@ class AddPostController extends GetxController {
     }
   }
 
+  Future<void> captureImage() async {
+    final XFile? capturedFile = await picker.pickImage(source: ImageSource.camera);
+    if (capturedFile != null) {
+      File imageFile = File(capturedFile.path);
+      selectedImages.add(imageFile);
+      await analyzeSingleImage(imageFile);
+    }
+  }
+
+  Future<void> analyzeSingleImage(File img) async {
+    imageLabels.add([]);
+    final inputImage = InputImage.fromFile(img);
+    final detectedLabels = await _labeler.processImage(inputImage);
+
+    List<String> labelTexts = detectedLabels.map((e) => e.label).toList();
+    imageLabels[selectedImages.indexOf(img)] = labelTexts;
+  }
+
   Future<void> analyzeImages() async {
     imageLabels.clear(); 
     for (var img in selectedImages) {

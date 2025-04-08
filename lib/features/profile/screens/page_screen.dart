@@ -57,7 +57,7 @@ class PageScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(displayData["save_count"].toString(), style: AppText.title(context)),
-                        Text("Bài viết đã lưu", style: AppText.small(context)),
+                        Text("post_saved".tr, style: AppText.small(context)),
                       ],
                     ),
                     SizedBox(width: 5),

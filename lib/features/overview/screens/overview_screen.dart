@@ -22,8 +22,8 @@ class OverviewScreen extends StatelessWidget {
               if(profileController.userData['role'] == 'Admin'){
                 return SliverToBoxAdapter(
                   child: OverviewCard(
-                    title: 'Số bài viết chờ duyệt',
-                    content: "${overviewController.pendingPosts.value} bài viết",
+                    title: 'pending_posts_title'.tr,
+                    content: "${overviewController.pendingPosts.value} ${'pending_posts_post'.tr}",
                     isVisible: overviewController.card1Visible,
                     gradientColors: [Colors.green.shade400, Colors.green.shade900],
                     onTap: () => context.push('/overview/pending-posts'),
@@ -86,8 +86,8 @@ class OverviewScreen extends StatelessWidget {
               if(profileController.userData['role'] != 'Admin'){
                 return SliverToBoxAdapter(
                   child: OverviewCard(
-                    title: 'Lịch trình công tác',
-                    content: "Có ${overviewController.scheduleCount.value} chuyến công tác trong tháng này",
+                    title: 'business_itinerary_title'.tr,
+                    content: '${overviewController.scheduleCount.value} ${'business_itinerary_this_month'.tr}', 
                     isVisible: overviewController.card5Visible,
                     gradientColors: [Colors.purple.shade400, Colors.purple.shade900],
                     onTap: () => context.push('/overview/business-itinerary'),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diacritic/diacritic.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 List<String> generateKeywords(String name) {
@@ -32,19 +33,19 @@ String getTimeAgoByTimestamp(Timestamp timestamp) {
   Duration diff = now.difference(createdAtDate);
 
   if (diff.inSeconds < 60) {
-    return 'Vừa xong';
+    return 'time_just_now'.tr;
   } else if (diff.inMinutes < 60) {
-    return '${diff.inMinutes} phút';
+    return '${diff.inMinutes} ${'time_minute'.tr}';
   } else if (diff.inHours < 24) {
-    return '${diff.inHours} giờ';
+    return '${diff.inHours} ${'time_hour'.tr}';
   } else if (diff.inDays < 7) {
-    return '${diff.inDays} ngày';
+    return '${diff.inDays} ${'time_day'.tr}';
   } else if (diff.inDays < 30) {
-    return '${(diff.inDays / 7).floor()} tuần';
+    return '${(diff.inDays / 7).floor()} ${'time_week'.tr}';
   } else if (diff.inDays < 365) {
-    return '${(diff.inDays / 30).floor()} tháng';
+    return '${(diff.inDays / 30).floor()} ${'time_month'.tr}';
   } else {
-    return '${(diff.inDays / 365).floor()} năm';
+    return '${(diff.inDays / 365).floor()} ${'time_year'.tr}';
   }
 }
 

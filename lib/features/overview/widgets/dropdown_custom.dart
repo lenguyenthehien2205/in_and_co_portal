@@ -38,7 +38,7 @@ class DropdownCustom extends StatelessWidget {
           items: items.map((String item) {
             return DropdownMenuItem<String>(
               value: item,
-              child: Text(item),
+              child: Text(item, style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
             );
           }).toList(),
           onChanged: onChanged,

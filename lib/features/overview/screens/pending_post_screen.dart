@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_and_co_portal/core/utils/string_utils.dart';
 import 'package:in_and_co_portal/features/home/controllers/post_controller.dart';
 import 'package:in_and_co_portal/features/overview/controllers/overview_controller.dart';
 import 'package:in_and_co_portal/features/overview/controllers/pending_post_controller.dart';
@@ -16,7 +17,7 @@ class PendingPostScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Duyệt bài viết"),
+        title: Text("pending_posts_approve".tr),
         centerTitle: true,
       ),
       body: Obx(() {
@@ -25,7 +26,7 @@ class PendingPostScreen extends StatelessWidget{
         }
 
         if (pendingPostController.pendingPosts.isEmpty) {
-          return Center(child: Text("Không có bài viết nào chờ duyệt"));
+          return Center(child: Text("pending_posts_no_post".tr, style: AppText.subtitle(context)));
         }
 
         return ListView.builder(
@@ -79,7 +80,11 @@ class PendingPostScreen extends StatelessWidget{
                             post.authorName,
                             style: AppText.subtitle(context),
                           ),
-                          Row(
+                          Text(
+                            getTimeAgoByTimestamp(post.createdAt),
+                            style: AppText.subtitle(context),
+                          ),
+                          Row( 
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               IconButton(

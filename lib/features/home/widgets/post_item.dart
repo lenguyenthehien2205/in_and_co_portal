@@ -62,7 +62,7 @@ class _PostItemState extends State<PostItem>{
           builder: (context, scrollController) {
             return Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface, 
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               ),
               child: CommentFrame(postId: postId, currentPath: currentPath),
@@ -130,7 +130,11 @@ class _PostItemState extends State<PostItem>{
                           children: [
                             Row(
                               children: [
-                                AppText(text: widget.post.authorName, style: AppText.semiBoldTitle(context)),
+                                AppText(text: widget.post.authorName, style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                )),
                                 SizedBox(width: 5),
                                 if (widget.post.isChecked)
                                   Icon(Icons.verified, color: Colors.blue, size: 16)
@@ -285,7 +289,7 @@ class _PostItemState extends State<PostItem>{
                             }
                           },
                           child: Text(
-                            translationController.isTranslated.value ? "Ẩn bản dịch" : "Xem bản dịch",
+                            translationController.isTranslated.value ? "hide_translation".tr : "view_translation".tr,
                             style: TextStyle(color: Colors.blue),
                           ),
                         )

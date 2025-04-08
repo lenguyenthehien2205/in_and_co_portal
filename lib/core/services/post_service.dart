@@ -376,10 +376,8 @@ class PostService {
         List<String> pathSegments = doc.reference.path.split('/');
         String userId = pathSegments[pathSegments.indexOf('users') + 1];
         
-        // Lấy thông tin user từ Firestore
         DocumentSnapshot userDoc =
             await _firestore.collection('users').doc(userId).get();
-
         if (userDoc.exists) {
           post.authorName = userDoc['fullname'] ?? 'Unknown';
           post.authorAvatar = userDoc['avatar'] ?? '';

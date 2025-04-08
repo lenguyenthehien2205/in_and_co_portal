@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
@@ -11,10 +12,11 @@ class ResultSearchScreen extends StatelessWidget {
     final data = state.extra as Map<String, dynamic>?;
     final List<Map<String, dynamic>> posts =
         List<Map<String, dynamic>>.from(data?["posts"] ?? []);
-
+    print(posts.isEmpty);
+    print(posts.length);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kết quả tìm kiếm', style: AppText.headerTitle(context)),
+        title: Text('search_result'.tr, style: AppText.headerTitle(context)),
         centerTitle: true,
         scrolledUnderElevation: 0,
       ),
@@ -25,19 +27,35 @@ class ResultSearchScreen extends StatelessWidget {
             floating: true,
             pinned: true,
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 15, bottom: 10),
-              child: Text(
-                'Bài viết',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onSurface,
+          if(posts.isNotEmpty)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, top: 15, bottom: 10),
+                child: Text(
+                  'search_post'.tr,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ),
             ),
-          ),
+          if(posts.isEmpty)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, top: 15),
+                child: Center(
+                  child: Text(
+                    'search_no_result'.tr,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                )
+              ),
+            ),
           SliverToBoxAdapter(
             child: GridView.builder(
               shrinkWrap: true, 

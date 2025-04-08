@@ -48,17 +48,18 @@ class ChatController extends GetxController {
   void sendMessage() async {
     if (messageController.value.text.isNotEmpty) {
       try {
+        var messageText = messageController.value.text.trim();
+        messageController.value.clear();
         await chatService.sendMessage(
           conversationId.value,
           profileController.currentUID.value,
-          messageController.value.text,
+          messageText,
         );
         await conversationService.updateConversation( 
           conversationId.value,
-          messageController.value.text,
+          messageText,
           profileController.currentUID.value,
         );
-        messageController.value.clear();
       } catch (error) {
         print("Lỗi khi gửi tin nhắn: $error");
       }

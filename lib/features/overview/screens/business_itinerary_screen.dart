@@ -38,7 +38,7 @@ class BusinessItineraryScreen extends StatelessWidget {
     final BusinessItineraryController controller = Get.put(BusinessItineraryController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lịch công tác'),
+        title: Text('business_itinerary_schedule'.tr),
         centerTitle: true,
         scrolledUnderElevation: 0,
       ),
@@ -59,9 +59,9 @@ class BusinessItineraryScreen extends StatelessWidget {
                 );
               }
               if(controller.filteredItineraryData.isEmpty) {
-                return const SliverToBoxAdapter(
+                return SliverToBoxAdapter(
                   child: Center(
-                    child: Text('Không có lịch công tác nào'),
+                    child: Text('business_itinerary_no_job'.tr),
                   ),
                 );
               }
@@ -90,37 +90,42 @@ class BusinessItineraryScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     item.title.toString(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
                                   Text(
-                                    'Mục đích: ${item.purpose}',
-                                    style: const TextStyle(
+                                    '${'bussiness_itinerary_purpose'.tr}: ${item.purpose}',
+                                    style: TextStyle(
                                       fontSize: 14,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
                                   Text(
-                                    'Phương tiện: ${item.vehicle}',
-                                    style: const TextStyle(
+                                    '${'bussiness_itinerary_vehicle'.tr}: ${item.vehicle}',
+                                    style: TextStyle(
                                       fontSize: 14,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
                                   Text(
-                                    'Thời gian: ${formatTimestampToDate(item.startDate)} - ${formatTimestampToDate(item.endDate)}',
-                                    style: const TextStyle(
+                                    '${'bussiness_itinerary_time'.tr}: ${formatTimestampToDate(item.startDate)} - ${formatTimestampToDate(item.endDate)}',
+                                    style: TextStyle(
                                       fontSize: 14,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
                                   Text(
-                                    'Trạng thái: ${item.status}',
-                                    style: const TextStyle(
+                                    '${'bussiness_itinerary_status'.tr}: ${item.status}',
+                                    style: TextStyle(
                                       fontSize: 14,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                     ),
                                   ),
                                 ],
@@ -161,7 +166,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       alignment: Alignment.center,
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: Row(
@@ -171,13 +176,14 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
             child: Container(
               width: MediaQuery.of(context).size.width * 0.6,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(30),
+                border: Border.all(color: Theme.of(context).colorScheme.onSurface, width: 1.5),
               ),
               child: TextField(
                 onChanged: controller.filterBySearch,
-                decoration: const InputDecoration(
-                  hintText: 'Tìm kiếm...',
+                decoration: InputDecoration(
+                  hintText: '${'search_placeholder'.tr}...',
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: 20,
@@ -191,11 +197,11 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
           const SizedBox(width: 10),
           Obx(() => DropdownButton<String>(
             value: controller.selectedVehicle.value,
-            items: ['Phương tiện', 'Máy bay', 'Xe công ty', 'Xe cá nhân']
+            items: ['bussiness_itinerary_vehicle'.tr, 'bussiness_itinerary_vehicle_plane'.tr, 'bussiness_itinerary_vehicle_company'.tr, 'bussiness_itinerary_vehicle_personal'.tr]
                 .map(
                   (String value) => DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value),
+                    child: Text(value, style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
                   ),
                 )
                 .toList(),

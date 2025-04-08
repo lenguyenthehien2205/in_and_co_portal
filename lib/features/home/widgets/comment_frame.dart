@@ -45,7 +45,7 @@ class CommentFrame extends StatelessWidget{
                   SizedBox(height: 20),
                   Icon(Icons.comment, size: 50, color: Colors.grey),
                   SizedBox(height: 10),
-                  Text('Chưa có bình luận nào', style: AppText.subtitle(context)),
+                  Text('post_no_comment'.tr, style: AppText.subtitle(context)),
                   SizedBox(height: 100),
                 ],
               ),
@@ -66,7 +66,7 @@ class CommentFrame extends StatelessWidget{
                     ),
                     title: Row(
                       children: [
-                        Text(comment.userName, style: AppText.semiBoldTitle(context)),
+                        Text(comment.userName, style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
                         SizedBox(width: 5),
                         if (comment.isChecked) Icon(Icons.verified, color: Colors.blue, size: 16),
                         SizedBox(width: 5),
@@ -98,20 +98,22 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
       padding: EdgeInsets.only(
         bottom: currentPath == '/home' ? 100 : 22, 
       ),
-      color: Colors.white, 
+      color: Theme.of(context).colorScheme.surface, 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: MediaQuery.of(context).size.width * 0.9, 
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(30), 
+              border: Border.all(color: Theme.of(context).colorScheme.onSurface, width: 1.5), 
             ),
             child: TextField(
               controller: commentController.textCommentController,
               decoration: InputDecoration(
-                hintText: 'Bình luận...',
+                hintText: '${'post_comment'.tr}...',
+                hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 border: InputBorder.none, 
                 contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 suffixIcon: IconButton(

@@ -126,5 +126,52 @@ const Map<String, String> en = {
 
   // Search Screen
   'search_placeholder': 'Search',
-  'search_recent': 'Recent'
+  'search_recent': 'Recent',
+  'search_result': 'Search Results',
+  'search_no_result': 'No results found',
+  'search_post': 'Posts',
+
+  // time
+  'time_just_now': 'Just now',
+  'time_ago': 'ago',
+  'time_hour': 'hour',
+  'time_day': 'day',
+  'time_week': 'week',
+  'time_month': 'month',
+  'time_year': 'year',
+
+  // post
+  'view_translation': 'View translation',
+  'hide_translation': 'Hide translation',
+  'post_detail': 'Post Details',
+  'post_saved': 'Post saved',
+  'post_comment': 'Comment',
+  'post_no_comment': 'No comments yet',
+
+  // pending posts
+  'pending_posts_title': 'Pending Posts',
+  'pending_posts_post': 'Post',
+  'pending_posts_approve': 'Approve',
+  'pending_posts_no_post': 'No pending posts',
+
+  // business itinerary
+  'business_itinerary_title': 'Business Itinerary',
+  'business_itinerary_this_month': 'business trips in this month',
+  'business_itinerary_no_job': 'No business trips available',
+  'business_itinerary_schedule': 'Business Schedule',
+  'bussiness_itinerary_vehicle': 'Vehicle',
+  'bussiness_itinerary_purpose': 'Purpose',
+  'bussiness_itinerary_status': 'Status',
+  'bussiness_itinerary_time': 'Time',
+  'bussiness_itinerary_vehicle_company': 'Company Car',
+  'bussiness_itinerary_vehicle_personal': 'Personal Car',
+  'bussiness_itinerary_vehicle_plane': 'Plane',
+  'bussiness_itinerary_add': 'Add Schedule',
+  'bussiness_itinerary_title': 'Title',
+  'bussiness_itinerary_title_placeholder': 'Enter title',
+  'bussiness_itinerary_purpose_placeholder': 'Select purpose',
+  'bussiness_itinerary_vehicle_placeholder': 'Select vehicle',
+  'bussiness_itinerary_start_date': 'Start Date',
+  'bussiness_itinerary_end_date': 'End Date',
+  'bussiness_itinerary_date_placeholder': 'Select date',
 };

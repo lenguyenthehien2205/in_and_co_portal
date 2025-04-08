@@ -6,6 +6,8 @@ import 'package:in_and_co_portal/theme/app_text.dart';
 
 
 class AddPostScreen extends StatelessWidget {
+  AddPostScreen({super.key});
+
   final AddPostController addPostController = Get.put(AddPostController());
 
   @override
@@ -19,7 +21,7 @@ class AddPostScreen extends StatelessWidget {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextField(
               controller: addPostController.contentController,
@@ -108,9 +110,19 @@ class AddPostScreen extends StatelessWidget {
 
             Align(
               alignment: Alignment.center,
-              child: IconButton(
-                icon: Icon(Icons.add_photo_alternate, size: 40, color: Colors.green),
-                onPressed: () => addPostController.pickImages(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.add_photo_alternate, size: 40, color: Colors.green),
+                    onPressed: () => addPostController.pickImages(),
+                  ),
+                  SizedBox(width: 10),
+                  IconButton(
+                    icon: Icon(Icons.camera, size: 40, color: Colors.green),
+                    onPressed: () => addPostController.captureImage(),
+                  ),
+                ],
               ),
             ),
             Align(
@@ -145,3 +157,4 @@ class AddPostScreen extends StatelessWidget {
     );
   }
 }
+ 

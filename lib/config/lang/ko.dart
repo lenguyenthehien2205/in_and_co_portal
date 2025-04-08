@@ -126,5 +126,52 @@ const Map<String, String> ko = {
 
   // Search Screen
   'search_placeholder': '검색',
-  'search_recent': '최근'
+  'search_recent': '최근',
+  'search_result': '검색 결과',
+  'search_no_result': '검색 결과가 없습니다',
+  'search_post': '게시물',
+
+  // time
+  'time_just_now': '방금 전',
+  'time_ago': '전',
+  'time_hour': '시간',
+  'time_day': '일',
+  'time_week': '주',
+  'time_month': '개월',
+  'time_year': '년',
+
+  // post
+  'view_translation': '번역 보기',
+  'hide_translation': '번역 숨기기',
+  'post_detail': '게시물 세부정보',
+  'post_saved': '게시물 저장됨',
+  'post_comment': '댓글',
+  'post_no_comment': '댓글이 없습니다',
+
+  // pending posts
+  'pending_posts_title': '승인 대기 중인 게시물',
+  'pending_posts_post': '게시물',
+  'pending_posts_approve': '승인',
+  'pending_posts_no_post': '승인 대기 중인 게시물이 없습니다',
+
+  // bussiness itinerary
+  'business_itinerary_title': '출장 일정',
+  'business_itinerary_this_month': '이번 달 출장',
+  'business_itinerary_no_job': '등록된 출장 일정이 없습니다',
+  'business_itinerary_schedule': '출장 일정',
+  'bussiness_itinerary_vehicle': '교통수단',
+  'bussiness_itinerary_purpose': '목적',
+  'bussiness_itinerary_status': '상태',
+  'bussiness_itinerary_time': '시간',
+  'business_itinerary_vehicle_plane': '비행기',
+  'business_itinerary_vehicle_company': '회사 차량',
+  'business_itinerary_vehicle_personal': '개인 차량',
+  'bussiness_itinerary_add': '일정 추가',
+  'bussiness_itinerary_title': '제목',
+  'bussiness_itinerary_title_placeholder': '제목을 입력하세요',
+  'bussiness_itinerary_purpose_placeholder': '목적을 선택하세요',
+  'bussiness_itinerary_vehicle_placeholder': '교통수단을 선택하세요',
+  'bussiness_itinerary_start_date': '시작 날짜',
+  'bussiness_itinerary_end_date': '종료 날짜',
+  'bussiness_itinerary_date_placeholder': '날짜 선택',
 };

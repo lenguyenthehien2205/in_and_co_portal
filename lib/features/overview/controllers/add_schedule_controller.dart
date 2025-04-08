@@ -9,8 +9,8 @@ import 'package:in_and_co_portal/main.dart';
 class AddScheduleController extends GetxController {
   final BusinessItineraryService _service = BusinessItineraryService();
   var title = ''.obs;
-  var purpose = 'Mục đích'.obs;
-  var vehicle = 'Phương tiện'.obs;
+  var purpose = 'bussiness_itinerary_purpose_placeholder'.tr.obs;
+  var vehicle = 'bussiness_itinerary_vehicle_placeholder'.tr.obs;
   var startDate = Rxn<DateTime>();
   var endDate = Rxn<DateTime>();
 
@@ -37,13 +37,13 @@ class AddScheduleController extends GetxController {
           );
       return false;
     }
-    if (purpose.value == 'Mục đích') {
+    if (purpose.value == 'bussiness_itinerary_purpose_placeholder'.tr) {
       globalScaffoldMessengerKey.currentState?.showSnackBar(
             SnackBar(content: Text("Bạn chưa chọn mục đích công tác", style: TextStyle(color: Colors.white)), backgroundColor: Colors.grey)
           );
       return false;
     }
-    if (vehicle.value == 'Phương tiện') {
+    if (vehicle.value == 'bussiness_itinerary_vehicle_placeholder'.tr) {
       globalScaffoldMessengerKey.currentState?.showSnackBar(
             SnackBar(content: Text("Bạn chưa chọn phương tiện công tác", style: TextStyle(color: Colors.white)), backgroundColor: Colors.grey)
           );
@@ -72,7 +72,7 @@ class AddScheduleController extends GetxController {
 
   void resetForm() {
     title.value = '';
-    purpose.value = 'Mục đích';
+    purpose.value = 'bussiness_itinerary_purpose_placeholder'.tr;
     vehicle.value = 'Phương tiện';
     startDate.value = null;
     endDate.value = null;

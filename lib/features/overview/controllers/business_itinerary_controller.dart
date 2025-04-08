@@ -7,7 +7,7 @@ import 'package:in_and_co_portal/core/services/business_itinerary_service.dart';
 class BusinessItineraryController extends GetxController {
   final BusinessItineraryService _service = BusinessItineraryService();
 
-  var selectedVehicle = 'Phương tiện'.obs;
+  var selectedVehicle = 'bussiness_itinerary_vehicle'.tr.obs;
   var searchQuery = ''.obs;
   var itineraryData = <BusinessItinerary>[].obs;
   var filteredItineraryData = <BusinessItinerary>[].obs;
@@ -53,7 +53,7 @@ class BusinessItineraryController extends GetxController {
   void _applyFilters() {
     var filteredData = List<BusinessItinerary>.from(itineraryData);
 
-    if (selectedVehicle.value != 'Phương tiện') {
+    if (selectedVehicle.value != 'bussiness_itinerary_vehicle'.tr) {
       filteredData = filteredData
           .where((item) => item.vehicle == selectedVehicle.value)
           .toList();
