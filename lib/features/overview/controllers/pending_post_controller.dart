@@ -36,8 +36,8 @@ class PendingPostController extends GetxController{
 
   Future<void> approvePost(String postId, String userId) async {
     await postService.acceptPost(postId, 'accepted');
-    var title = 'Thông báo về bài viết mới 📝';
-    var body = 'Bài viết của bạn đã được xét duyệt! ✅';
+    var title = '${'notification_about_new_post'.tr} 📝';
+    var body = '${'notification_about_approve_post'.tr} ✅';
     model.Notification notification = model.Notification(
       title: title,
       message: body,
@@ -45,7 +45,7 @@ class PendingPostController extends GetxController{
       type: 'post',
       createdAt: Timestamp.now(),
       isRead: false,
-      senderId: profileController.currentUID.value,
+      senderId: profileController.myUID.value,
     );
     notificationService.addNotification(userId, notification);
     firebaseApi.sendNotificationToAuthor(userId, title, body);
@@ -53,8 +53,8 @@ class PendingPostController extends GetxController{
 
   Future<void> rejectPost(String postId, String userId) async {
     await postService.rejectPost(postId);
-    var title = 'Thông báo về bài viết mới 📝';
-    var body = 'Bài viết của bạn đã bị từ chối! ❌';
+    var title = '${'notification_about_new_post'.tr} 📝';
+    var body = '${'notification_about_reject_post'.tr} ❌';
     model.Notification notification = model.Notification(
       title: title,
       message: body,
@@ -62,7 +62,7 @@ class PendingPostController extends GetxController{
       type: 'post',
       createdAt: Timestamp.now(),
       isRead: false,
-      senderId: profileController.currentUID.value,
+      senderId: profileController.myUID.value,
     );
     notificationService.addNotification(userId, notification);
     firebaseApi.sendNotificationToAuthor(userId, title, body);

@@ -13,7 +13,7 @@ class PageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('${profileController.currentUID.value} - $userId');
+    print('${profileController.myUID.value} - $userId');
     profileController.fetchUserData(userId: userId);
     return Scaffold(
       appBar: AppBar(

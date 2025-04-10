@@ -14,7 +14,7 @@ class AddPostScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Thêm bài viết", style: AppText.headerTitle(context)),
+        title: Text('add_post_title'.tr, style: AppText.headerTitle(context)),
         centerTitle: true,
         scrolledUnderElevation: 0,
       ),
@@ -28,7 +28,7 @@ class AddPostScreen extends StatelessWidget {
               maxLines: null,
               keyboardType: TextInputType.multiline, // 
               decoration: InputDecoration(
-                hintText: "Nhập nội dung bài viết...",
+                hintText: "add_post_placeholder".tr,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: Colors.grey)), 
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -147,7 +147,7 @@ class AddPostScreen extends StatelessWidget {
                       ),
                     );
                   }
-                  return Text("Đăng bài");
+                  return Text("add_post_submit".tr);
                 })
               ),
             ),

@@ -18,18 +18,40 @@ class SearchScreen extends StatelessWidget {
           ),
           Obx(() {
             if (searchController.searchQuery.isEmpty) {
-              return SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 15),
-                  child: Text(
-                    'search_recent'.tr,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onSurface,
+              return SliverList(
+                delegate: SliverChildListDelegate([
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 15),
+                    child: Text(
+                      'search_recent'.tr,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ),
                   ),
-                ),
+                  ...searchController.searchHistory.map((history) {
+                    return ListTile(
+                      title: Text(
+                        history.content,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface, 
+                        ),
+                      ),
+                      leading: Icon(Icons.history),
+                      trailing: IconButton(
+                        icon: Icon(Icons.clear),
+                        onPressed: () {
+                          searchController.deleteSearchHistory(history.id!);
+                        },
+                      ),
+                      onTap: () {
+                        searchController.searchAndNavigate(context, history.content);
+                      },
+                    );
+                  }),
+                ]),
               );
             }
             return SliverPadding(
@@ -108,6 +130,7 @@ class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
             searchController.searchUsers(value);
           },
           onSubmitted: (value) {
+            searchController.addSearchHistory(value);
             searchController.searchAndNavigate(context, value);
           },
         ),

@@ -136,6 +136,8 @@ const Map<String, String> vi = {
   'time_just_now': 'Vừa xong',
   'time_ago': 'trước',
   'time_today': 'Hôm nay',
+  'time_minute': 'phút',
+  'time_hour': 'giờ',
   'time_day': 'ngày',
   'time_week': 'tuần',
   'time_month': 'tháng',
@@ -148,6 +150,7 @@ const Map<String, String> vi = {
   'post_saved': 'Bài viết đã lưu',
   'post_comment': 'Bình luận',
   'post_no_comment': 'Chưa có bình luận nào',
+  'post_download_image': 'Tải xuống ảnh này',
 
   // pending posts
   'pending_posts_title': 'Bài viết chờ duyệt',
@@ -175,4 +178,34 @@ const Map<String, String> vi = {
   'bussiness_itinerary_start_date': 'Ngày bắt đầu',
   'bussiness_itinerary_end_date': 'Ngày kết thúc',
   'bussiness_itinerary_date_placeholder': 'Chọn ngày',
+
+  // Conversation Screen
+  'conversation_title': 'Cuộc trò chuyện',
+
+  // Chat Screen
+  'chat_placeholder': 'Nhập tin nhắn...',
+  'chat_you': 'Bạn',
+
+  // Notification Screen
+  'notification_title': 'Thông báo',
+  'notification_empty': 'Không có thông báo nào',
+  'notification_about_new_post': 'Thông báo về bài viết mới',
+  'notification_about_new_comment': 'Thông báo về bình luận',
+  'notification_about_new_like': 'Thông báo về lượt thích',
+  'notification_about_reject_post': 'Bài viết của bạn đã bị từ chối!',
+  'notification_about_approve_post': 'Bài viết của bạn đã được xét duyệt!',
+  'notification_about_new_company_post': 'Công ty vừa có bản tin mới!',
+  'notification_has_commented': 'đã bình luận về bài viết của bạn',
+  'notification_has_liked': 'đã thích bài viết của bạn',
+
+  // Add Post Screen
+  'add_post_title': 'Thêm bài viết',
+  'add_post_placeholder': 'Nhập nội dung bài viết...',
+  'add_post_submit': 'Đăng bài',
+  'add_post_edit_label': 'Chỉnh sửa nhãn',
+  'add_post_add_label': 'Thêm nhãn',
+  'add_post_label_placeholder': 'Nhập nhãn',
+  'add_post_cancel': 'Hủy',
+  'add_post_save': 'Lưu',
+  'add_post_add': 'Thêm',
 };

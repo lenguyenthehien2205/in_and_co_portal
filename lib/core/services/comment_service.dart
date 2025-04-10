@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:in_and_co_portal/config/firebase_api.dart';
 import 'package:in_and_co_portal/core/models/comment.dart';
 import 'package:in_and_co_portal/core/models/notification.dart' as model;
@@ -47,8 +48,8 @@ class CommentService {
     var author = await _userService.getUserByPostId(comment.postId);
     var userCommented = await _userService.getUserById(comment.userId);
     if (author['id'] != comment.userId) {
-      String title = 'Thông báo về bình luận 💭';
-      String message = '${userCommented['fullname']} đã bình luận về bài viết của bạn';
+      String title = '${'notification_about_new_comment'.tr} 💭';
+      String message = '${userCommented['fullname']} ${'notification_has_commented'.tr}';
       await _firebaseApi.sendNotificationToAuthor(author['id'], title, message);
       model.Notification notification = model.Notification(
         title: title,

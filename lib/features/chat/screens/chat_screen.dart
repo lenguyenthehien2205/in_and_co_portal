@@ -60,6 +60,37 @@ class ChatScreen extends StatelessWidget{
               floating: true,
               pinned: true,
             ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(8), 
+                child: Obx((){
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center, 
+                      children: chatController.suggestions.map((suggestion) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: GestureDetector(
+                            onTap: () {
+                              chatController.messageController.value.text = suggestion;
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: Colors.blue[100],
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(suggestion, style: AppText.normal(context)),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                })
+              ),
+            ),
             Obx((){
               if (chatController.isLoading.value) {
                 return SliverFillRemaining(
@@ -77,11 +108,11 @@ class ChatScreen extends StatelessWidget{
                       crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Row(
-                            mainAxisAlignment: message.senderId == profileController.currentUID.value
+                            mainAxisAlignment: message.senderId == profileController.myUID.value
                                 ? MainAxisAlignment.end
                                 : MainAxisAlignment.start,
                             children: [
-                              if (message.senderId != profileController.currentUID.value) 
+                              if (message.senderId != profileController.myUID.value) 
                                 CircleAvatar(
                                   backgroundImage: NetworkImage(otherUserInfo?["avatar"] ?? ""),
                                   radius: 22,
@@ -93,7 +124,7 @@ class ChatScreen extends StatelessWidget{
                                   maxWidth: MediaQuery.of(context).size.width * 0.7, 
                                 ),
                                 decoration: BoxDecoration(
-                                  color: message.senderId == profileController.currentUID.value
+                                  color: message.senderId == profileController.myUID.value
                                       ? Colors.blue[100]
                                       : Colors.grey[200],
                                   borderRadius: BorderRadius.circular(7),
@@ -194,7 +225,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
             child: TextField(
               controller: chatController.messageController.value,
               decoration: InputDecoration(
-                hintText: 'Nhập tin nhắn...',
+                hintText: 'chat_placeholder'.tr,
                 border: InputBorder.none, 
                 contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 suffixIcon: IconButton(

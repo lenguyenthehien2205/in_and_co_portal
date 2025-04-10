@@ -48,6 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen>{
     {'text': 'profile_settings', 'icon': Icons.settings, 'url': 'settings'},
     {'text': 'profile_logout', 'icon': Icons.logout, 'url': 'logout'},
   ];
+  
 
 @override
 Widget build(BuildContext context) {
@@ -135,7 +136,8 @@ Widget build(BuildContext context) {
                       return;
                     }
                     if(btn['url'] == 'page'){
-                      context.push('/profile/page/${profileController.currentUID}');
+                      // print('${profileController.myUID}..................................................');
+                      context.push('/profile/page/${profileController.myUID}');
                       return;
                     }
                     context.push('/profile/${btn['url']}');

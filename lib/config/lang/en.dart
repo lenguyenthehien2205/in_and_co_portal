@@ -134,6 +134,8 @@ const Map<String, String> en = {
   // time
   'time_just_now': 'Just now',
   'time_ago': 'ago',
+  'time_today': 'Today',
+  'time_minute': 'minute',
   'time_hour': 'hour',
   'time_day': 'day',
   'time_week': 'week',
@@ -147,6 +149,7 @@ const Map<String, String> en = {
   'post_saved': 'Post saved',
   'post_comment': 'Comment',
   'post_no_comment': 'No comments yet',
+  'post_download_image': 'Download this image',
 
   // pending posts
   'pending_posts_title': 'Pending Posts',
@@ -174,4 +177,34 @@ const Map<String, String> en = {
   'bussiness_itinerary_start_date': 'Start Date',
   'bussiness_itinerary_end_date': 'End Date',
   'bussiness_itinerary_date_placeholder': 'Select date',
+
+  // Conversation Screen
+  'conversation_title': 'Conversation',
+
+  // Chat Screen
+  'chat_placeholder': 'Enter message...',
+  'chat_you': 'You',
+
+  // notification screen
+  'notification_title': 'Notifications',
+  'notification_empty': 'No notifications available',
+  'notification_about_new_post': 'New post notification',
+  'notification_about_new_comment': 'New comment notification',
+  'notification_about_new_like': 'New like notification',
+  'notification_about_reject_post': 'Your post has been rejected!',
+  'notification_about_approve_post': 'Your post has been approved!',
+  'notification_about_new_company_post': 'The company has just posted a news update!',
+  'notification_has_commented': 'has commented on your post',
+  'notification_has_liked': 'has liked your post',
+
+  // Add Post Screen
+  'add_post_title': 'Add Post',
+  'add_post_placeholder': 'Enter post content...',
+  'add_post_submit': 'Post',
+  'add_post_edit_label': 'Edit Label',
+  'add_post_add_label': 'Add Label',
+  'add_post_label_placeholder': 'Enter label',
+  'add_post_cancel': 'Cancel',
+  'add_post_save': 'Save',
+  'add_post_add': 'Add',
 };

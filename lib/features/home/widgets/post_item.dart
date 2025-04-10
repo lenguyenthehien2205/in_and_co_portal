@@ -97,6 +97,7 @@ class _PostItemState extends State<PostItem>{
                       GestureDetector(
                         onTap: () {
                           print('Author ID: ${widget.post.authorId}');
+                          print('/profile/page/${widget.post.authorId}..................................................');
                           context.push('/profile/page/${widget.post.authorId}');
                         },
                         child: Container(
@@ -118,7 +119,6 @@ class _PostItemState extends State<PostItem>{
                           ),
                         ),
                       ),
-                      
                       SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {

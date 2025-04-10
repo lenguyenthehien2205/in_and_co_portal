@@ -61,6 +61,7 @@ dependencies:
   googleapis_auth: ^1.4.0
   dart_jsonwebtoken: 
   google_sign_in: 
+  google_mlkit_smart_reply: ^0.13.0
 
 dev_dependencies:
   flutter_test:

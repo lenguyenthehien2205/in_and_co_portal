@@ -16,7 +16,7 @@ class ConversationsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cuộc trò chuyện"),
+        title: Text("conversation_title".tr, style: AppText.headerTitle(context)),
         centerTitle: true,
       ),
       body: Center(
@@ -53,14 +53,16 @@ class ConversationsScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             if(conversation.lastMessageSenderId == conversationController.userId) 
-                              Text("Bạn: ", style: AppText.subtitle(context))
+                              Text("${'chat_you'.tr}: ", style: AppText.subtitle(context))
                             else 
                               Text("${conversation.fullname}: ", style: AppText.subtitle(context)),
-                            Text(
-                              conversation.lastMessage, 
-                              style: AppText.subtitle(context),
-                              overflow: TextOverflow.ellipsis,  
-                              maxLines: 1,  
+                            Expanded(
+                              child: Text(
+                                conversation.lastMessage,
+                                style: AppText.subtitle(context),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
                             ),
                           ],
                         )

@@ -134,6 +134,8 @@ const Map<String, String> ko = {
   // time
   'time_just_now': '방금 전',
   'time_ago': '전',
+  'time_today': '오늘',
+  'time_minute': '분',
   'time_hour': '시간',
   'time_day': '일',
   'time_week': '주',
@@ -147,6 +149,7 @@ const Map<String, String> ko = {
   'post_saved': '게시물 저장됨',
   'post_comment': '댓글',
   'post_no_comment': '댓글이 없습니다',
+  'post_download_image': '이 이미지 다운로드',
 
   // pending posts
   'pending_posts_title': '승인 대기 중인 게시물',
@@ -163,9 +166,9 @@ const Map<String, String> ko = {
   'bussiness_itinerary_purpose': '목적',
   'bussiness_itinerary_status': '상태',
   'bussiness_itinerary_time': '시간',
-  'business_itinerary_vehicle_plane': '비행기',
-  'business_itinerary_vehicle_company': '회사 차량',
-  'business_itinerary_vehicle_personal': '개인 차량',
+  'bussiness_itinerary_vehicle_plane': '비행기',
+  'bussiness_itinerary_vehicle_company': '회사 차량',
+  'bussiness_itinerary_vehicle_personal': '개인 차량',
   'bussiness_itinerary_add': '일정 추가',
   'bussiness_itinerary_title': '제목',
   'bussiness_itinerary_title_placeholder': '제목을 입력하세요',
@@ -174,4 +177,33 @@ const Map<String, String> ko = {
   'bussiness_itinerary_start_date': '시작 날짜',
   'bussiness_itinerary_end_date': '종료 날짜',
   'bussiness_itinerary_date_placeholder': '날짜 선택',
+  
+  // Conversation Screen
+  'conversation_title': '대화',
+  // Chat Screen
+  'chat_placeholder': '메시지 입력...',
+  'chat_you': '당신',
+
+  // Notification Screen
+  'notification_title': '알림',
+  'notification_empty': '알림이 없습니다',
+  'notification_about_new_post': '새 게시물 알림',
+  'notification_about_new_comment': '새 댓글 알림',
+  'notification_about_new_like': '새 좋아요 알림',
+  'notification_about_reject_post': '귀하의 게시물이 거부되었습니다!',
+  'notification_about_approve_post': '귀하의 게시물이 승인되었습니다!',
+  'notification_about_new_company_post': '회사에서 새 소식을 게시했습니다!',
+  'notification_has_commented': '댓글을 남겼습니다',
+  'notification_has_liked': '좋아요를 눌렀습니다',
+
+  // Add Post Screen
+  'add_post_title': '게시물 추가',
+  'add_post_placeholder': '게시물 내용을 입력하세요...',
+  'add_post_submit': '게시하기',
+  'add_post_edit_label': '라벨 편집',
+  'add_post_add_label': '라벨 추가',
+  'add_post_label_placeholder': '라벨을 입력하세요',
+  'add_post_cancel': '취소',
+  'add_post_save': '저장',
+  'add_post_add': '추가',
 };

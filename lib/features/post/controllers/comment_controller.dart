@@ -28,7 +28,7 @@ class CommentController extends GetxController {
 
     Comment comment = Comment(
       id: '',
-      userId: profileController.currentUID.value,
+      userId: profileController.myUID.value,
       postId: postId,
       content: content,
       createdAt: Timestamp.now(),

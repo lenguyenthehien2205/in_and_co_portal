@@ -54,7 +54,7 @@ String formatTimestampToTime(Timestamp timestamp) {
   final messageDate = DateTime(timestamp.toDate().year, timestamp.toDate().month, timestamp.toDate().day); // Cắt bỏ thời gian của timestamp để so sánh ngày
 
   if (now.year == messageDate.year && now.month == messageDate.month && now.day == messageDate.day) {
-    return 'Hôm nay · ${DateFormat('HH:mm').format(timestamp.toDate())}';
+    return '${'time_today'.tr} · ${DateFormat('HH:mm').format(timestamp.toDate())}';
   } else {
     return DateFormat('dd/MM/yyyy · HH:mm').format(timestamp.toDate());
   }

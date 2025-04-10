@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/core/services/user_service.dart';
+import 'package:in_and_co_portal/features/auth/controllers/auth_controller.dart';
+import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 import 'package:in_and_co_portal/layouts/auth_layout.dart';
 import 'package:in_and_co_portal/features/auth/widgets/auth_button.dart';
@@ -9,6 +11,7 @@ import 'package:in_and_co_portal/features/auth/widgets/auth_button.dart';
 class WelcomeScreen extends StatelessWidget{
   WelcomeScreen({super.key});
   UserService userService = UserService();
+  ProfileController profileController = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     return AuthBackground(
@@ -44,8 +47,7 @@ class WelcomeScreen extends StatelessWidget{
               onPressed: () {
                 userService.updateAllUsersWithKeywords();
                 context.go('/login');
-                // FirebaseAuth.instance.signOut();
-                // context.push('/login');
+                // profileController.logout();
               },
             ),
             const SizedBox(height: 44),

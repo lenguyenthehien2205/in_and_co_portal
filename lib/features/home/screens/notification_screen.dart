@@ -57,7 +57,7 @@ class NotificationScreen extends StatelessWidget{
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Thông báo'),
+          title: Text('notification_title'.tr, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           centerTitle: true,
         ),
         body: Obx(() {
@@ -65,7 +65,7 @@ class NotificationScreen extends StatelessWidget{
             return Center(child: CircularProgressIndicator());
           }
           if (notificationController.notifications.isEmpty) {
-            return Center(child: Text('Không có thông báo nào'));
+            return Center(child: Text('notification_empty'.tr, style: TextStyle(fontSize: 16, color: Colors.grey)));
           }
           return ListView.builder(
             itemCount: notificationController.notifications.length,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 
 class PostOptions extends StatelessWidget{
@@ -22,7 +23,7 @@ class PostOptions extends StatelessWidget{
                 children: [
                   ListTile(
                     leading: Icon(Icons.download, color: Theme.of(context).colorScheme.onSurface), 
-                    title: Text('Tải xuống ảnh này', style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+                    title: Text('post_download_image'.tr, style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
                     onTap: () {
                       Navigator.pop(context); 
                       if (onDownload != null) { 

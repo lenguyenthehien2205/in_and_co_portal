@@ -54,13 +54,29 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () => authController.signInWithGoogle(context),
-                  icon: Image.asset('assets/images/gg_icon.png', width: 24, height: 24),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white, 
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(50),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ], 
+                  ),
+                  child: IconButton(
+                    onPressed: () async{
+                      await authController.signInWithGoogle(context);
+                    },
+                    icon: Image.asset('assets/images/gg_icon.png', width: 24, height: 24),
+                    splashRadius: 28,
+                  ),
                 ),
               ],
             ),
-            const SizedBox(height: 85),
+            const SizedBox(height: 50),
             Obx(() => authController.isLoading.value
                 ? const CircularProgressIndicator()
                 : AuthButton(

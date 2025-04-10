@@ -81,18 +81,18 @@ class AddPostController extends GetxController {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Chỉnh sửa nhãn"),
+          title: Text("add_post_edit_label".tr),
           content: TextField(
             controller: labelController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: "Nhập nhãn mới",
+              labelText: "add_post_label_placeholder".tr,
             ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Hủy"),
+              child: Text("add_post_cancel".tr),
             ),
             ElevatedButton(
               onPressed: () {
@@ -106,7 +106,7 @@ class AddPostController extends GetxController {
                   Navigator.pop(context);
                 }
               },
-              child: Text("Lưu"),
+              child: Text("add_post_save".tr),
             ),
           ],
         );
@@ -120,18 +120,18 @@ class AddPostController extends GetxController {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Thêm nhãn mới"),
+          title: Text("add_post_add_label".tr),
           content: TextField(
             controller: labelController,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: "Nhập nhãn",
+              labelText: "add_post_label_placeholder".tr,
             ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Hủy"),
+              child: Text("add_post_cancel".tr),
             ),
             ElevatedButton(
               onPressed: () {
@@ -142,7 +142,7 @@ class AddPostController extends GetxController {
                   Navigator.pop(context);
                 }
               },
-              child: Text("Thêm"),
+              child: Text("add_post_add".tr),
             ),
           ],
         );
