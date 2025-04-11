@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_and_co_portal/features/home/controllers/post_controller.dart';
 import 'package:in_and_co_portal/features/home/widgets/post_item.dart';
-import 'package:in_and_co_portal/widgets/header_title.dart';
+import 'package:in_and_co_portal/core/widgets/header_title.dart';
 
 class Posts extends StatelessWidget {
   const Posts({super.key});

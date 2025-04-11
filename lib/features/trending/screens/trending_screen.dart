@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:in_and_co_portal/features/search/controllers/search_data_controller.dart';
 import 'package:in_and_co_portal/features/trending/controllers/trending_controller.dart';
 import 'package:in_and_co_portal/features/trending/widgets/hashtag_box.dart';
-import 'package:in_and_co_portal/widgets/header_title.dart';
+import 'package:in_and_co_portal/core/widgets/header_title.dart';
 
 class TrendingScreen extends StatelessWidget {
   TrendingScreen({super.key});

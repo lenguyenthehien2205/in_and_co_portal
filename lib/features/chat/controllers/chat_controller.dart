@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mlkit_smart_reply/google_mlkit_smart_reply.dart';
-import 'package:in_and_co_portal/controllers/translation_controller.dart';
+import 'package:in_and_co_portal/core/controllers/translation_controller.dart';
 import 'package:in_and_co_portal/core/models/message.dart' as model;
 import 'package:in_and_co_portal/core/services/chat_service.dart';
 import 'package:in_and_co_portal/core/services/conversation_service.dart';
@@ -111,7 +111,7 @@ class ChatController extends GetxController {
       final result = await smartReply.suggestReplies();
       final translatedSuggestions = <String>[];
       for (final suggestion in result.suggestions) {
-        final translated = await translationController.translateTextString(suggestion, 'vi');
+        final translated = await translationController.translateTextString(suggestion, 'en');
         translatedSuggestions.add(translated);
       }
       suggestions.assignAll(translatedSuggestions); 

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/config/app_routes.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
-import 'package:in_and_co_portal/widgets/bottom_bar.dart';
-import 'package:in_and_co_portal/widgets/header_bar.dart';
+import 'package:in_and_co_portal/core/widgets/bottom_bar.dart';
+import 'package:in_and_co_portal/core/widgets/header_bar.dart';
 
 class MainLayout extends StatelessWidget {
   final Widget child;

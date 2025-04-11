@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_and_co_portal/features/home/controllers/company_post_controller.dart';
-import 'package:in_and_co_portal/widgets/header_title.dart';
+import 'package:in_and_co_portal/core/widgets/header_title.dart';
 import 'package:in_and_co_portal/features/home/widgets/company_post_item.dart';
 
 class CompanyPosts extends StatefulWidget {

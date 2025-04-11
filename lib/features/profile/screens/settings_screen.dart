@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:in_and_co_portal/controllers/language_controller.dart';
-import 'package:in_and_co_portal/controllers/theme_controller.dart';
+import 'package:in_and_co_portal/core/controllers/language_controller.dart';
+import 'package:in_and_co_portal/core/controllers/theme_controller.dart';
 import 'package:in_and_co_portal/theme/app_text.dart';
 
 class SettingsScreen extends StatelessWidget{

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_and_co_portal/controllers/language_controller.dart';
+import 'package:in_and_co_portal/core/controllers/language_controller.dart';
 import 'package:in_and_co_portal/features/overview/controllers/add_schedule_controller.dart';
 import 'package:in_and_co_portal/features/overview/controllers/business_itinerary_controller.dart';
 import 'package:in_and_co_portal/features/overview/widgets/date_picker_custom.dart';

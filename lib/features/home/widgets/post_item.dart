@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_and_co_portal/controllers/translation_controller.dart';
+import 'package:in_and_co_portal/core/controllers/translation_controller.dart';
 import 'package:in_and_co_portal/core/models/post.dart';
 import 'package:in_and_co_portal/core/utils/string_utils.dart';
 import 'package:in_and_co_portal/features/home/controllers/post_controller.dart';

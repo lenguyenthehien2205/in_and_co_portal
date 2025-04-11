@@ -4,7 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:in_and_co_portal/controllers/language_controller.dart';
+import 'package:in_and_co_portal/core/controllers/language_controller.dart';
 import 'package:in_and_co_portal/core/services/db_service.dart';
 import 'package:in_and_co_portal/features/profile/controllers/profile_controller.dart';
 import 'package:in_and_co_portal/features/profile/widgets/profile_button.dart';

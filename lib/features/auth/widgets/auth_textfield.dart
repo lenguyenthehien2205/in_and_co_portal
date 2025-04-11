@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:in_and_co_portal/controllers/theme_controller.dart';
+import 'package:in_and_co_portal/core/controllers/theme_controller.dart';
 import 'package:in_and_co_portal/core/utils/validator.dart';
 import 'package:get/get.dart';
 
